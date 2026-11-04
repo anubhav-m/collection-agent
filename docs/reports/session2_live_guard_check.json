@@ -1,0 +1,17 @@
+{
+  "conversation_id": "CONV-5337e5ffcfd3474b9f11a68eda9d3060",
+  "status": "escalated",
+  "forced_results": [
+    {
+      "ok": false,
+      "error": "conversation_escalated",
+      "message": "This conversation was handed to a person; this tool is no longer available."
+    },
+    {
+      "ok": false,
+      "error": "conversation_escalated",
+      "message": "This conversation was handed to a person; this tool is no longer available."
+    }
+  ],
+  "active_plan_for_ACC-2002": false
+}

@@ -1,12 +1,17 @@
 """Build the real LLM client from settings."""
 
+import logging
+
 from google import genai
 from google.genai import types
 
+from app.core.errors import ConfigurationError
 from app.core.settings import Settings
 from app.llm.cache import ResponseCache
 from app.llm.gemini_client import GeminiClient
 from app.llm.pacer import RequestPacer
+
+logger = logging.getLogger(__name__)
 
 
 def build_llm(settings: Settings) -> GeminiClient:
@@ -23,3 +28,12 @@ def build_llm(settings: Settings) -> GeminiClient:
         cache=ResponseCache(settings.llm_cache_dir, settings.llm_cache_enabled),
         max_retries=settings.llm_max_retries,
     )
+
+
+def build_llm_or_none(settings: Settings) -> GeminiClient | None:
+    try:
+        return build_llm(settings)
+    except ConfigurationError:
+        # Chat then answers with the safe fallback; /health reports llm_configured=false.
+        logger.warning("llm not configured; chat will use the fallback reply")
+        return None

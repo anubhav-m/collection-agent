@@ -1,0 +1,35 @@
+{
+  "payment_plans": [
+    {
+      "plan_id": "PLAN-e8269ff33766e572",
+      "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+      "borrower_id": "BRW-002",
+      "account_id": "ACC-1002",
+      "lender_id": "LND-001",
+      "frequency": "monthly",
+      "payments": [
+        "283.50",
+        "283.50",
+        "283.50"
+      ],
+      "start_date": "2026-11-12",
+      "total": "850.50",
+      "status": "active",
+      "is_fictional": true,
+      "created_at": "2026-11-04 20:07:55.788000+00:00"
+    }
+  ],
+  "escalations": [
+    {
+      "conversation_id": "CONV-5337e5ffcfd3474b9f11a68eda9d3060",
+      "borrower_id": "BRW-008",
+      "created_at": "2026-11-04 20:08:43.165000+00:00",
+      "lender_id": "LND-002",
+      "reason": "dispute",
+      "source": "rule",
+      "summary": "dispute"
+    }
+  ],
+  "conversations": 2,
+  "events": 34
+}

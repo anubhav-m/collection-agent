@@ -1,0 +1,13 @@
+{
+  "lender_id": "LND-001",
+  "allowed_installment_counts": [1, 3, 6, 12],
+  "allowed_frequencies": ["weekly", "biweekly", "monthly"],
+  "min_payment": "25.00",
+  "max_days_to_first_payment": 30,
+  "escalation_triggers": {
+    "dispute": ["dispute", "not my debt", "not my loan", "don't owe", "do not owe", "never borrowed", "never took out", "identity theft", "fraud"],
+    "hardship": ["hardship", "lost my job", "laid off", "unemployed", "medical emergency", "medical bills", "can't afford anything", "cannot afford anything"],
+    "stop_contact": ["stop contacting", "stop calling", "stop texting", "stop messaging", "do not contact", "don't contact", "cease contact", "leave me alone"],
+    "human_request": ["speak to a person", "talk to a person", "real person", "human agent", "live agent", "speak to someone", "talk to someone", "representative", "supervisor", "manager"]
+  }
+}

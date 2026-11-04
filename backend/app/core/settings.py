@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     llm_cache_enabled: bool = False
     llm_cache_dir: Path = BACKEND_ROOT / ".llm_cache"
 
+    lender_policy_dir: Path = BACKEND_ROOT / "data" / "lenders"
+
     # Required, no local fallback: a missing MONGODB_URI must fail loudly.
     mongodb_uri: SecretStr
     mongodb_db: str = "collections_agent"

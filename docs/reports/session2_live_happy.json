@@ -1,0 +1,387 @@
+{
+  "scenario": "happy",
+  "turns": [
+    {
+      "user": "Hi, I got a message about my loan.",
+      "response": {
+        "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+        "reply": "Hello! I can help you with your loan. To get started, could you please provide your full name, date of birth (YYYY-MM-DD), and 5-digit ZIP code to verify your identity?",
+        "outcome": "answered",
+        "status": "active",
+        "verified": false,
+        "escalation_reason": null
+      },
+      "latency_ms": 2459
+    },
+    {
+      "user": "My name is Jordan Samplebury, born 1975-01-01, ZIP 00002.",
+      "response": {
+        "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+        "reply": "Thank you, Jordan. Your identity has been verified.\n\nYou have a personal loan account (ACC-1002) with a balance of $850.50, and $120.00 is currently past due.\n\nWould you like to hear about available payment options to resolve this?",
+        "outcome": "answered",
+        "status": "active",
+        "verified": true,
+        "escalation_reason": null
+      },
+      "latency_ms": 5853
+    },
+    {
+      "user": "What is my current balance?",
+      "response": {
+        "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+        "reply": "Your current total balance is $850.50, with $120.00 past due.",
+        "outcome": "answered",
+        "status": "active",
+        "verified": true,
+        "escalation_reason": null
+      },
+      "latency_ms": 1774
+    },
+    {
+      "user": "Can I pay it off in installments? What are my options?",
+      "response": {
+        "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+        "reply": "Here are the available payment plan options for your total balance of $850.50:\n\n1. **3 Installments**: $283.50 per payment\n2. **6 Installments**: $141.75 per payment\n3. **12 Installments**: 11 payments of $70.87 and a final payment of $70.93\n\nYou can choose a payment frequency of **weekly**, **biweekly**, or **monthly**, with the first payment scheduled anytime between **2026-11-04** and **2026-12-04**.\n\nWhich plan, frequency, and start date work best for you?",
+        "outcome": "answered",
+        "status": "active",
+        "verified": true,
+        "escalation_reason": null
+      },
+      "latency_ms": 6090
+    },
+    {
+      "user": "I'll take 3 monthly payments of 283.50 starting 2026-11-12. Please set that up.",
+      "response": {
+        "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+        "reply": "Your payment plan has been set up!\n\n**Plan Details:**\n- **Account:** ACC-1002\n- **Frequency:** Monthly\n- **Schedule:**\n  - $283.50 due on 2026-11-12\n  - $283.50 due on 2026-12-12\n  - $283.50 due on 2027-01-12\n- **Total Amount:** $850.50\n\nIs there anything else I can help you with today?",
+        "outcome": "answered",
+        "status": "active",
+        "verified": true,
+        "escalation_reason": null
+      },
+      "latency_ms": 5123
+    }
+  ],
+  "stored_conversation": {
+    "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+    "lender_id": "LND-001",
+    "status": "active",
+    "verified": true,
+    "failed_verifications": 0,
+    "escalation_reason": null,
+    "created_at": "2026-11-04T20:07:36.488000Z",
+    "events": [
+      {
+        "kind": "user",
+        "text": "Hi, I got a message about my loan.",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:36.548000Z"
+      },
+      {
+        "kind": "assistant",
+        "text": "Hello! I can help you with your loan. To get started, could you please provide your full name, date of birth (YYYY-MM-DD), and 5-digit ZIP code to verify your identity?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:38.861000Z"
+      },
+      {
+        "kind": "user",
+        "text": "My name is Jordan Samplebury, born 1975-01-01, ZIP 00002.",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:38.964000Z"
+      },
+      {
+        "kind": "tool_call",
+        "text": null,
+        "tool_calls": [
+          {
+            "name": "verify_borrower",
+            "args": {
+              "date_of_birth": "1975-01-01",
+              "full_name": "Jordan Samplebury",
+              "zip_code": "00002"
+            }
+          }
+        ],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:40.674000Z"
+      },
+      {
+        "kind": "tool_result",
+        "text": null,
+        "tool_calls": [],
+        "tool_name": "verify_borrower",
+        "accepted": true,
+        "reason": null,
+        "result": {
+          "ok": true,
+          "verified": true
+        },
+        "created_at": "2026-11-04T20:07:40.969000Z"
+      },
+      {
+        "kind": "tool_call",
+        "text": null,
+        "tool_calls": [
+          {
+            "name": "get_account",
+            "args": {}
+          }
+        ],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:42.323000Z"
+      },
+      {
+        "kind": "tool_result",
+        "text": null,
+        "tool_calls": [],
+        "tool_name": "get_account",
+        "accepted": true,
+        "reason": null,
+        "result": {
+          "ok": true,
+          "accounts": [
+            {
+              "account_id": "ACC-1002",
+              "product": "personal_loan",
+              "balance": "850.50",
+              "past_due_amount": "120.00",
+              "days_past_due": 12,
+              "delinquency_stage": "early",
+              "currency": "USD"
+            }
+          ]
+        },
+        "created_at": "2026-11-04T20:07:42.578000Z"
+      },
+      {
+        "kind": "assistant",
+        "text": "Thank you, Jordan. Your identity has been verified.\n\nYou have a personal loan account (ACC-1002) with a balance of $850.50, and $120.00 is currently past due.\n\nWould you like to hear about available payment options to resolve this?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:44.705000Z"
+      },
+      {
+        "kind": "user",
+        "text": "What is my current balance?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:44.818000Z"
+      },
+      {
+        "kind": "assistant",
+        "text": "Your current total balance is $850.50, with $120.00 past due.",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:46.477000Z"
+      },
+      {
+        "kind": "user",
+        "text": "Can I pay it off in installments? What are my options?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:46.593000Z"
+      },
+      {
+        "kind": "tool_call",
+        "text": null,
+        "tool_calls": [
+          {
+            "name": "get_payment_options",
+            "args": {
+              "account_id": "ACC-1002"
+            }
+          }
+        ],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:48.033000Z"
+      },
+      {
+        "kind": "tool_result",
+        "text": null,
+        "tool_calls": [],
+        "tool_name": "get_payment_options",
+        "accepted": true,
+        "reason": null,
+        "result": {
+          "ok": true,
+          "account_id": "ACC-1002",
+          "balance": "850.50",
+          "options": [
+            {
+              "installments": 1,
+              "payments": [
+                "850.50"
+              ]
+            },
+            {
+              "installments": 3,
+              "payments": [
+                "283.50",
+                "283.50",
+                "283.50"
+              ]
+            },
+            {
+              "installments": 6,
+              "payments": [
+                "141.75",
+                "141.75",
+                "141.75",
+                "141.75",
+                "141.75",
+                "141.75"
+              ]
+            },
+            {
+              "installments": 12,
+              "payments": [
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.87",
+                "70.93"
+              ]
+            }
+          ],
+          "allowed_frequencies": [
+            "weekly",
+            "biweekly",
+            "monthly"
+          ],
+          "first_payment_between": [
+            "2026-11-04",
+            "2026-12-04"
+          ]
+        },
+        "created_at": "2026-11-04T20:07:48.446000Z"
+      },
+      {
+        "kind": "assistant",
+        "text": "Here are the available payment plan options for your total balance of $850.50:\n\n1. **3 Installments**: $283.50 per payment\n2. **6 Installments**: $141.75 per payment\n3. **12 Installments**: 11 payments of $70.87 and a final payment of $70.93\n\nYou can choose a payment frequency of **weekly**, **biweekly**, or **monthly**, with the first payment scheduled anytime between **2026-11-04** and **2026-12-04**.\n\nWhich plan, frequency, and start date work best for you?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:52.541000Z"
+      },
+      {
+        "kind": "user",
+        "text": "I'll take 3 monthly payments of 283.50 starting 2026-11-12. Please set that up.",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:52.677000Z"
+      },
+      {
+        "kind": "tool_call",
+        "text": null,
+        "tool_calls": [
+          {
+            "name": "create_payment_plan",
+            "args": {
+              "payments": [
+                283.5,
+                283.5,
+                283.5
+              ],
+              "account_id": "ACC-1002",
+              "start_date": "2026-11-12",
+              "frequency": "monthly"
+            }
+          }
+        ],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:55.678000Z"
+      },
+      {
+        "kind": "tool_result",
+        "text": null,
+        "tool_calls": [],
+        "tool_name": "create_payment_plan",
+        "accepted": true,
+        "reason": null,
+        "result": {
+          "ok": true,
+          "plan": {
+            "plan_id": "PLAN-e8269ff33766e572",
+            "account_id": "ACC-1002",
+            "frequency": "monthly",
+            "total": "850.50",
+            "schedule": [
+              {
+                "due_date": "2026-11-12",
+                "amount": "283.50"
+              },
+              {
+                "due_date": "2026-12-12",
+                "amount": "283.50"
+              },
+              {
+                "due_date": "2027-01-12",
+                "amount": "283.50"
+              }
+            ]
+          },
+          "already_saved": false
+        },
+        "created_at": "2026-11-04T20:07:55.911000Z"
+      },
+      {
+        "kind": "assistant",
+        "text": "Your payment plan has been set up!\n\n**Plan Details:**\n- **Account:** ACC-1002\n- **Frequency:** Monthly\n- **Schedule:**\n  - $283.50 due on 2026-11-12\n  - $283.50 due on 2026-12-12\n  - $283.50 due on 2027-01-12\n- **Total Amount:** $850.50\n\nIs there anything else I can help you with today?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-04T20:07:57.693000Z"
+      }
+    ]
+  }
+}

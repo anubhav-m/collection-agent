@@ -14,6 +14,20 @@ INDEXES: dict[str, list[IndexModel]] = {
         IndexModel([("borrower_id", ASCENDING)]),
         IndexModel([("lender_id", ASCENDING), ("delinquency_stage", ASCENDING)]),
     ],
+    "conversations": [IndexModel([("conversation_id", ASCENDING)], unique=True)],
+    "conversation_events": [IndexModel([("conversation_id", ASCENDING), ("_id", ASCENDING)])],
+    "payment_plans": [
+        IndexModel([("plan_id", ASCENDING)], unique=True),
+        IndexModel([("idempotency_key", ASCENDING)], unique=True),
+        # At most one active plan per account, even under concurrent requests.
+        IndexModel(
+            [("account_id", ASCENDING)],
+            unique=True,
+            partialFilterExpression={"status": "active"},
+            name="one_active_plan_per_account",
+        ),
+    ],
+    "escalations": [IndexModel([("conversation_id", ASCENDING)], unique=True)],
 }
 
 

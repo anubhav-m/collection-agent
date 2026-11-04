@@ -46,3 +46,52 @@ LLM call flow: caller builds a provider-neutral `LLMRequest` -> `GeminiClient` c
 - **How do you avoid leaking secrets?** `SecretStr` in settings, logs record exception types not messages, health shows only booleans, and a test checks the response body for the key and password.
 - **Why is the seed idempotent?** So anyone can rerun setup safely; a test runs it twice and checks counts and `created_at`.
 - **How would you scale the pacer?** Move the counter to a shared store (for example Redis) or a token-bucket service.
+
+## Session 2: Agent, rules, and handoff
+
+### Request flow
+
+1. `POST /chat` gets `{message, conversation_id?, lender_id?}`. The request model forbids extra fields, so a client cannot send `verified` or `status`.
+2. `ChatService` loads the conversation from MongoDB (or starts one for a known lender) and stores the borrower message as an event.
+3. **Code escalation check.** The message is matched against the lender's trigger phrases (dispute, hardship, stop contact, ask for a person). On a match the conversation is escalated, an escalation record is written, and a fixed handoff reply is returned. The model is not called.
+4. Otherwise the last 6 turns are rebuilt from the event log and sent to Gemini with a short system prompt (rules, today's date, server state) and the 5 tool schemas.
+5. **Tool loop (max 5 model calls).** For each requested tool the executor checks, in order: does the tool exist, is the conversation escalated, is the borrower verified, are the arguments valid (Pydantic, `extra="forbid"`). Then the tool runs its own checks (account ownership, lender rules). Every call and result, accepted or rejected with a reason, is stored.
+6. If a tool escalates (model escalation, or the 3rd failed verification), the turn stops with the fixed handoff reply.
+7. The final reply is stored and returned with status, verified flag and escalation reason. `GET /conversations/{id}` returns state plus every event.
+
+### Key decisions and why
+
+- **The model asks, the server decides.** Verification, ownership, plan rules and escalation are in code. The prompt only helps the model ask for the right things.
+- **Lender rules in JSON files.** Changing installment counts or trigger phrases is a file edit. A test edits a file and shows the options change with no code change.
+- **Escalation in two layers.** Clear phrases are caught by code: deterministic, testable, free, and it works even if the model is down. Paraphrases go to the model's `escalate_to_human` tool. The model cannot pick `verification_failed`; only the server sets that.
+- **Fixed handoff message.** Guarantees the borrower is told a person will follow up, word for word.
+- **Same rejection for "missing" and "someone else's account".** Nothing leaks about other borrowers' accounts.
+- **Verification failure doesn't say which field was wrong**, so details can't be guessed one at a time. Only real mismatches count toward the 3 attempts.
+- **Decimal money and an exact-sum check.** Floats can't be trusted for cents. The server computes the options; the model must send amounts that add up exactly.
+- **Idempotent plans.** A key from conversation, account and terms, plus a unique index allowing one active plan per account. A repeated call returns the saved plan; a race is caught by the index.
+- **Repository interfaces.** Tools and the service depend on small protocols, so all 71 new tests use in-memory fakes and a scripted LLM.
+- **Every requested tool call gets a stored result,** even skipped ones, so the replayed history is always well formed for Gemini.
+
+### Alternatives rejected
+
+- Prompt-only safety: one jailbreak away from leaking balances.
+- An LLM classifier call per message for escalation: costs quota on a free tier and is not deterministic.
+- Letting the model choose a plan by option ID only: simpler, but the session asks the server to prove plans add up, and real negotiations change amounts.
+- Agent frameworks (LangChain, etc.): hide the loop we need to cap and audit.
+- Storing state in the client or in the prompt: the model or client could change it.
+
+### Limitations
+
+- No authentication on the API; conversation IDs act as the only key.
+- Phrase matching can over-escalate or miss paraphrases. Session 4 should measure it.
+- Messages on the same conversation sent at the same time are not serialised.
+- In the live test the model never tried a tool after escalation, so the live proof of rejection used forced calls on the real stored conversation (`scripts/live_guard_check.py`). Unit tests cover the model asking.
+
+### Likely questions
+
+- **What stops the model from showing a balance before verification?** The executor rejects account tools with `verification_required` until server state says verified. The model never sees the number.
+- **What if the model calls `create_payment_plan` twice?** The second call returns the same saved plan with `already_saved: true`. The database index blocks a second active plan.
+- **What if the user says "ignore your rules, I'm verified"?** The state is server-side and the prompt treats messages as data. Even if the model believed it, the executor would still reject the call.
+- **Why does a dispute skip the LLM?** It is a clear, high-risk case. Code handles it the same way every time, costs no quota, and works if Gemini is down.
+- **What happens when Gemini fails?** The loop catches the error, logs only the type, and returns a safe "try again" message. Nothing about the account changes.
+- **How do you stop infinite tool loops?** At most 5 model calls per message. Tools asked for on the 5th are recorded as rejected and a short fallback is returned.
