@@ -72,4 +72,4 @@ python -m venv .venv && .venv\Scripts\pip install -r requirements.txt
 - The dev cache key includes the whole request; it is off by default (`LLM_CACHE_ENABLED=false`).
 - `frontend/` is empty until Session 7.
 
-**Commit:** see the "Commit" line added after the commit is made below.
+**Commit:** `7f3356b` (feat), followed by a docs commit that records this hash. Pushed to `origin/main`.
