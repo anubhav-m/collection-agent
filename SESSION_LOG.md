@@ -134,4 +134,4 @@ python -m venv .venv && .venv\Scripts\pip install -r requirements.txt
 - Verification arguments (name, date of birth) are stored in the event log as sent. They are fictional and are not logged.
 - The live model never attempted a tool after escalation, so the live rejection proof uses forced calls, as described above.
 
-**Commit:** recorded below after committing.
+**Commit:** `284a532` (feat), followed by a docs commit that records this hash. Pushed to `origin/main`.
