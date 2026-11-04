@@ -1,7 +1,11 @@
+import pytest
+from pydantic import ValidationError
+
 from app.core.settings import Settings
 
 
 def make(**values: str) -> Settings:
+    values.setdefault("mongodb_uri", "mongodb+srv://placeholder.invalid")
     return Settings(_env_file=None, **values)
 
 
@@ -19,3 +23,9 @@ def test_secrets_are_hidden_in_repr():
     text = repr(settings)
     assert "super-secret" not in text
     assert "pw@host" not in text
+
+
+def test_missing_mongodb_uri_fails(monkeypatch):
+    monkeypatch.delenv("MONGODB_URI", raising=False)
+    with pytest.raises(ValidationError, match="mongodb_uri"):
+        Settings(_env_file=None)

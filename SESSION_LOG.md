@@ -57,7 +57,7 @@ python -m venv .venv && .venv\Scripts\pip install -r requirements.txt
 
 - `.env` holds `GEMINI_API_KEY_1..3`, not `GEMINI_API_KEY` as `backend/CLAUDE.md` says. Settings read the three slots and use them in order; a 429 switches to the next key at once. The switch is sticky for the process lifetime.
 - `test_gemini.py` does not exist anywhere in the repo, so there was nothing to scrub. A scan for Gemini key prefixes outside `.env` found nothing.
-- `MONGODB_URI` in `.env` points to MongoDB Atlas, and that is what the app uses. A local MongoDB is also listening on port 27017 and would work via `MONGODB_URI=mongodb://localhost:27017`.
+- `MONGODB_URI` in `.env` points to MongoDB Atlas, and all runs used Atlas (verified: 3 nodes, all `*.mongodb.net`, 14 accounts). Local MongoDB is not used. After the user said they do not want local, the `localhost` default was removed: `MONGODB_URI` is now required, and the app fails at startup if it is missing.
 - No `uv` installed, so venv + pip with a frozen `requirements.txt`.
 - SDK-level retries are disabled (`HttpRetryOptions(attempts=1)`) so our retry layer is the only one. Retry delay from the API's `RetryInfo` is respected, capped at 60s.
 - `/health` returns 503 when the database is down so probes can detect it. The app still starts without a database.

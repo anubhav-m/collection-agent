@@ -28,7 +28,8 @@ class Settings(BaseSettings):
     llm_cache_enabled: bool = False
     llm_cache_dir: Path = BACKEND_ROOT / ".llm_cache"
 
-    mongodb_uri: SecretStr = SecretStr("mongodb://localhost:27017")
+    # Required, no local fallback: a missing MONGODB_URI must fail loudly.
+    mongodb_uri: SecretStr
     mongodb_db: str = "collections_agent"
     mongodb_timeout_ms: int = Field(default=5000, ge=100)
 
