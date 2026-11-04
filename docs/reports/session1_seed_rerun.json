@@ -1,0 +1,14 @@
+{
+  "lenders": {
+    "inserted": 0,
+    "total": 2
+  },
+  "borrowers": {
+    "inserted": 0,
+    "total": 12
+  },
+  "accounts": {
+    "inserted": 0,
+    "total": 14
+  }
+}

@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+date: Wed, 04 Nov 2026 19:50:20 GMT
+server: uvicorn
+content-length: 86
+content-type: application/json
+x-request-id: f5908efade7346a994a7a10862ea71e1
+
+{"status":"ok","app":"collections-agent","database":"connected","llm_configured":true}

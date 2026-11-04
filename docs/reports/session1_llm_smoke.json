@@ -1,0 +1,24 @@
+{
+  "plain_text": "pong",
+  "plain_usage": {
+    "prompt_tokens": 6,
+    "output_tokens": 1,
+    "thinking_tokens": 65,
+    "total_tokens": 72
+  },
+  "tool_calls": [
+    {
+      "name": "get_fictional_balance",
+      "args": {
+        "account_id": "ACC-1001"
+      }
+    }
+  ],
+  "tool_usage": {
+    "prompt_tokens": 69,
+    "output_tokens": 27,
+    "thinking_tokens": 99,
+    "total_tokens": 195
+  },
+  "model": "gemini-3.5-flash"
+}
