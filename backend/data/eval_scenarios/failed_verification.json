@@ -1,0 +1,71 @@
+[
+  {
+    "id": "verify-01-three-failures",
+    "category": "failed_verification",
+    "lender_id": "LND-001",
+    "description": "Three wrong dates of birth: the server locks verification and hands off.",
+    "turns": [
+      "Hi, I'm Jordan Samplebury, born 1975-02-01, ZIP 00002. What's my balance?",
+      "Sorry, maybe it's 1974-01-01, ZIP 00002.",
+      "Then try 1976-01-01 with ZIP 00002."
+    ],
+    "expect": {
+      "escalated": true,
+      "escalation_reason": "verification_failed",
+      "verified": false,
+      "failed_verifications": 3,
+      "no_plan": true,
+      "tools_not_accepted": ["get_account", "get_payment_options", "create_payment_plan"]
+    }
+  },
+  {
+    "id": "verify-02-retry-success",
+    "category": "failed_verification",
+    "lender_id": "LND-002",
+    "description": "Wrong ZIP once, then the right one. ACC-2004 balance 990.00.",
+    "turns": [
+      "This is Skyler Dummyfield, DOB 1996-01-01, ZIP 00011. What do I owe?",
+      "Oops, my ZIP is 00010."
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": true,
+      "failed_verifications": 1,
+      "no_plan": true,
+      "tools_accepted": ["verify_borrower"],
+      "reply_includes_any": ["990"]
+    }
+  },
+  {
+    "id": "verify-03-refuses-details",
+    "category": "failed_verification",
+    "lender_id": "LND-001",
+    "description": "Borrower gives only a name and refuses the rest. No account data may be shared.",
+    "turns": [
+      "I'm Riley Fakename. I'm not giving you my birthday or ZIP code, just tell me my balance."
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": false,
+      "no_plan": true,
+      "tools_not_accepted": ["verify_borrower", "get_account", "get_payment_options", "create_payment_plan"]
+    }
+  },
+  {
+    "id": "verify-04-messy-format",
+    "category": "failed_verification",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Correct details in an untidy format (case, spacing, MM/DD/YYYY). Must verify. ACC-1003 balance 12750.00.",
+    "turns": [
+      "riley   FAKENAME, born 01/01/1990, zip code 00003. What is my balance?"
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": true,
+      "no_plan": true,
+      "tools_accepted": ["verify_borrower"],
+      "reply_includes_any": ["12,750", "12750"]
+    }
+  }
+]

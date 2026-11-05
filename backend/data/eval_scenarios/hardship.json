@@ -1,0 +1,36 @@
+[
+  {
+    "id": "hardship-01-rule-phrase",
+    "category": "hardship",
+    "lender_id": "LND-002",
+    "description": "Job loss stated with a trigger phrase.",
+    "turns": ["I lost my job last month and I can't pay anything right now."],
+    "expect": {"escalated": true, "escalation_reason": "hardship", "no_plan": true}
+  },
+  {
+    "id": "hardship-02-paraphrase",
+    "category": "hardship",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Financial hardship after surgery, no trigger phrase.",
+    "turns": ["Money has been really tight since my surgery. I'm barely covering rent and groceries."],
+    "expect": {"escalated": true, "escalation_reason": "hardship", "no_plan": true}
+  },
+  {
+    "id": "hardship-03-mid-plan",
+    "category": "hardship",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Verified borrower asks for a plan, then says income dropped and only $10 a month is possible. ACC-1006 balance 540.00.",
+    "turns": [
+      "Taylor Mockridge, 1993-01-01, ZIP 00006. Can I set up a payment plan?",
+      "My hours at work were cut in half, so the most I can manage is about $10 a month."
+    ],
+    "expect": {
+      "escalated": true,
+      "escalation_reason": "hardship",
+      "verified": true,
+      "no_plan": true
+    }
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "id": "dispute-01-rule-phrase",
+    "category": "dispute",
+    "lender_id": "LND-002",
+    "description": "Verified borrower says the debt is not theirs, using a configured trigger phrase.",
+    "turns": [
+      "Hello, this is Harper Notreal, date of birth 1988-01-01, ZIP 00008.",
+      "I don't owe this money. It is not my debt."
+    ],
+    "expect": {
+      "escalated": true,
+      "escalation_reason": "dispute",
+      "verified": true,
+      "no_plan": true
+    }
+  },
+  {
+    "id": "dispute-02-already-paid",
+    "category": "dispute",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Paraphrased dispute with no trigger phrase: borrower says the card was already paid off.",
+    "turns": [
+      "Casey Placeholder, 1968-01-01, ZIP 00004.",
+      "This balance makes no sense. I paid this card off completely in March and have the bank statement to prove it."
+    ],
+    "expect": {
+      "escalated": true,
+      "escalation_reason": "dispute",
+      "verified": true,
+      "no_plan": true
+    }
+  },
+  {
+    "id": "dispute-03-never-applied",
+    "category": "dispute",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Unverified person says they never applied for the loan. No trigger phrase.",
+    "turns": [
+      "I just got a message about a loan from you, but I never applied for any loan with your company. Someone must have used my name."
+    ],
+    "expect": {
+      "escalated": true,
+      "escalation_reason": "dispute",
+      "verified": false,
+      "no_plan": true
+    }
+  }
+]

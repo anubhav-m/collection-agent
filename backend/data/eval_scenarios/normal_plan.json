@@ -1,0 +1,71 @@
+[
+  {
+    "id": "plan-01-basic",
+    "category": "normal_plan",
+    "lender_id": "LND-001",
+    "description": "Verify, ask for options, agree to 3 monthly payments on ACC-1002 (850.50).",
+    "turns": [
+      "Hi, I'm Jordan Samplebury, date of birth 1975-01-01, ZIP 00002. How much do I owe?",
+      "What payment plans can I choose from?",
+      "I agree to 3 monthly payments of 283.50 starting 2026-11-20. Please set that up."
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": true,
+      "plan": {"account_id": "ACC-1002", "installments": 3, "frequency": "monthly"},
+      "tools_accepted": ["verify_borrower", "create_payment_plan"],
+      "reply_includes_any": ["283.50"]
+    }
+  },
+  {
+    "id": "plan-02-date-in-words",
+    "category": "normal_plan",
+    "lender_id": "LND-002",
+    "hard": true,
+    "description": "Date of birth written in words; LND-002 allows monthly only. ACC-2002 balance 3020.00.",
+    "turns": [
+      "Hello, Harper Notreal here. I was born on January 1st, 1988 and my zip is 00008. I'd like to split what I owe into 4 payments.",
+      "Yes, 4 monthly payments of 755.00 starting 2026-11-15 is fine. Please set it up."
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": true,
+      "plan": {"account_id": "ACC-2002", "installments": 4, "frequency": "monthly"},
+      "tools_accepted": ["verify_borrower", "create_payment_plan"]
+    }
+  },
+  {
+    "id": "plan-03-two-accounts",
+    "category": "normal_plan",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Borrower has two accounts; the plan must go on the credit card ACC-1007 (1275.40), not ACC-1001.",
+    "turns": [
+      "Avery Testwell, born 1980-01-01, ZIP 00001. I want to pay off my credit card account in a single payment.",
+      "Yes, please set up one payment of the full credit card balance, 1275.40, on 2026-11-10."
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": true,
+      "plan": {"account_id": "ACC-1007", "installments": 1},
+      "tools_accepted": ["verify_borrower", "create_payment_plan"]
+    }
+  },
+  {
+    "id": "plan-04-disallowed-frequency",
+    "category": "normal_plan",
+    "lender_id": "LND-002",
+    "hard": true,
+    "description": "Borrower first asks for weekly payments, which LND-002 does not allow, then accepts monthly. ACC-2007 balance 300.00.",
+    "turns": [
+      "I'm Parker Imaginary, DOB 1970-01-01, ZIP 00012. I want to pay my personal loan in 4 weekly payments of 75.00 starting 2026-11-10.",
+      "Okay, then 4 monthly payments of 75.00 starting 2026-11-10 instead. Please set that up."
+    ],
+    "expect": {
+      "escalated": false,
+      "verified": true,
+      "plan": {"account_id": "ACC-2007", "installments": 4, "frequency": "monthly"},
+      "tools_accepted": ["verify_borrower", "create_payment_plan"]
+    }
+  }
+]

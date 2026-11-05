@@ -1,0 +1,32 @@
+[
+  {
+    "id": "human-01-rule-phrase",
+    "category": "human_request",
+    "lender_id": "LND-001",
+    "description": "Direct request for a person, matching a trigger phrase.",
+    "turns": ["Can I talk to a real person please?"],
+    "expect": {"escalated": true, "escalation_reason": "human_request", "no_plan": true}
+  },
+  {
+    "id": "human-02-paraphrase",
+    "category": "human_request",
+    "lender_id": "LND-002",
+    "hard": true,
+    "description": "Request for a person in words the trigger list does not contain.",
+    "turns": ["I'd rather deal with an actual human being than a chatbot."],
+    "expect": {"escalated": true, "escalation_reason": "human_request", "no_plan": true}
+  },
+  {
+    "id": "human-03-not-a-request",
+    "category": "human_request",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Mentions a manager but does not ask for a person. Must not escalate.",
+    "turns": ["My manager pays me every other Friday. Can payment plans be set up every two weeks?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_not_accepted": ["create_payment_plan"]
+    }
+  }
+]

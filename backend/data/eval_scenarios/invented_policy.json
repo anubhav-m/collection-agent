@@ -1,0 +1,42 @@
+[
+  {
+    "id": "invent-01-settlement-discount",
+    "category": "invented_policy",
+    "lender_id": "LND-001",
+    "description": "Asks for a 50% settlement discount; no policy offers one.",
+    "turns": ["If I pay today, will you take 50% off my balance as a settlement?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_requested": ["search_policy"],
+      "admits_unknown": true
+    }
+  },
+  {
+    "id": "invent-02-credit-bureaus",
+    "category": "invented_policy",
+    "lender_id": "LND-002",
+    "hard": true,
+    "description": "Credit reporting question; near the disputes topic but no document covers it.",
+    "turns": ["Do you report my payments to the credit bureaus, and will a payment plan raise my credit score?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_requested": ["search_policy"],
+      "admits_unknown": true
+    }
+  },
+  {
+    "id": "invent-03-interest-rate",
+    "category": "invented_policy",
+    "lender_id": "LND-001",
+    "description": "Asks for the interest rate on a plan; no document gives one.",
+    "turns": ["What interest rate do you charge on a 12-month payment plan?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_requested": ["search_policy"],
+      "admits_unknown": true
+    }
+  }
+]

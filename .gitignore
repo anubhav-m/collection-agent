@@ -28,3 +28,6 @@ Thumbs.db
 # Policy vector store (rebuilt by app.rag.ingest_command) and model cache
 backend/data/vector_store/
 backend/.fastembed_cache/
+
+# Evaluation debug runs (official reports are committed)
+reports/evaluation/debug/

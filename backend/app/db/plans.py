@@ -31,6 +31,10 @@ class MongoPlanRepo:
             return existing, False
         return plan, True
 
+    async def list_by_conversation(self, conversation_id: str) -> list[PaymentPlan]:
+        cursor = self._col.find({"conversation_id": conversation_id}, {"_id": 0}).sort("_id", 1)
+        return [PaymentPlan.model_validate(doc) async for doc in cursor]
+
 
 class MongoEscalationRepo:
     def __init__(self, db: AsyncDatabase) -> None:

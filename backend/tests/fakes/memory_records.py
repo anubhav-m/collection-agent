@@ -36,6 +36,9 @@ class MemoryPlans:
         self.items.append(plan)
         return plan, True
 
+    async def list_by_conversation(self, conversation_id: str) -> list[PaymentPlan]:
+        return [p for p in self.items if p.conversation_id == conversation_id]
+
 
 class MemoryEscalations:
     def __init__(self) -> None:

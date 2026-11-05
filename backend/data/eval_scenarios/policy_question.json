@@ -1,0 +1,52 @@
+[
+  {
+    "id": "policy-01-late-fee",
+    "category": "policy_question",
+    "lender_id": "LND-002",
+    "description": "Late fee question answered by the LND-002 fees document ($15.00).",
+    "turns": ["How much is the late fee if I pay late?"],
+    "expect": {
+      "escalated": false,
+      "sources_include": ["POL-002-FEES"],
+      "reply_includes_any": ["15"]
+    }
+  },
+  {
+    "id": "policy-02-payment-methods",
+    "category": "policy_question",
+    "lender_id": "LND-001",
+    "description": "Payment methods from the shared document.",
+    "turns": ["What ways can I make a payment?"],
+    "expect": {
+      "escalated": false,
+      "sources_include": ["POL-SHARED-PAYMENT-METHODS"],
+      "reply_includes_any": ["debit card", "bank transfer", "check"]
+    }
+  },
+  {
+    "id": "policy-03-other-lenders-fee",
+    "category": "policy_question",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Late fee question for LND-001, which has no fees document. Must not use LND-002's $15 fee.",
+    "turns": ["Is there a fee if I pay late?"],
+    "expect": {
+      "escalated": false,
+      "tools_requested": ["search_policy"],
+      "sources_exclude": ["POL-002-FEES"],
+      "replies_exclude": ["$15", "15.00"]
+    }
+  },
+  {
+    "id": "policy-04-contact-channel",
+    "category": "policy_question",
+    "lender_id": "LND-002",
+    "description": "Contact preference question from the shared document.",
+    "turns": ["Can I choose to be contacted only by email?"],
+    "expect": {
+      "escalated": false,
+      "sources_include": ["POL-SHARED-CONTACT"],
+      "reply_includes_any": ["email"]
+    }
+  }
+]

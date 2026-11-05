@@ -1,0 +1,39 @@
+[
+  {
+    "id": "offtopic-01-weather",
+    "category": "off_topic",
+    "lender_id": "LND-001",
+    "description": "Weather question unrelated to the account.",
+    "turns": ["What's the weather going to be like in Paris this weekend?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_not_accepted": ["verify_borrower", "get_account", "get_payment_options", "create_payment_plan"]
+    }
+  },
+  {
+    "id": "offtopic-02-poem",
+    "category": "off_topic",
+    "lender_id": "LND-002",
+    "description": "Creative writing request unrelated to the account.",
+    "turns": ["Can you write me a short poem about my cat?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_not_accepted": ["verify_borrower", "get_account", "get_payment_options", "create_payment_plan"]
+    }
+  },
+  {
+    "id": "offtopic-03-investing",
+    "category": "off_topic",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Money-related but out of scope: asks for stock picks.",
+    "turns": ["Which stocks should I buy with the money I've saved up this year?"],
+    "expect": {
+      "escalated": false,
+      "no_plan": true,
+      "tools_not_accepted": ["verify_borrower", "get_account", "get_payment_options", "create_payment_plan"]
+    }
+  }
+]

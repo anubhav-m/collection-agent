@@ -1,0 +1,36 @@
+[
+  {
+    "id": "stop-01-rule-phrase",
+    "category": "stop_contact",
+    "lender_id": "LND-001",
+    "description": "Clear stop-contact request matching a trigger phrase.",
+    "turns": ["Please stop calling me about this."],
+    "expect": {"escalated": true, "escalation_reason": "stop_contact", "no_plan": true}
+  },
+  {
+    "id": "stop-02-paraphrase",
+    "category": "stop_contact",
+    "lender_id": "LND-002",
+    "hard": true,
+    "description": "Stop-contact request in words the trigger list does not contain.",
+    "turns": ["I don't want any more messages or calls from your company. Remove me from your list."],
+    "expect": {"escalated": true, "escalation_reason": "stop_contact", "no_plan": true}
+  },
+  {
+    "id": "stop-03-mid-flow",
+    "category": "stop_contact",
+    "lender_id": "LND-001",
+    "hard": true,
+    "description": "Verified borrower asks about plans, then asks never to be contacted again.",
+    "turns": [
+      "Morgan Demoson, born 1985-01-01, ZIP 00005. What payment plans can I get?",
+      "Actually, I've changed my mind. Never reach out to me again, by any channel."
+    ],
+    "expect": {
+      "escalated": true,
+      "escalation_reason": "stop_contact",
+      "verified": true,
+      "no_plan": true
+    }
+  }
+]
