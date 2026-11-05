@@ -1,8 +1,8 @@
 r"""Extract promised payments from every stored conversation and save them to MongoDB.
 
-From backend/:  .venv\Scripts\python -m app.extraction.run_stored --extractor regex|llm
+From backend/:  .venv\Scripts\python -m app.extraction.run_stored [--extractor llm|regex]
 Writes one `extractions` document per conversation and extractor, and a run summary to
-reports/extraction/stored_run.json.
+reports/extraction/stored_run_<extractor>.json.
 """
 
 import argparse
@@ -23,6 +23,9 @@ from app.extraction.llm_extractor import LLMExtractor
 from app.extraction.pipeline import extract_stored
 from app.extraction.regex_extractor import RegexExtractor
 from app.llm.factory import build_llm
+
+# Chosen from reports/extraction/test.md: equal accuracy, but rules miss unseen phrasings.
+DEFAULT_EXTRACTOR = "llm"
 
 
 async def main(name: str) -> int:
@@ -48,14 +51,15 @@ async def main(name: str) -> int:
     rows = [r.model_dump(mode="json") for r in summary.saved]
     out = {"extractor": name, "model": model, "saved": rows, "skipped": summary.skipped}
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    (REPORTS_DIR / "stored_run.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
+    path = REPORTS_DIR / f"stored_run_{name}.json"
+    path.write_text(json.dumps(out, indent=2), encoding="utf-8")
     print(f"saved {len(rows)} extractions to MongoDB, skipped {len(summary.skipped)}")
     return 0
 
 
 def cli() -> None:
     parser = argparse.ArgumentParser(description="Extract promises from stored conversations.")
-    parser.add_argument("--extractor", choices=["regex", "llm"], required=True)
+    parser.add_argument("--extractor", choices=["regex", "llm"], default=DEFAULT_EXTRACTOR)
     args = parser.parse_args()
     configure_logging(get_settings().log_level)
     sys.exit(asyncio.run(main(args.extractor)))

@@ -10,7 +10,7 @@ Statuses: `PENDING`, `IN PROGRESS`, `BLOCKED`, `DONE`.
 | 2 | Agent, rules, and handoff | DONE |
 | 3 | RAG | DONE |
 | 4 | Evaluation and fixes | DONE |
-| 5 | Entity extraction | IN PROGRESS |
+| 5 | Entity extraction | DONE |
 | 6 | Reports and automation | PENDING |
 | 7 | Frontend, deployment, and resume facts | PENDING |
 
@@ -305,3 +305,88 @@ An official run refuses to start if the evaluated code has uncommitted changes, 
 - Wrong-borrower behaviour (`wrong-03`): the model still tries the other borrower's account once, and the server blocks it (`account_not_accessible`).
 
 **Commits:** `e2e8643` (harness), `5c99cb2` (leak check fix), `333e17c` (key pool), `b855580` (docs), `4246687` (commit pinning, the baseline code), `8460173` (docs), `37c3e57` (agent fixes + baseline report, the latest code), then a docs commit with the latest report, the comparison and this entry. Pushed to `origin/main`.
+
+### Session 5: Entity extraction
+
+**Status:** DONE, 2026-11-05 10:25 IST (04:55 UTC). All four Done Criteria pass.
+
+**What was built**
+
+- `backend/data/extraction/`: 44 fictional chats in `transcripts/` (4 files), hand labels in `labels/` (4 files, kept apart), `split.json` (20 dev / 24 test, stratified on promise, seed 5), and `README.md` with the labelling rules. Hard cases: "next Friday" (also across a month end), "two hundred bucks", "two fifty", "1.5k", amounts in words, changed amounts and dates, retracted, conditional, hedged and negated promises, accepting the agent's offer ("Deal."), agent and income figures as distractors, "payday" with no date, and 13 chats with no promise.
+- The data and split were committed (`e30bcd1`) before any extractor code existed.
+- `backend/app/extraction/`:
+  - `models.py` (Transcript, Label, PromiseEntities, ExtractionOutcome), `dataset.py` (loader that fails on duplicate ids, unlabelled transcripts or an overlapping split), `interface.py` (the `Extractor` protocol).
+  - Regex extractor: `number_words.py`, `ordinals.py`, `amounts.py`, `date_math.py`, `date_rules.py`, `dates.py`, `regex_cues.py` (commit / hedge / retract / accept cues), `regex_extractor.py`.
+  - LLM extractor: `llm_prompt.py` (rules, JSON schema from a Pydantic model, the reference date with its weekday), `llm_extractor.py` (validates with Pydantic; an invalid reply is recorded as `invalid_output`, an outage as `llm_unavailable`).
+  - Benchmark: `metrics.py`, `benchmark.py`, `bench_setup.py`, `report.py`, `report_md.py`, `benchmark_cli.py`.
+  - Pipeline: `stored.py` (stored chat to Transcript, outcome to record), `pipeline.py`, `run_stored.py` (CLI).
+- `app/db/extractions.py`: lists stored conversations and upserts into a new `extractions` collection (unique on conversation + extractor, added to `indexes.py`).
+- `app/llm/types.py` and `gemini_mapping.py`: `LLMRequest.response_schema` sets `response_mime_type="application/json"` and `response_json_schema`. No other module imports the SDK.
+- `app/evaluation/git_info.py`: `current_commit` and `evaluated_code_dirty` take a path list, so the extraction benchmark can pin its own code paths.
+
+**Commands** (from `backend/`)
+
+```
+.venv\Scripts\python -m scripts.make_extraction_split                  # once; refuses to overwrite
+.venv\Scripts\python -m app.extraction.benchmark_cli --split dev --name dev-3
+.venv\Scripts\python -m app.extraction.benchmark_cli --split test     # official; refuses if report exists or code is dirty
+.venv\Scripts\python -m app.extraction.run_stored                     # default extractor: llm
+.venv\Scripts\python -m app.extraction.run_stored --extractor regex
+.venv\Scripts\ruff check . ; .venv\Scripts\ruff format --check . ; .venv\Scripts\python -m pytest -q
+```
+
+**Tests and checks (actual results)**
+
+- `pytest -q`: 298 passed in 4.58s (`docs/reports/session5_pytest.txt`). 71 are new: 70 in `tests/extraction/` and 1 in `tests/llm/test_gemini_mapping.py`. The metric tests use worked examples: P = 6/8 = 0.75, R = 6/10 = 0.6, F1 = 0.6667, a 4-transcript case with known TP/FP/FN per entity, and the zero-division cases. No Gemini calls in tests.
+- `ruff check`: all checks passed. `ruff format --check`: 226 files already formatted.
+- Line count: no source or test file is over 70. The largest are 70 (Session 2 and 4 files).
+
+**Metrics** (held-out test set, 24 transcripts, from `reports/extraction/test.json` / `test.md`; model `gemini-3.5-flash-lite`; code commit `b58f41c`)
+
+| Extractor | Promise P / R / F1 | Amount P / R / F1 | Date P / R / F1 | Exact match | Latency avg / p95 | Tokens prompt / output |
+|---|---|---|---|---|---|---|
+| regex | 100 / 94.1 / 97.0% | 100 / 94.1 / 97.0% | 100 / 93.8 / 96.8% | 95.8% (23/24) | 0.164 / 0.311 ms | 0 / 0 |
+| llm | 100 / 94.1 / 97.0% | 100 / 94.1 / 97.0% | 100 / 100 / 100% | 95.8% (23/24) | 4,254 / 7,573 ms | 10,270 / 772 |
+
+- Regex miss: `ext-19` "I want to clear it. 1.5k on December 1st." has no commitment phrase, so no promise was found.
+- LLM miss: `ext-40` "I'll pay $200 on payday." It returned no promise. The label is a promise with no date.
+- Dev set (`reports/extraction/dev/dev-1.md`, `dev-2.md`): regex 100% exact both times. LLM 90% in dev-1, then 100% after one prompt change.
+- LLM latency includes Gemini 503 retries (6 in the test run), and the slowest call took 25.0 s. The benchmark spaced calls 6.5 s apart, so no call waited for a pacer slot.
+
+**Extractor choice: LLM** (`DEFAULT_EXTRACTOR` in `run_stored.py`)
+
+- On the held-out set the two tie at 23/24, so the score alone does not decide it. A 1-transcript gap is 4.2 points.
+- The regex rules were written by the same person who wrote the transcripts, and they were tuned until dev was 100%. Its miss was structural: wording with no cue phrase. The LLM's miss is a narrow edge of the labelling rules.
+- The stored-conversation run backed this up. In the one real chat with a promise ("3 monthly payments of 283.50 starting 2026-11-12"), the LLM returned $283.50 on 2026-11-12, which is correct. Regex returned amount 12 and no date, because it doesn't parse ISO dates, and the agent itself asks borrowers for YYYY-MM-DD (`docs/reports/session5_stored_readback.txt`).
+- Cost is fine for a nightly batch: about 430 prompt tokens per chat, one call per conversation, inside 500 requests a day. Regex remains available with `--extractor regex`.
+
+**Stored conversations** (`reports/extraction/stored_run_llm.json`, `stored_run_regex.json`, read back from Mongo in `docs/reports/session5_stored_readback.txt`)
+
+- 4 stored conversations, 4 saved per extractor, 0 skipped. The LLM found 1 promise ($283.50, 2026-11-12) and 3 with no promise, using 2,458 prompt and 116 output tokens. Reruns replace results (upsert), so the collection holds 8 documents.
+
+**Quota (paced and logged)**
+
+- Every call is logged with model, tokens and latency (`docs/reports/session5_dev1_run.log`, `dev2`, `test`, `stored`). The CLI prints the planned call count before a run. Calls were spaced at 60/RPM + 0.5 s (6.5 s at 10 RPM).
+- Calls this session: dev-1 20, dev-2 20, test 24, stored 4 + 4 (the first stored run's summary file was overwritten, so it was rerun) = 72 successful calls, plus 14 retries after Gemini 503s. No 429s and no failed calls. Well inside 500 a day.
+
+**Assumptions and decisions**
+
+- One promise per chat: the first promised payment, with the last-stated amount and date. A "no" promise has null details. The README gives the full rules, including "next Friday" meaning the following calendar week.
+- Scoring: promise_made is scored as a detected entity (TP/FP/FN on promises). An amount or date counts only if exactly right. A wrong value counts as one FP and one FN. An extractor failure counts as finding nothing, and it is also counted under `errors`.
+- When the LLM says no promise but still gives an amount, the details are dropped, matching the labelling rule.
+- An LLM outage stops the benchmark or pipeline and writes nothing, so a 429 is never scored as a miss and never overwrites a good stored result.
+- The stored chat's reference date is its `created_at` day in UTC.
+- The official test report refuses to run if `test.json` exists or if `backend/app/extraction`, `backend/app/llm` or `backend/data/extraction` have uncommitted changes. The test set was run once.
+- Dev tuning was one general prompt line: "A clear commitment is still a promise when its amount or its date is missing or vague." Regex had one dev fix: "today" inside "a week from today" is no longer a separate date.
+
+**Changes to transcripts, labels or the split:** none after the split was committed.
+
+**Known issues / later**
+
+- The test set is small: 24 transcripts, and 17 have a promise. One transcript moves exact match by 4.2 points.
+- The same author wrote the transcripts, the labels and both extractors, so even the test set is not truly unseen phrasing. The stored-chat ISO date case shows the dataset's blind spot: no transcript uses YYYY-MM-DD. Regex was not changed after the test run.
+- LLM latency is about 4 s per chat, with 503 retries. Thinking tokens are not configured or reported separately.
+- Only one promise per chat. Multi-payment plans are reduced to the first payment.
+- Session 6 decides how the nightly pipeline schedules `run_stored` and uses its results.
+
+**Commits:** `e30bcd1` (dataset + split, before extractors), `b58f41c` (extractors, benchmark, pipeline, dev reports; the code the test report pins), then one commit with the test report, the stored-run results, the default extractor, this entry and `docs/DEFENSE.md`. Pushed to `origin/main`.

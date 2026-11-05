@@ -191,3 +191,51 @@ LLM call flow: caller builds a provider-neutral `LLMRequest` -> `GeminiClient` c
 - **Why did p95 latency get worse?** Pacing, not the model: one call waited about 60 s because 11 calls had run in the previous minute against our 10-per-minute limit. Average latency barely moved (12.4 s → 12.9 s).
 - **Why change models mid-session?** The free daily limit on flash was 20 requests, and a full run needs about 100. I switched before the official baseline, so both compared runs use the same model. The partial flash attempts are archived and not compared.
 - **How did quota problems not corrupt the results?** A scenario hit by a 429 is never scored. The run stops, saves, and resumes on the same model and code commit only.
+
+## Session 5: Entity extraction
+
+### Request flow
+
+1. A chat is stored in MongoDB as a conversation and its events (Sessions 2-4).
+2. `run_stored` lists the conversations. Borrower and agent text becomes a `Transcript`, and its reference date is the day the chat started.
+3. The chosen extractor (LLM by default) returns `promise_made`, `amount` and `date`.
+4. The LLM path: a prompt with the labelling rules and "Today is Wednesday 2026-11-04", a JSON schema built from a Pydantic model, temperature 0. The reply is validated by Pydantic before it is used. A bad reply becomes `invalid_output`, not a crash.
+5. The result is upserted into `extractions`, one document per conversation and extractor.
+6. To measure accuracy, the benchmark runs both extractors over the labelled test set and writes `reports/extraction/test.json` and `test.md`.
+
+### Why these decisions
+
+- **Labels separate from transcripts.** An extractor can't see the answer, and the labels can be reviewed on their own.
+- **Split before writing extractors, committed first.** Git history proves the test set was fixed before any tuning (`e30bcd1` comes before `b58f41c`).
+- **A fixed reference date per transcript.** "Next Friday" has one right answer, today and in a year's time.
+- **Two extractors, one interface.** The benchmark and pipeline don't care which is used, so the choice is a flag backed by data.
+- **Exact-match scoring for amounts and dates.** In collections, $120 instead of $200, or the 13th instead of the 6th, is simply wrong. A wrong value counts as both a false positive and a false negative, the standard slot-filling convention.
+- **Outages stop the run.** A 429 says nothing about extraction quality, so it is never scored, and it never overwrites a good saved result.
+- **Even spacing of calls (6.5 s at 10 RPM).** It stays under the free-tier rate, and latency then measures the API, not waits for a pacer slot. That fixed a weakness in the Session 4 latency numbers.
+
+### Alternatives rejected
+
+- **Only regex.** Free and instant, but every phrasing needs a rule. It failed on "1.5k on December 1st" (no "I'll") and on ISO dates in a real stored chat.
+- **Only the LLM, without a baseline.** There would be nothing to compare its cost against.
+- **Letting the LLM return free text and parsing it.** Schema-constrained JSON plus Pydantic validation is stricter and gives a clear error type.
+- **Tuning on the test set.** Only dev runs were used for changes. The test set was run once.
+
+### Limitations
+
+- 24 test transcripts. One transcript is 4.2 points of exact match.
+- I wrote the transcripts, the labels and the regex rules, so the test set is less "unseen" than real data. The ISO-date stored chat showed a format the dataset never covered.
+- One promise per chat. A 3-payment plan is reduced to its first payment.
+- LLM latency is about 4 s average, including Gemini 503 retries.
+
+### Likely questions
+
+- **How did you pick an extractor when both scored 95.8%?** The score tied, so I looked at the type of error. Regex missed wording without a cue phrase, which grows with real variety. The LLM missed one labelling edge case. On a real stored chat the LLM was right and regex was wrong (ISO date). The cost, about 430 tokens and one call per chat each night, fits the quota.
+- **How do you compute precision for "promise made"?** As a detected entity: TP = predicted promise and labelled promise, FP = predicted but not labelled, FN = labelled but missed.
+- **Why is regex 100% on dev but not on test?** It was tuned on dev. The drop on test is the honest generalisation estimate, and it's why the split exists.
+- **How do you know the metric code is right?** Unit tests with worked answers: 6/8 = 0.75 precision, 6/10 = 0.6 recall, F1 0.6667, plus a 4-transcript example with a hand-counted TP/FP/FN for each entity.
+- **What stops the LLM from inventing a date format?** The JSON schema, then Pydantic, then `date.fromisoformat`. Anything else is recorded as `invalid_output` and scored as a miss.
+
+### Results to quote
+
+- Held-out test, 24 transcripts (`reports/extraction/test.md`): both extractors 95.8% exact match, 100% precision on every entity. Date F1 is 100% for the LLM and 96.8% for regex. Regex takes 0.16 ms per chat; the LLM takes 4.3 s and about 428 prompt tokens.
+- Stored chats: 4 processed and saved to MongoDB. The LLM correctly read "3 monthly payments of 283.50 starting 2026-11-12", where regex returned amount 12 and no date.

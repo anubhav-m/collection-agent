@@ -1,0 +1,1093 @@
+{
+  "meta": {
+    "run_name": "test",
+    "split": "test",
+    "official": true,
+    "model": "gemini-3.5-flash-lite",
+    "git_commit": "b58f41cd2a4c08c55d92bb61e01689ba64316293",
+    "requests_per_minute": 10,
+    "gap_seconds": 6.5,
+    "transcript_ids": [
+      "ext-03",
+      "ext-04",
+      "ext-05",
+      "ext-07",
+      "ext-10",
+      "ext-12",
+      "ext-14",
+      "ext-15",
+      "ext-16",
+      "ext-17",
+      "ext-19",
+      "ext-20",
+      "ext-21",
+      "ext-23",
+      "ext-26",
+      "ext-27",
+      "ext-28",
+      "ext-31",
+      "ext-36",
+      "ext-37",
+      "ext-39",
+      "ext-40",
+      "ext-42",
+      "ext-44"
+    ],
+    "started_at": "2026-11-05T04:45:30.860511Z",
+    "finished_at": "2026-11-05T04:49:43.602002Z"
+  },
+  "results": [
+    {
+      "extractor": "regex",
+      "metrics": {
+        "transcripts": 24,
+        "entities": {
+          "promise_made": {
+            "tp": 16,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9412,
+            "f1": 0.9697
+          },
+          "amount": {
+            "tp": 16,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9412,
+            "f1": 0.9697
+          },
+          "date": {
+            "tp": 15,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9375,
+            "f1": 0.9677
+          }
+        },
+        "exact_match_rate": 0.9583,
+        "errors": 0,
+        "latency_ms": {
+          "avg": 0.164,
+          "p95": 0.311
+        },
+        "tokens": {
+          "prompt": 0,
+          "output": 0
+        }
+      },
+      "outcomes": [
+        {
+          "transcript_id": "ext-03",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.247,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-04",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "250",
+            "date": "2026-11-15"
+          },
+          "latency_ms": 0.294,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-05",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "150",
+            "date": "2026-11-07"
+          },
+          "latency_ms": 0.587,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-07",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "1200",
+            "date": "2026-11-13"
+          },
+          "latency_ms": 0.311,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-10",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "60",
+            "date": "2026-11-30"
+          },
+          "latency_ms": 0.197,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-12",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.102,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-14",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "250",
+            "date": "2026-11-11"
+          },
+          "latency_ms": 0.15,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-15",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.149,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-16",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.131,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-17",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "45.50",
+            "date": "2026-11-09"
+          },
+          "latency_ms": 0.103,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-19",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.125,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-20",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.106,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-21",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "50",
+            "date": "2026-11-04"
+          },
+          "latency_ms": 0.112,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-23",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "100",
+            "date": "2026-11-06"
+          },
+          "latency_ms": 0.126,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-26",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "325",
+            "date": "2026-11-20"
+          },
+          "latency_ms": 0.13,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-27",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.122,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-28",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "140",
+            "date": "2026-11-16"
+          },
+          "latency_ms": 0.114,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-31",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "150",
+            "date": "2026-11-25"
+          },
+          "latency_ms": 0.138,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-36",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "90.00",
+            "date": "2026-11-07"
+          },
+          "latency_ms": 0.129,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-37",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 0.105,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-39",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "125",
+            "date": "2026-11-18"
+          },
+          "latency_ms": 0.094,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-40",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "200",
+            "date": null
+          },
+          "latency_ms": 0.111,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-42",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "150",
+            "date": "2026-11-06"
+          },
+          "latency_ms": 0.149,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-44",
+          "extractor": "regex",
+          "entities": {
+            "promise_made": true,
+            "amount": "85",
+            "date": "2026-11-06"
+          },
+          "latency_ms": 0.102,
+          "prompt_tokens": 0,
+          "output_tokens": 0,
+          "error": null
+        }
+      ],
+      "labels": [
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-03",
+          "case": "no promise, job loss"
+        },
+        {
+          "promise_made": true,
+          "amount": "250.00",
+          "date": "2026-11-15",
+          "id": "ext-04",
+          "case": "changed amount ($300 then $250), \"the 15th\""
+        },
+        {
+          "promise_made": true,
+          "amount": "150.00",
+          "date": "2026-11-07",
+          "id": "ext-05",
+          "case": "\"tomorrow\", \"a hundred and fifty dollars\""
+        },
+        {
+          "promise_made": true,
+          "amount": "1200.00",
+          "date": "2026-11-13",
+          "id": "ext-07",
+          "case": "\"this Friday\", \"$1,200\""
+        },
+        {
+          "promise_made": true,
+          "amount": "60.00",
+          "date": "2026-11-30",
+          "id": "ext-10",
+          "case": "\"end of the month\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-12",
+          "case": "stop-contact refusal"
+        },
+        {
+          "promise_made": true,
+          "amount": "250.00",
+          "date": "2026-11-11",
+          "id": "ext-14",
+          "case": "\"two fifty\", \"in two weeks\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-15",
+          "case": "promise retracted later"
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-16",
+          "case": "dispute, agent figure only"
+        },
+        {
+          "promise_made": true,
+          "amount": "45.50",
+          "date": "2026-11-09",
+          "id": "ext-17",
+          "case": "cents, \"Monday\" from a Saturday"
+        },
+        {
+          "promise_made": true,
+          "amount": "1500.00",
+          "date": "2026-12-01",
+          "id": "ext-19",
+          "case": "\"1.5k\", \"December 1st\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-20",
+          "case": "\"I'll try\", no commitment"
+        },
+        {
+          "promise_made": true,
+          "amount": "50.00",
+          "date": "2026-11-04",
+          "id": "ext-21",
+          "case": "\"fifty bucks today\""
+        },
+        {
+          "promise_made": true,
+          "amount": "100.00",
+          "date": "2026-11-06",
+          "id": "ext-23",
+          "case": "first of two payments, \"the rest\" has no amount"
+        },
+        {
+          "promise_made": true,
+          "amount": "325.00",
+          "date": "2026-11-20",
+          "id": "ext-26",
+          "case": "amount and date in words"
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-27",
+          "case": "negated earlier promise"
+        },
+        {
+          "promise_made": true,
+          "amount": "140.00",
+          "date": "2026-11-16",
+          "id": "ext-28",
+          "case": "\"next Monday\" from a Monday"
+        },
+        {
+          "promise_made": true,
+          "amount": "150.00",
+          "date": "2026-11-25",
+          "id": "ext-31",
+          "case": "income figure ($900) is a distractor"
+        },
+        {
+          "promise_made": true,
+          "amount": "90.00",
+          "date": "2026-11-07",
+          "id": "ext-36",
+          "case": "\"Saturday the 7th\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-37",
+          "case": "\"maybe\", \"I don't know yet\""
+        },
+        {
+          "promise_made": true,
+          "amount": "125.00",
+          "date": "2026-11-18",
+          "id": "ext-39",
+          "case": "\"Deal.\" accepts agent proposal"
+        },
+        {
+          "promise_made": true,
+          "amount": "200.00",
+          "date": null,
+          "id": "ext-40",
+          "case": "\"payday\" with no known date"
+        },
+        {
+          "promise_made": true,
+          "amount": "150.00",
+          "date": "2026-11-06",
+          "id": "ext-42",
+          "case": "amount raised after agent negotiation"
+        },
+        {
+          "promise_made": true,
+          "amount": "85.00",
+          "date": "2026-11-06",
+          "id": "ext-44",
+          "case": "\"tonight\" means today"
+        }
+      ]
+    },
+    {
+      "extractor": "llm",
+      "metrics": {
+        "transcripts": 24,
+        "entities": {
+          "promise_made": {
+            "tp": 16,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9412,
+            "f1": 0.9697
+          },
+          "amount": {
+            "tp": 16,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.9412,
+            "f1": 0.9697
+          },
+          "date": {
+            "tp": 16,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          }
+        },
+        "exact_match_rate": 0.9583,
+        "errors": 0,
+        "latency_ms": {
+          "avg": 4254.008,
+          "p95": 7573.1
+        },
+        "tokens": {
+          "prompt": 10270,
+          "output": 772
+        }
+      },
+      "outcomes": [
+        {
+          "transcript_id": "ext-03",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 4705.4,
+          "prompt_tokens": 451,
+          "output_tokens": 25,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-04",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "250.00",
+            "date": "2026-11-15"
+          },
+          "latency_ms": 2899.4,
+          "prompt_tokens": 468,
+          "output_tokens": 39,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-05",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "150.00",
+            "date": "2026-11-07"
+          },
+          "latency_ms": 3885.2,
+          "prompt_tokens": 418,
+          "output_tokens": 41,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-07",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "1200.00",
+            "date": "2026-11-13"
+          },
+          "latency_ms": 7573.1,
+          "prompt_tokens": 435,
+          "output_tokens": 33,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-10",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "60.00",
+            "date": "2026-11-30"
+          },
+          "latency_ms": 3336.2,
+          "prompt_tokens": 435,
+          "output_tokens": 40,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-12",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 3427.0,
+          "prompt_tokens": 421,
+          "output_tokens": 25,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-14",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "250.00",
+            "date": "2026-11-11"
+          },
+          "latency_ms": 1317.3,
+          "prompt_tokens": 425,
+          "output_tokens": 41,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-15",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 3084.5,
+          "prompt_tokens": 439,
+          "output_tokens": 17,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-16",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 3570.5,
+          "prompt_tokens": 431,
+          "output_tokens": 25,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-17",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "45.50",
+            "date": "2026-11-09"
+          },
+          "latency_ms": 5645.2,
+          "prompt_tokens": 421,
+          "output_tokens": 31,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-19",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "1500.00",
+            "date": "2026-12-01"
+          },
+          "latency_ms": 1229.8,
+          "prompt_tokens": 427,
+          "output_tokens": 43,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-20",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 3518.7,
+          "prompt_tokens": 424,
+          "output_tokens": 17,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-21",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "50.00",
+            "date": "2026-11-04"
+          },
+          "latency_ms": 5286.3,
+          "prompt_tokens": 409,
+          "output_tokens": 38,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-23",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "100.00",
+            "date": "2026-11-06"
+          },
+          "latency_ms": 2703.4,
+          "prompt_tokens": 428,
+          "output_tokens": 39,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-26",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "325.00",
+            "date": "2026-11-20"
+          },
+          "latency_ms": 1345.3,
+          "prompt_tokens": 412,
+          "output_tokens": 41,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-27",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 24967.0,
+          "prompt_tokens": 426,
+          "output_tokens": 25,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-28",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "140.00",
+            "date": "2026-11-16"
+          },
+          "latency_ms": 2458.9,
+          "prompt_tokens": 424,
+          "output_tokens": 32,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-31",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "150.00",
+            "date": "2026-11-25"
+          },
+          "latency_ms": 2771.5,
+          "prompt_tokens": 429,
+          "output_tokens": 30,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-36",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "90.00",
+            "date": "2026-11-07"
+          },
+          "latency_ms": 1655.7,
+          "prompt_tokens": 428,
+          "output_tokens": 40,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-37",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 1808.5,
+          "prompt_tokens": 420,
+          "output_tokens": 25,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-39",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "125.00",
+            "date": "2026-11-18"
+          },
+          "latency_ms": 4684.6,
+          "prompt_tokens": 415,
+          "output_tokens": 30,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-40",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": false,
+            "amount": null,
+            "date": null
+          },
+          "latency_ms": 2822.7,
+          "prompt_tokens": 423,
+          "output_tokens": 25,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-42",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "150.00",
+            "date": "2026-11-06"
+          },
+          "latency_ms": 2467.4,
+          "prompt_tokens": 439,
+          "output_tokens": 39,
+          "error": null
+        },
+        {
+          "transcript_id": "ext-44",
+          "extractor": "llm",
+          "entities": {
+            "promise_made": true,
+            "amount": "85.00",
+            "date": "2026-11-06"
+          },
+          "latency_ms": 4932.6,
+          "prompt_tokens": 422,
+          "output_tokens": 31,
+          "error": null
+        }
+      ],
+      "labels": [
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-03",
+          "case": "no promise, job loss"
+        },
+        {
+          "promise_made": true,
+          "amount": "250.00",
+          "date": "2026-11-15",
+          "id": "ext-04",
+          "case": "changed amount ($300 then $250), \"the 15th\""
+        },
+        {
+          "promise_made": true,
+          "amount": "150.00",
+          "date": "2026-11-07",
+          "id": "ext-05",
+          "case": "\"tomorrow\", \"a hundred and fifty dollars\""
+        },
+        {
+          "promise_made": true,
+          "amount": "1200.00",
+          "date": "2026-11-13",
+          "id": "ext-07",
+          "case": "\"this Friday\", \"$1,200\""
+        },
+        {
+          "promise_made": true,
+          "amount": "60.00",
+          "date": "2026-11-30",
+          "id": "ext-10",
+          "case": "\"end of the month\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-12",
+          "case": "stop-contact refusal"
+        },
+        {
+          "promise_made": true,
+          "amount": "250.00",
+          "date": "2026-11-11",
+          "id": "ext-14",
+          "case": "\"two fifty\", \"in two weeks\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-15",
+          "case": "promise retracted later"
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-16",
+          "case": "dispute, agent figure only"
+        },
+        {
+          "promise_made": true,
+          "amount": "45.50",
+          "date": "2026-11-09",
+          "id": "ext-17",
+          "case": "cents, \"Monday\" from a Saturday"
+        },
+        {
+          "promise_made": true,
+          "amount": "1500.00",
+          "date": "2026-12-01",
+          "id": "ext-19",
+          "case": "\"1.5k\", \"December 1st\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-20",
+          "case": "\"I'll try\", no commitment"
+        },
+        {
+          "promise_made": true,
+          "amount": "50.00",
+          "date": "2026-11-04",
+          "id": "ext-21",
+          "case": "\"fifty bucks today\""
+        },
+        {
+          "promise_made": true,
+          "amount": "100.00",
+          "date": "2026-11-06",
+          "id": "ext-23",
+          "case": "first of two payments, \"the rest\" has no amount"
+        },
+        {
+          "promise_made": true,
+          "amount": "325.00",
+          "date": "2026-11-20",
+          "id": "ext-26",
+          "case": "amount and date in words"
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-27",
+          "case": "negated earlier promise"
+        },
+        {
+          "promise_made": true,
+          "amount": "140.00",
+          "date": "2026-11-16",
+          "id": "ext-28",
+          "case": "\"next Monday\" from a Monday"
+        },
+        {
+          "promise_made": true,
+          "amount": "150.00",
+          "date": "2026-11-25",
+          "id": "ext-31",
+          "case": "income figure ($900) is a distractor"
+        },
+        {
+          "promise_made": true,
+          "amount": "90.00",
+          "date": "2026-11-07",
+          "id": "ext-36",
+          "case": "\"Saturday the 7th\""
+        },
+        {
+          "promise_made": false,
+          "amount": null,
+          "date": null,
+          "id": "ext-37",
+          "case": "\"maybe\", \"I don't know yet\""
+        },
+        {
+          "promise_made": true,
+          "amount": "125.00",
+          "date": "2026-11-18",
+          "id": "ext-39",
+          "case": "\"Deal.\" accepts agent proposal"
+        },
+        {
+          "promise_made": true,
+          "amount": "200.00",
+          "date": null,
+          "id": "ext-40",
+          "case": "\"payday\" with no known date"
+        },
+        {
+          "promise_made": true,
+          "amount": "150.00",
+          "date": "2026-11-06",
+          "id": "ext-42",
+          "case": "amount raised after agent negotiation"
+        },
+        {
+          "promise_made": true,
+          "amount": "85.00",
+          "date": "2026-11-06",
+          "id": "ext-44",
+          "case": "\"tonight\" means today"
+        }
+      ]
+    }
+  ]
+}

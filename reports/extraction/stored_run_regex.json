@@ -1,0 +1,67 @@
+{
+  "extractor": "regex",
+  "model": "none",
+  "saved": [
+    {
+      "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+      "lender_id": "LND-001",
+      "extractor": "regex",
+      "model": "none",
+      "reference_date": "2026-11-04",
+      "promise_made": true,
+      "amount": "12",
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 1.276,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "extracted_at": "2026-11-05T04:51:37.865912Z"
+    },
+    {
+      "conversation_id": "CONV-5337e5ffcfd3474b9f11a68eda9d3060",
+      "lender_id": "LND-002",
+      "extractor": "regex",
+      "model": "none",
+      "reference_date": "2026-11-04",
+      "promise_made": false,
+      "amount": null,
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 1.274,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "extracted_at": "2026-11-05T04:51:37.932430Z"
+    },
+    {
+      "conversation_id": "CONV-f6e12a81680a44b287ac2ab7339282db",
+      "lender_id": "LND-002",
+      "extractor": "regex",
+      "model": "none",
+      "reference_date": "2026-11-05",
+      "promise_made": false,
+      "amount": null,
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 0.551,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "extracted_at": "2026-11-05T04:51:37.989432Z"
+    },
+    {
+      "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b",
+      "lender_id": "LND-001",
+      "extractor": "regex",
+      "model": "none",
+      "reference_date": "2026-11-05",
+      "promise_made": false,
+      "amount": null,
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 0.195,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "extracted_at": "2026-11-05T04:51:38.060558Z"
+    }
+  ],
+  "skipped": []
+}
