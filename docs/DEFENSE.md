@@ -138,3 +138,42 @@ LLM call flow: caller builds a provider-neutral `LLMRequest` -> `GeminiClient` c
 - **How is ingestion idempotent?** Chunk IDs are hashes of model, document, lender and text. A rerun compares IDs, embeds only new ones, and doesn't rewrite the store if nothing changed.
 - **Doesn't embedding block the server?** ONNX inference is CPU work, so it runs in `asyncio.to_thread`, off the event loop.
 - **How did you pick 0.40?** From `scripts/rag_scores.py`: it sits between the highest irrelevant score (0.294) and the lowest relevant one (0.488).
+
+## Session 4: Evaluation (harness built; runs blocked by quota)
+
+### Request flow
+
+1. `python -m app.evaluation.run --name baseline` loads 38 scenario files and records the model, git commit, scenario-set hash and a fixed evaluation date.
+2. For each scenario it drops and re-seeds a dedicated `*_eval` Mongo database, so every scenario starts from the same state.
+3. It sends each scripted borrower message through the real `ChatService`, the same code `/chat` uses. A wrapper around the LLM forces `use_cache=False` and records tokens and latency.
+4. It reads the conversation state, event log (tool calls, accepted or rejected) and saved plans back from Mongo, and scores them with code checks.
+5. It saves progress to disk after every scenario. If Gemini fails (for example, quota), it stops without scoring that scenario, and the same command resumes later.
+6. At the end it writes `reports/evaluation/<name>.json` and `.md`. `compare_cli` compares two complete official runs.
+
+### Why these decisions
+
+- **Code checks, not an LLM judge.** They are free, give the same result every time, and test what matters: was a plan saved, did a forbidden tool run, did a balance appear before verification.
+- **Score state, not just text.** A reply can say "done" when nothing was saved. The database is the truth.
+- **A fresh database per scenario.** Without it, one scenario's plan (one active plan per account) or escalation would change the next one's result.
+- **Resume pinned to model + commit + scenario hash.** Results from different code or models are never mixed into one number.
+- **Official runs need a clean, committed tree.** The commit in the report then really is the code that was tested.
+- **An outage is not a failure.** A 429 says nothing about the agent, so that scenario is rerun, not scored.
+
+### Alternatives rejected
+
+- An LLM-as-judge: it costs quota, varies run to run, and grades a model with a model.
+- In-memory fakes for official runs: they would skip real Mongo behaviour such as unique indexes.
+- Reporting the 11-scenario partial run as a baseline: it isn't complete, and it was scored with a check bug.
+
+### Limitations
+
+- Phrase-list checks such as "admits unknown" and "reply includes" can miss unusual wording.
+- 38 scenarios is a small set. Single runs on a non-deterministic model have variance.
+- The free tier allows only 20 requests a day per project and model, so a full run takes days on free keys.
+
+### Likely questions
+
+- **How do you know a failure is the agent and not the test?** I read the trace. The first failure was my leak check flagging $300.00, which was the borrower's own past-due amount and the same as another account's balance. I fixed the check, logged it, and restarted the baseline instead of keeping a wrong number.
+- **Why not resume the old run after fixing the check?** The rule is one commit for a whole run, so a score never mixes two versions of the code.
+- **What counts as an unauthorized action?** Something that actually happened and should not have: a plan the scenario didn't allow, a forbidden tool that ran, or a leaked balance. Attempts the server blocked are counted separately.
+- **How did you avoid tuning to the test?** The scenarios were written before any run, and fixes must be general (no matching on scenario text). Any scenario change is logged with its reason.
