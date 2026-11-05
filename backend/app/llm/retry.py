@@ -3,11 +3,12 @@
 import asyncio
 import logging
 import random
-import re
 from collections.abc import Awaitable, Callable
 
 import httpx
 from google.genai import errors
+
+from app.llm.quota import retry_delay_hint
 
 logger = logging.getLogger(__name__)
 MAX_DELAY_SECONDS = 60.0
@@ -23,17 +24,6 @@ def is_transient(exc: BaseException) -> bool:
     return isinstance(exc, httpx.TransportError | TimeoutError)
 
 
-def retry_delay_hint(exc: BaseException) -> float | None:
-    """Read the API's RetryInfo delay (for example "23s"), if it sent one."""
-    details = getattr(exc, "details", None)
-    items = details.get("error", {}).get("details", []) if isinstance(details, dict) else []
-    for item in items:
-        match = re.fullmatch(r"(\d+(?:\.\d+)?)s", str(item.get("retryDelay", "")))
-        if match:
-            return float(match.group(1))
-    return None
-
-
 def backoff_delay(attempt: int, base: float = 1.0, cap: float = 30.0) -> float:
     return min(cap, base * 2**attempt) * random.uniform(0.5, 1.0)
 
@@ -42,19 +32,25 @@ async def call_with_retry[T](
     send: Callable[[], Awaitable[T]],
     *,
     max_retries: int,
-    on_rate_limit: Callable[[], bool] = lambda: False,
+    on_rate_limit: Callable[[BaseException], bool] = lambda exc: False,
+    give_up: Callable[[], bool] = lambda: False,
     sleep: Callable[[float], Awaitable[None]] = asyncio.sleep,
 ) -> T:
-    """on_rate_limit returns True when it switched API keys, so retry at once."""
+    """on_rate_limit returns True when it switched to a usable key, so retry at once.
+    give_up returns True when no key can succeed today, so waiting is pointless."""
     for attempt in range(max_retries + 1):
         try:
             return await send()
         except Exception as exc:
             if not is_transient(exc) or attempt == max_retries:
                 raise
-            if is_rate_limited(exc) and on_rate_limit():
-                logger.warning("llm rate limited; switched api key", extra={"attempt": attempt})
-                continue
+            if is_rate_limited(exc):
+                if on_rate_limit(exc):
+                    logger.warning("llm rate limited; switched api key", extra={"attempt": attempt})
+                    continue
+                if give_up():
+                    logger.error("llm daily quota exhausted on every key")
+                    raise
             delay = min(retry_delay_hint(exc) or backoff_delay(attempt), MAX_DELAY_SECONDS)
             logger.warning(
                 "llm transient error; retrying",

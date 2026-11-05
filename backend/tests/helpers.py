@@ -4,9 +4,16 @@ from typing import Any
 
 from google.genai import errors, types
 
+DAILY = "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+PER_MINUTE = "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
 
-def api_error(code: int, retry_delay: str | None = None) -> errors.APIError:
-    details = [{"retryDelay": retry_delay}] if retry_delay else []
+
+def api_error(
+    code: int, retry_delay: str | None = None, quota_id: str | None = None
+) -> errors.APIError:
+    details: list[dict] = [{"retryDelay": retry_delay}] if retry_delay else []
+    if quota_id:
+        details.append({"violations": [{"quotaId": quota_id, "quotaValue": "20"}]})
     body = {"error": {"code": code, "message": "fake", "status": "FAKE", "details": details}}
     cls = errors.ClientError if code < 500 else errors.ServerError
     return cls(code, body)

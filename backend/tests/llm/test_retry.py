@@ -1,6 +1,7 @@
 import pytest
 
-from app.llm.retry import backoff_delay, call_with_retry, is_transient, retry_delay_hint
+from app.llm.quota import retry_delay_hint
+from app.llm.retry import backoff_delay, call_with_retry, is_transient
 from tests.helpers import api_error
 
 
@@ -46,15 +47,6 @@ async def test_gives_up_after_max_retries():
     with pytest.raises(Exception, match="500"):
         await call_with_retry(send, max_retries=1, sleep=sleep_recorder(delays))
     assert len(delays) == 1
-
-
-async def test_rate_limit_switches_key_without_sleeping():
-    delays: list[float] = []
-    send = Sequence(api_error(429), "ok")
-    sleep = sleep_recorder(delays)
-    result = await call_with_retry(send, max_retries=2, on_rate_limit=lambda: True, sleep=sleep)
-    assert result == "ok"
-    assert delays == []
 
 
 def test_classification_and_delays():
