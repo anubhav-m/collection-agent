@@ -33,3 +33,19 @@ def test_ordinary_messages_do_not_escalate(message):
 def test_stop_contact_wins_when_several_reasons_match():
     message = "I want a supervisor and stop calling me"
     assert detect_escalation(LND1, message) is R.STOP_CONTACT
+
+
+@pytest.mark.parametrize(
+    "message",
+    ["I work as a store manager and get paid on Fridays.", "My supervisor said I can pay later."],
+)
+def test_role_word_without_a_request_does_not_escalate(message):
+    assert detect_escalation(LND1, message) is None
+
+
+@pytest.mark.parametrize(
+    "message",
+    ["Can I speak to a manager?", "I want a supervisor.", "Transfer me to a representative"],
+)
+def test_asking_for_a_role_escalates(message):
+    assert detect_escalation(LND1, message) is R.HUMAN_REQUEST
