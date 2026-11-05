@@ -95,3 +95,46 @@ LLM call flow: caller builds a provider-neutral `LLMRequest` -> `GeminiClient` c
 - **Why does a dispute skip the LLM?** It is a clear, high-risk case. Code handles it the same way every time, costs no quota, and works if Gemini is down.
 - **What happens when Gemini fails?** The loop catches the error, logs only the type, and returns a safe "try again" message. Nothing about the account changes.
 - **How do you stop infinite tool loops?** At most 5 model calls per message. Tools asked for on the 5th are recorded as rejected and a short fallback is returned.
+
+## Session 3: RAG (policy questions with sources)
+
+### Request flow
+
+1. At startup the app loads the local ONNX embedding model, runs the idempotent ingestion (usually "0 added"), and loads the vector store.
+2. A borrower asks a policy question. The code-level escalation check runs first, as before.
+3. The model calls `search_policy(query)`. The server adds the lender from conversation state, embeds the query locally, keeps only chunks for that lender or `shared`, and ranks them by cosine similarity.
+4. If the top score is below 0.40, the tool returns `found: false` with no text and tells the model not to guess. Otherwise it returns title, section, score and text, labelled as reference data.
+5. The model answers from that text and names the document. The API response includes `sources` (doc, title, section, score).
+
+### Key decisions and why
+
+- **Local embeddings (fastembed, ONNX).** They spend no Gemini quota, need no PyTorch, and are small enough for a free host.
+- **MiniLM over bge-small.** On our own queries, MiniLM left a clear gap between relevant scores (lowest 0.488) and irrelevant ones (highest 0.294). bge did not.
+- **Filter by lender before ranking.** Another lender's document can never be returned, however similar it is. The lender comes from server state, not from the model's arguments.
+- **A threshold in code, not only in the prompt.** Below it the model gets no text at all, so it has nothing to turn into a guess.
+- **Retrieved text is data.** It goes back only as a tool result, with a notice, and never into the system prompt. Even if the model obeyed a hidden instruction, every action still goes through the executor and the rules engine.
+- **Simple vector store (JSON + NumPy).** 15 chunks don't need a vector database. Saves are atomic, and chunk IDs are content hashes, so reruns embed nothing.
+- **Section-level chunks with title and heading.** Policy sections are short and self-contained. Putting the title in the text helps short sections match.
+
+### Alternatives rejected
+
+- Gemini embeddings: they would spend the same small free quota as chat.
+- Chroma, FAISS or a hosted vector DB: more dependencies and setup, with no gain at this size.
+- Putting all policy text in the system prompt: it costs tokens on every call, mixes data with instructions, and turns per-lender separation into a prompt rule.
+- Letting the model pass `lender_id`: it could ask for another lender's documents.
+
+### Limitations
+
+- The threshold is calibrated on 15 hand-written queries.
+- A question on a close but uncovered topic can pass the threshold. Then only the prompt keeps the model to the text.
+- Sources show what was retrieved, not proof that each sentence came from them.
+- Hardship and dispute questions are escalated by trigger phrases before any retrieval.
+
+### Likely questions
+
+- **How do you stop the agent inventing policies?** Below the score threshold, code returns no text, and the prompt says to answer "I don't have that information". In the live run, a mortgage refinancing question got exactly that answer.
+- **What if a document contains "ignore your rules"?** It reaches the model only as tool data. A test makes the model obey such a document, and the server still rejects the account lookup (not verified) and the $1 plan (rules engine).
+- **Can a policy document change the payment rules?** No. Plan rules come from the lender JSON and `plan_violations` in code. Documents are only text for answers.
+- **How is ingestion idempotent?** Chunk IDs are hashes of model, document, lender and text. A rerun compares IDs, embeds only new ones, and doesn't rewrite the store if nothing changed.
+- **Doesn't embedding block the server?** ONNX inference is CPU work, so it runs in `asyncio.to_thread`, off the event loop.
+- **How did you pick 0.40?** From `scripts/rag_scores.py`: it sits between the highest irrelevant score (0.294) and the lowest relevant one (0.488).
