@@ -38,6 +38,9 @@ class Settings(BaseSettings):
     rag_score_threshold: float = Field(default=0.40, ge=0, le=1)
     rag_top_k: int = Field(default=3, ge=1, le=10)
 
+    reports_db_path: Path = BACKEND_ROOT / "data" / "reports.sqlite3"
+    nightly_dir: Path = PROJECT_ROOT / "reports" / "nightly"
+
     # Required, no local fallback: a missing MONGODB_URI must fail loudly.
     mongodb_uri: SecretStr
     mongodb_db: str = "collections_agent"

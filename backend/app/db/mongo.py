@@ -6,6 +6,8 @@ from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 from pymongo.errors import PyMongoError
 
+from app.core.settings import Settings
+
 logger = logging.getLogger(__name__)
 
 
@@ -32,3 +34,8 @@ class MongoDatabase:
 
     async def close(self) -> None:
         await self._client.close()
+
+
+def mongo_from_settings(settings: Settings) -> MongoDatabase:
+    uri = settings.mongodb_uri.get_secret_value()
+    return MongoDatabase(uri, settings.mongodb_db, settings.mongodb_timeout_ms)

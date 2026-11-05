@@ -9,12 +9,13 @@ from fastapi import FastAPI
 
 from app.api.chat import router as chat_router
 from app.api.health import router as health_router
+from app.api.reports import router as reports_router
 from app.core.handlers import register_exception_handlers
 from app.core.logging import configure_logging
 from app.core.request_id import RequestIdMiddleware
-from app.core.settings import Settings, get_settings
+from app.core.settings import get_settings
 from app.db.indexes import ensure_indexes
-from app.db.mongo import MongoDatabase
+from app.db.mongo import mongo_from_settings
 from app.db.repositories import mongo_repositories
 from app.llm.factory import build_llm_or_none
 from app.policy.loader import PolicyStore
@@ -23,15 +24,10 @@ from app.rag.startup import build_retriever
 logger = logging.getLogger(__name__)
 
 
-def build_mongo(settings: Settings) -> MongoDatabase:
-    uri = settings.mongodb_uri.get_secret_value()
-    return MongoDatabase(uri, settings.mongodb_db, settings.mongodb_timeout_ms)
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
-    mongo = build_mongo(settings)
+    mongo = mongo_from_settings(settings)
     app.state.mongo = mongo
     app.state.repos = mongo_repositories(mongo.db)
     app.state.policies = PolicyStore.from_directory(settings.lender_policy_dir)
@@ -58,6 +54,7 @@ def create_app() -> FastAPI:
     register_exception_handlers(app)
     app.include_router(health_router)
     app.include_router(chat_router)
+    app.include_router(reports_router)
     return app
 
 

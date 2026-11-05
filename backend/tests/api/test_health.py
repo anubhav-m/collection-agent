@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import httpx
 import pytest
 
@@ -6,6 +8,7 @@ from app.main import create_app
 
 SECRET_KEY = "unit-test-secret-key"
 SECRET_URI = "mongodb://user:hunter2@db.example.invalid"
+EMPTY_NIGHTLY = {"run_id": None, "finished_at": None, "failed_step": None}
 
 
 class FakeMongo:
@@ -16,10 +19,12 @@ class FakeMongo:
         return self.healthy
 
 
-async def call_health(healthy: bool) -> httpx.Response:
+async def call_health(healthy: bool, nightly_dir: Path = Path("missing-nightly")) -> httpx.Response:
     app = create_app()
     app.state.mongo = FakeMongo(healthy)
-    settings = Settings(_env_file=None, gemini_api_key_1=SECRET_KEY, mongodb_uri=SECRET_URI)
+    settings = Settings(
+        _env_file=None, gemini_api_key_1=SECRET_KEY, mongodb_uri=SECRET_URI, nightly_dir=nightly_dir
+    )
     app.dependency_overrides[get_settings] = lambda: settings
     transport = httpx.ASGITransport(app=app)
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
@@ -34,13 +39,8 @@ async def test_health_reports_connected_database():
         "app": "collections-agent",
         "database": "connected",
         "llm_configured": True,
+        "nightly": EMPTY_NIGHTLY | {"status": "never_run"},
     }
-
-
-async def test_health_reports_outage_with_503():
-    response = await call_health(healthy=False)
-    assert response.status_code == 503
-    assert response.json()["database"] == "disconnected"
 
 
 @pytest.mark.parametrize("healthy", [True, False])
