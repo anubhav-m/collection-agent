@@ -272,4 +272,10 @@ An official run refuses to start if `backend/app` or the scenario, lender or pol
 - The `CLAUDE.md` quota note (500/day) disagrees with what the API reported (20/day). Not edited, because that file belongs to the user.
 - Retrying a daily-quota 429 four times (about 4 minutes) is wasted time. A later fix could read the quota ID and stop at once.
 
-**Commit:** `e2e8643` (harness), then a `fix(eval)` commit with the leak-check fix, this log, the defense notes and the attempt-1 evidence. Pushed to `origin/main`.
+**Key fallback fix (after attempt 1)**
+
+- Problem: once the client left a key it never went back. In attempt 1, key 2's 429 was not the daily limit (a probe right after showed key 2 still worked), but the client moved to key 3 for good and left key 2's remaining quota unused. It also spent about 4 minutes retrying after every key was out for the day.
+- Fix (`app/llm/key_pool.py`, `app/llm/quota.py`, `retry.py`, `gemini_client.py`): the quota ID in the 429 is read. A per-day 429 retires that key. A per-minute 429 rests the key for its retry delay (at most 60 s), and the pool goes back to the lowest-numbered key that is ready, so key 1 is used again first. When every key is out for the day, the call fails at once. Failure logs now name the quota. 7 new tests (`tests/llm/test_key_pool.py`, `test_gemini_client_quota.py`, `test_retry_rate_limit.py`). `pytest -q`: 221 passed (`docs/reports/session4_pytest.txt`).
+- Baseline restarted at commit `333e17c` (02:52 UTC): it used key 2's last 3 calls, passed `dispute-01-rule-phrase`, then every key returned the per-day 429 and the run stopped within a second (`docs/reports/session4_baseline_run.log`). Progress, 1 of 38: `reports/evaluation/baseline.progress.json`. Resume after the 08:00 UTC reset with `python -m app.evaluation.run --name baseline`. It resumes only on commit `333e17c`, so agent code must not change until the baseline finishes.
+
+**Commits:** `e2e8643` (harness), `5c99cb2` (leak-check fix + log), `333e17c` (key fallback fix), then a docs commit with this entry and the baseline progress. Pushed to `origin/main`.

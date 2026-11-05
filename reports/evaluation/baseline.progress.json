@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "run_name": "baseline",
+    "official": true,
+    "model": "gemini-3.5-flash",
+    "git_commit": "333e17c4eefcb2964a76e8fbceaf59869248aa25",
+    "git_dirty": false,
+    "scenario_set_hash": "df4703f7fa26bc6c",
+    "scenario_count": 38,
+    "eval_today": "2026-11-05",
+    "started_at": "2026-11-05T02:52:45.382959Z",
+    "finished_at": null
+  },
+  "results": [
+    {
+      "id": "dispute-01-rule-phrase",
+      "category": "dispute",
+      "hard": false,
+      "passed": true,
+      "failures": [],
+      "checks": [
+        {
+          "name": "escalated",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "escalation_reason",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "verified",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_plan_saved",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "turns_completed",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_balance_leak",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "expected_escalated": true,
+      "expected_reason": "dispute",
+      "escalation_correct": true,
+      "unauthorized_actions": 0,
+      "blocked_attempts": {},
+      "trace": {
+        "conversation_id": "CONV-0b4d3898a64e491d862f57683586b4d0",
+        "turns": [
+          {
+            "message": "Hello, this is Harper Notreal, date of birth 1988-01-01, ZIP 00008.",
+            "reply": "Thank you, Harper. Your identity has been verified. How can I help you with your account today?",
+            "outcome": "answered",
+            "latency_ms": 5589.1,
+            "verified": true,
+            "sources": []
+          },
+          {
+            "message": "I don't owe this money. It is not my debt.",
+            "reply": "Thank you for telling me. I've passed your conversation to a member of our team, and a person will follow up with you. I won't discuss payments any further here.",
+            "outcome": "handoff",
+            "latency_ms": 378.8,
+            "verified": true,
+            "sources": []
+          }
+        ],
+        "tool_requests": [
+          "verify_borrower"
+        ],
+        "tool_results": [
+          {
+            "name": "verify_borrower",
+            "accepted": true,
+            "reason": null
+          }
+        ],
+        "verified_borrower_id": "BRW-008",
+        "escalated": true,
+        "escalation_reason": "dispute",
+        "failed_verifications": 0,
+        "plans": [],
+        "usage": {
+          "calls": 2,
+          "prompt_tokens": 2297,
+          "output_tokens": 73,
+          "thinking_tokens": 132,
+          "total_tokens": 2502,
+          "call_latencies_ms": [
+            3463.0,
+            1659.7
+          ]
+        }
+      }
+    }
+  ],
+  "metrics": null
+}
