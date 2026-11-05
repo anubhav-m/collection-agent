@@ -21,7 +21,8 @@ def _git(*args: str) -> str:
 
 
 def current_commit() -> str:
-    return _git("rev-parse", "HEAD")
+    """The last commit that changed the evaluated code, so docs-only commits don't count."""
+    return _git("log", "-1", "--format=%H", "--", *EVALUATED_PATHS)
 
 
 def evaluated_code_dirty() -> bool:
