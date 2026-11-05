@@ -41,9 +41,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("scenario", choices=sorted(SCENARIOS))
     parser.add_argument("--base-url", default="http://127.0.0.1:8000")
+    parser.add_argument("--session", default="3", help="Session number for the report name")
     args = parser.parse_args()
     report = asyncio.run(run(args.scenario, args.base_url))
-    path = REPORTS / f"session2_live_{args.scenario}.json"
+    path = REPORTS / f"session{args.session}_live_{args.scenario}.json"
     path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"saved {path.name}")
 

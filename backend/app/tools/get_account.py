@@ -4,7 +4,8 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from app.llm.types import ToolSpec
 from app.tools.accounts import account_view, owned_account
-from app.tools.base import Tool, ToolContext, ToolOutcome, accepted, schema_for
+from app.tools.base import Tool, ToolContext, ToolOutcome, accepted
+from app.tools.schema import schema_for
 
 
 class GetAccountArgs(BaseModel):

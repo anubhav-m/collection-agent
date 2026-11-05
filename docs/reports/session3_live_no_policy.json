@@ -1,0 +1,80 @@
+{
+  "scenario": "no_policy",
+  "turns": [
+    {
+      "user": "Do you offer mortgage refinancing, and what rate would I get?",
+      "response": {
+        "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b",
+        "reply": "I don't have information about mortgage refinancing or rates. Would you like me to connect you with a person who can help you with this?",
+        "outcome": "answered",
+        "status": "active",
+        "verified": false,
+        "escalation_reason": null,
+        "sources": []
+      },
+      "latency_ms": 4598
+    }
+  ],
+  "stored_conversation": {
+    "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b",
+    "lender_id": "LND-001",
+    "status": "active",
+    "verified": false,
+    "failed_verifications": 0,
+    "escalation_reason": null,
+    "created_at": "2026-11-05T00:47:03.441000Z",
+    "events": [
+      {
+        "kind": "user",
+        "text": "Do you offer mortgage refinancing, and what rate would I get?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-05T00:47:03.536000Z"
+      },
+      {
+        "kind": "tool_call",
+        "text": null,
+        "tool_calls": [
+          {
+            "name": "search_policy",
+            "args": {
+              "query": "mortgage refinancing"
+            }
+          }
+        ],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-05T00:47:05.512000Z"
+      },
+      {
+        "kind": "tool_result",
+        "text": null,
+        "tool_calls": [],
+        "tool_name": "search_policy",
+        "accepted": true,
+        "reason": null,
+        "result": {
+          "ok": true,
+          "found": false,
+          "message": "No policy document covers this. Tell the borrower you don't have that information and offer to pass them to a person. Do not guess."
+        },
+        "created_at": "2026-11-05T00:47:05.575000Z"
+      },
+      {
+        "kind": "assistant",
+        "text": "I don't have information about mortgage refinancing or rates. Would you like me to connect you with a person who can help you with this?",
+        "tool_calls": [],
+        "tool_name": null,
+        "accepted": null,
+        "reason": null,
+        "result": null,
+        "created_at": "2026-11-05T00:47:07.952000Z"
+      }
+    ]
+  }
+}

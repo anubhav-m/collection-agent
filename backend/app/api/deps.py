@@ -14,7 +14,7 @@ def get_repositories(request: Request) -> Repositories:
 
 def get_chat_service(request: Request) -> ChatService:
     state = request.app.state
-    return ChatService(state.llm, state.repos, state.policies)
+    return ChatService(state.llm, state.repos, state.policies, retriever=state.retriever)
 
 
 RepositoriesDep = Annotated[Repositories, Depends(get_repositories)]

@@ -7,7 +7,8 @@ from pydantic import BaseModel, ConfigDict, Field
 from app.agent.handoff import escalate_conversation
 from app.llm.types import ToolSpec
 from app.policy.models import EscalationReason
-from app.tools.base import Tool, ToolContext, ToolOutcome, accepted, schema_for
+from app.tools.base import Tool, ToolContext, ToolOutcome, accepted
+from app.tools.schema import schema_for
 
 
 class ModelReason(StrEnum):

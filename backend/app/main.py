@@ -1,5 +1,6 @@
 """FastAPI application factory. Run with `uvicorn app.main:app` from backend/."""
 
+import asyncio
 import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -17,6 +18,7 @@ from app.db.mongo import MongoDatabase
 from app.db.repositories import mongo_repositories
 from app.llm.factory import build_llm_or_none
 from app.policy.loader import PolicyStore
+from app.rag.startup import build_retriever
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +36,8 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.repos = mongo_repositories(mongo.db)
     app.state.policies = PolicyStore.from_directory(settings.lender_policy_dir)
     app.state.llm = build_llm_or_none(settings)
+    # Loading the ONNX model and checking the store is blocking work; run it off the loop.
+    app.state.retriever = await asyncio.to_thread(build_retriever, settings, app.state.policies)
     if await mongo.ping():
         await ensure_indexes(mongo.db)
         logger.info("startup complete", extra={"database": "connected"})

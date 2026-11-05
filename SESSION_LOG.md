@@ -8,7 +8,7 @@ Statuses: `PENDING`, `IN PROGRESS`, `BLOCKED`, `DONE`.
 |---|---|---|
 | 1 | Foundation | DONE |
 | 2 | Agent, rules, and handoff | DONE |
-| 3 | RAG | PENDING |
+| 3 | RAG | IN PROGRESS |
 | 4 | Evaluation and fixes | PENDING |
 | 5 | Entity extraction | PENDING |
 | 6 | Reports and automation | PENDING |

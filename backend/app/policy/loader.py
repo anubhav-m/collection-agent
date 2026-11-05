@@ -28,6 +28,9 @@ class PolicyStore:
             raise ConfigurationError("No lender policy files were found.")
         return cls(policies)
 
+    def lender_ids(self) -> set[str]:
+        return set(self._policies)
+
     def get(self, lender_id: str) -> LenderPolicy:
         policy = self._policies.get(lender_id)
         if policy is None:

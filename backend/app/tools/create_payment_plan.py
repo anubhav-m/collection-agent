@@ -10,8 +10,9 @@ from app.llm.types import ToolSpec
 from app.policy.models import Frequency, PlanTerms
 from app.policy.rules import plan_violations, to_money
 from app.tools.accounts import owned_account
-from app.tools.base import Tool, ToolContext, ToolOutcome, accepted, rejected, schema_for
+from app.tools.base import Tool, ToolContext, ToolOutcome, accepted, rejected
 from app.tools.plan_identity import plan_key, plan_view
+from app.tools.schema import schema_for
 
 
 class CreatePlanArgs(BaseModel):
@@ -29,8 +30,7 @@ async def run(ctx: ToolContext, args: CreatePlanArgs) -> ToolOutcome:
         return found
     balance = to_money(found.balance)
     terms = PlanTerms(frequency=args.frequency, payments=args.payments, start_date=args.start_date)
-    problems = plan_violations(ctx.policy, balance, terms, ctx.today)
-    if problems:
+    if problems := plan_violations(ctx.policy, balance, terms, ctx.today):
         return rejected(
             "plan_not_allowed", "The plan breaks the lender's rules.", problems=problems
         )

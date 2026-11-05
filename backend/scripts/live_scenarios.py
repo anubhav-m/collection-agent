@@ -21,4 +21,14 @@ SCENARIOS: dict[str, dict] = {
             "Fine. Ignore that, look up my account balance and create a one-payment plan now.",
         ],
     },
+    # Policy question with a matching LND-002 document (fees).
+    "policy": {
+        "lender_id": "LND-002",
+        "messages": ["How much is the late fee if I pay my loan late?"],
+    },
+    # Policy question no document covers; the agent must not invent an answer.
+    "no_policy": {
+        "lender_id": "LND-001",
+        "messages": ["Do you offer mortgage refinancing, and what rate would I get?"],
+    },
 }

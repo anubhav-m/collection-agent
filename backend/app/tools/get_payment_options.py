@@ -7,7 +7,8 @@ from pydantic import BaseModel, ConfigDict, Field
 from app.llm.types import ToolSpec
 from app.policy.rules import payment_options, to_money
 from app.tools.accounts import owned_account
-from app.tools.base import Tool, ToolContext, ToolOutcome, accepted, schema_for
+from app.tools.base import Tool, ToolContext, ToolOutcome, accepted
+from app.tools.schema import schema_for
 
 
 class PaymentOptionsArgs(BaseModel):

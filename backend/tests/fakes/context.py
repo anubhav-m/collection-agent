@@ -8,6 +8,7 @@ from app.core.settings import BACKEND_ROOT
 from app.db.interfaces import Repositories
 from app.llm.fake import FakeLLM
 from app.policy.loader import PolicyStore
+from app.rag.retriever import PolicyRetriever
 from app.tools.base import ToolContext
 from tests.fakes.memory_conversations import MemoryConversations, MemoryEvents
 from tests.fakes.memory_records import MemoryBorrowers, MemoryEscalations, MemoryPlans
@@ -35,7 +36,9 @@ async def make_ctx(
     return ToolContext(state=state, policy=POLICIES.get(lender_id), repos=repos, today=TODAY)
 
 
-def make_service(llm: FakeLLM | None = None) -> tuple[ChatService, Repositories]:
+def make_service(
+    llm: FakeLLM | None = None, retriever: PolicyRetriever | None = None
+) -> tuple[ChatService, Repositories]:
     repos = memory_repos()
-    service = ChatService(llm or FakeLLM(), repos, POLICIES, today=lambda: TODAY)
+    service = ChatService(llm or FakeLLM(), repos, POLICIES, lambda: TODAY, retriever)
     return service, repos

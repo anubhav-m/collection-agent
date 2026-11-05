@@ -11,6 +11,8 @@ from app.agent.state import ConversationState
 from app.db.interfaces import Repositories
 from app.llm.types import ToolSpec
 from app.policy.models import LenderPolicy
+from app.rag.retriever import PolicyRetriever
+from app.rag.types import PolicySource
 
 
 @dataclass
@@ -19,6 +21,7 @@ class ToolContext:
     policy: LenderPolicy
     repos: Repositories
     today: date
+    retriever: PolicyRetriever | None = None
 
 
 class ToolOutcome(BaseModel):
@@ -28,6 +31,8 @@ class ToolOutcome(BaseModel):
     message: str | None = None
     # True when this call escalated the conversation, so the turn ends in a handoff.
     escalated: bool = False
+    # Documents this call retrieved; returned to the API client, not part of for_model().
+    sources: list[PolicySource] = []
 
     def for_model(self) -> dict[str, Any]:
         if self.ok:
@@ -41,23 +46,6 @@ def accepted(**data: Any) -> ToolOutcome:
 
 def rejected(error: str, message: str, **data: Any) -> ToolOutcome:
     return ToolOutcome(ok=False, error=error, message=message, data=data)
-
-
-def schema_for(model: type[BaseModel]) -> dict[str, Any]:
-    """JSON schema with $refs inlined and titles dropped, to keep the prompt small."""
-    schema = model.model_json_schema()
-    defs = schema.pop("$defs", {})
-
-    def clean(node: Any) -> Any:
-        if isinstance(node, list):
-            return [clean(item) for item in node]
-        if not isinstance(node, dict):
-            return node
-        if "$ref" in node:
-            return clean(defs[node["$ref"].rsplit("/", 1)[-1]])
-        return {k: clean(v) for k, v in node.items() if k != "title"}
-
-    return clean(schema)
 
 
 @dataclass(frozen=True)

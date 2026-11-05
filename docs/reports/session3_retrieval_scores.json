@@ -1,0 +1,145 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "threshold": 0.4,
+  "lowest_relevant_score": 0.488,
+  "highest_irrelevant_score": 0.294,
+  "correct": 15,
+  "total": 15,
+  "rows": [
+    {
+      "lender": "LND-002",
+      "query": "How much is the late fee?",
+      "expected_doc": "POL-002-FEES",
+      "top_score": 0.83,
+      "found": true,
+      "top_doc": "POL-002-FEES",
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "Is there a charge if my check bounces?",
+      "expected_doc": "POL-002-FEES",
+      "top_score": 0.489,
+      "found": true,
+      "top_doc": "POL-002-FEES",
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "What payment methods do you accept?",
+      "expected_doc": "POL-SHARED-PAYMENT-METHODS",
+      "top_score": 0.667,
+      "found": true,
+      "top_doc": "POL-SHARED-PAYMENT-METHODS",
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "Can I pay with a credit card?",
+      "expected_doc": "POL-SHARED-PAYMENT-METHODS",
+      "top_score": 0.505,
+      "found": true,
+      "top_doc": "POL-SHARED-PAYMENT-METHODS",
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "How do I dispute this debt?",
+      "expected_doc": "POL-SHARED-DISPUTES",
+      "top_score": 0.636,
+      "found": true,
+      "top_doc": "POL-SHARED-DISPUTES",
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "What hardship programs exist?",
+      "expected_doc": "POL-001-HARDSHIP",
+      "top_score": 0.637,
+      "found": true,
+      "top_doc": "POL-001-HARDSHIP",
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "What hours can you contact me?",
+      "expected_doc": "POL-SHARED-CONTACT",
+      "top_score": 0.488,
+      "found": true,
+      "top_doc": "POL-SHARED-CONTACT",
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "Do you offer mortgage refinancing?",
+      "expected_doc": null,
+      "top_score": 0.294,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "Do you offer mortgage refinancing?",
+      "expected_doc": null,
+      "top_score": 0.294,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "What is the weather tomorrow?",
+      "expected_doc": null,
+      "top_score": 0.156,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "What is the weather tomorrow?",
+      "expected_doc": null,
+      "top_score": 0.156,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "Can I get a credit limit increase?",
+      "expected_doc": null,
+      "top_score": 0.217,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "Can I get a credit limit increase?",
+      "expected_doc": null,
+      "top_score": 0.217,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-001",
+      "query": "What are your branch opening hours?",
+      "expected_doc": null,
+      "top_score": 0.263,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    },
+    {
+      "lender": "LND-002",
+      "query": "What are your branch opening hours?",
+      "expected_doc": null,
+      "top_score": 0.263,
+      "found": false,
+      "top_doc": null,
+      "correct": true
+    }
+  ]
+}

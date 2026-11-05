@@ -30,6 +30,14 @@ class Settings(BaseSettings):
 
     lender_policy_dir: Path = BACKEND_ROOT / "data" / "lenders"
 
+    policy_docs_dir: Path = BACKEND_ROOT / "data" / "policies"
+    vector_store_dir: Path = BACKEND_ROOT / "data" / "vector_store"
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    embedding_cache_dir: Path = BACKEND_ROOT / ".fastembed_cache"
+    # Calibrated on this corpus; see SESSION_LOG.md Session 3 for the measured scores.
+    rag_score_threshold: float = Field(default=0.40, ge=0, le=1)
+    rag_top_k: int = Field(default=3, ge=1, le=10)
+
     # Required, no local fallback: a missing MONGODB_URI must fail loudly.
     mongodb_uri: SecretStr
     mongodb_db: str = "collections_agent"

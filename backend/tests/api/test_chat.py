@@ -7,9 +7,10 @@ from tests.fakes.context import POLICIES, memory_repos
 IDENTITY = {"full_name": "Jordan Samplebury", "date_of_birth": "1975-01-01", "zip_code": "00002"}
 
 
-def client_for(llm: FakeLLM) -> httpx.AsyncClient:
+def client_for(llm: FakeLLM, retriever=None) -> httpx.AsyncClient:
     app = create_app()
     app.state.repos, app.state.policies, app.state.llm = memory_repos(), POLICIES, llm
+    app.state.retriever = retriever
     return httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test")
 
 

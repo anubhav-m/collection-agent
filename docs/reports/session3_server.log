@@ -1,0 +1,17 @@
+INFO:     Started server process [1236]
+INFO:     Waiting for application startup.
+{"ts": "2026-11-05T00:46:43.177286+00:00", "level": "INFO", "logger": "app.rag.startup", "msg": "policy search ready", "request_id": "-", "conversation_id": "-", "documents": 5, "chunks": 15, "added": 0, "removed": 0, "unchanged": 15, "written": false}
+{"ts": "2026-11-05T00:46:49.908164+00:00", "level": "INFO", "logger": "app.main", "msg": "startup complete", "request_id": "-", "conversation_id": "-", "database": "connected"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54510 - "GET /health HTTP/1.1" 200 OK
+{"ts": "2026-11-05T00:46:59.851008+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "5c4ac9b43f6b48238e7d585b18d6799d", "conversation_id": "CONV-f6e12a81680a44b287ac2ab7339282db", "model": "gemini-3.5-flash", "key_slot": 1, "prompt_tokens": 1049, "output_tokens": 18, "thinking_tokens": 116, "total_tokens": 1183, "latency_ms": 2258.9, "tool_calls": 1}
+{"ts": "2026-11-05T00:46:59.986968+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "5c4ac9b43f6b48238e7d585b18d6799d", "conversation_id": "CONV-f6e12a81680a44b287ac2ab7339282db", "tool": "search_policy", "accepted": true, "error": null}
+{"ts": "2026-11-05T00:47:02.782370+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "5c4ac9b43f6b48238e7d585b18d6799d", "conversation_id": "CONV-f6e12a81680a44b287ac2ab7339282db", "model": "gemini-3.5-flash", "key_slot": 1, "prompt_tokens": 1466, "output_tokens": 64, "thinking_tokens": 118, "total_tokens": 1648, "latency_ms": 2794.9, "tool_calls": 0}
+INFO:     127.0.0.1:54541 - "POST /chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54541 - "GET /conversations/CONV-f6e12a81680a44b287ac2ab7339282db HTTP/1.1" 200 OK
+{"ts": "2026-11-05T00:47:05.511943+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "e98296b9bf034f1fa937ad77273d88ed", "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b", "model": "gemini-3.5-flash", "key_slot": 1, "prompt_tokens": 1049, "output_tokens": 18, "thinking_tokens": 151, "total_tokens": 1218, "latency_ms": 1859.8, "tool_calls": 1}
+{"ts": "2026-11-05T00:47:05.639651+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "e98296b9bf034f1fa937ad77273d88ed", "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b", "tool": "search_policy", "accepted": true, "error": null}
+{"ts": "2026-11-05T00:47:07.952296+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "e98296b9bf034f1fa937ad77273d88ed", "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b", "model": "gemini-3.5-flash", "key_slot": 1, "prompt_tokens": 1268, "output_tokens": 29, "thinking_tokens": 73, "total_tokens": 1370, "latency_ms": 2312.3, "tool_calls": 0}
+INFO:     127.0.0.1:54564 - "POST /chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54564 - "GET /conversations/CONV-bdd99767be4e486497e624de9f9b212b HTTP/1.1" 200 OK

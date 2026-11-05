@@ -6,6 +6,7 @@ from app.tools import (
     escalate_to_human,
     get_account,
     get_payment_options,
+    search_policy,
     verify_borrower,
 )
 from app.tools.base import Tool
@@ -18,6 +19,7 @@ TOOLS: dict[str, Tool] = {
         get_payment_options,
         create_payment_plan,
         escalate_to_human,
+        search_policy,
     )
 }
 
