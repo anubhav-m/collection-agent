@@ -40,3 +40,12 @@ def test_from_response_handles_empty_candidates():
 
     text, calls, usage = from_response(types.GenerateContentResponse())
     assert (text, calls, usage.total_tokens) == ("", [], 0)
+
+
+def test_to_config_requests_json_only_when_a_schema_is_given():
+    schema = {"type": "object", "properties": {"ok": {"type": "boolean"}}}
+    config = to_config(LLMRequest(messages=[], response_schema=schema))
+    assert config.response_mime_type == "application/json"
+    assert config.response_json_schema == schema
+    plain = to_config(LLMRequest(messages=[]))
+    assert plain.response_mime_type is None and plain.response_json_schema is None

@@ -46,6 +46,8 @@ class LLMRequest(BaseModel):
     system: str | None = None
     tools: list[ToolSpec] = Field(default_factory=list)
     temperature: float | None = None
+    # A JSON schema asks the model for JSON output only; callers still validate the reply.
+    response_schema: dict[str, Any] | None = None
 
 
 class Usage(BaseModel):

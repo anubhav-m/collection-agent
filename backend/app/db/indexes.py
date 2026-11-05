@@ -28,6 +28,9 @@ INDEXES: dict[str, list[IndexModel]] = {
         ),
     ],
     "escalations": [IndexModel([("conversation_id", ASCENDING)], unique=True)],
+    "extractions": [
+        IndexModel([("conversation_id", ASCENDING), ("extractor", ASCENDING)], unique=True)
+    ],
 }
 
 

@@ -20,10 +20,10 @@ def _git(*args: str) -> str:
     return done.stdout.strip()
 
 
-def current_commit() -> str:
+def current_commit(paths: list[str] = EVALUATED_PATHS) -> str:
     """The last commit that changed the evaluated code, so docs-only commits don't count."""
-    return _git("log", "-1", "--format=%H", "--", *EVALUATED_PATHS)
+    return _git("log", "-1", "--format=%H", "--", *paths)
 
 
-def evaluated_code_dirty() -> bool:
-    return bool(_git("status", "--porcelain", "--", *EVALUATED_PATHS))
+def evaluated_code_dirty(paths: list[str] = EVALUATED_PATHS) -> bool:
+    return bool(_git("status", "--porcelain", "--", *paths))

@@ -39,6 +39,8 @@ def to_config(request: LLMRequest) -> types.GenerateContentConfig:
         system_instruction=request.system,
         tools=tools,
         temperature=request.temperature,
+        response_mime_type="application/json" if request.response_schema else None,
+        response_json_schema=request.response_schema,
         automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
     )
 
