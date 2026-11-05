@@ -1,0 +1,13 @@
+[
+  {"id": "ext-34", "promise_made": true, "amount": "120.00", "date": "2026-11-09", "case": "counter-offer replaces agent's $200 Friday"},
+  {"id": "ext-35", "promise_made": false, "amount": null, "date": null, "case": "third party, not the borrower"},
+  {"id": "ext-36", "promise_made": true, "amount": "90.00", "date": "2026-11-07", "case": "\"Saturday the 7th\""},
+  {"id": "ext-37", "promise_made": false, "amount": null, "date": null, "case": "\"maybe\", \"I don't know yet\""},
+  {"id": "ext-38", "promise_made": true, "amount": "60.00", "date": "2026-12-04", "case": "\"next Friday\" crossing a month"},
+  {"id": "ext-39", "promise_made": true, "amount": "125.00", "date": "2026-11-18", "case": "\"Deal.\" accepts agent proposal"},
+  {"id": "ext-40", "promise_made": true, "amount": "200.00", "date": null, "case": "\"payday\" with no known date"},
+  {"id": "ext-41", "promise_made": true, "amount": "260.00", "date": "2026-12-05", "case": "\"the 5th\" rolls into next month"},
+  {"id": "ext-42", "promise_made": true, "amount": "150.00", "date": "2026-11-06", "case": "amount raised after agent negotiation"},
+  {"id": "ext-43", "promise_made": false, "amount": null, "date": null, "case": "verification numbers and dates only"},
+  {"id": "ext-44", "promise_made": true, "amount": "85.00", "date": "2026-11-06", "case": "\"tonight\" means today"}
+]

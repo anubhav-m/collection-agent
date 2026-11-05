@@ -1,0 +1,104 @@
+[
+  {
+    "id": "ext-01",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Thanks for confirming your identity. Your past-due amount is $412.50. How would you like to handle it?"},
+      {"speaker": "borrower", "text": "I can pay $150 on November 10."},
+      {"speaker": "agent", "text": "Thank you. I've noted a payment of $150.00 on November 10."}
+    ]
+  },
+  {
+    "id": "ext-02",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Your account is 22 days past due with $380.00 owed. Can we set up a payment?"},
+      {"speaker": "borrower", "text": "Money's tight but I get paid next Friday. I'll send two hundred bucks then."},
+      {"speaker": "agent", "text": "Understood, two hundred dollars next Friday. Thank you."}
+    ]
+  },
+  {
+    "id": "ext-03",
+    "reference_date": "2026-11-05",
+    "turns": [
+      {"speaker": "agent", "text": "You're verified. The past-due amount on your account is $250.00."},
+      {"speaker": "borrower", "text": "I can't pay anything right now, I lost my job last month."},
+      {"speaker": "agent", "text": "I'm sorry to hear that. Would you like to hear about hardship options?"},
+      {"speaker": "borrower", "text": "Maybe later. Not today."}
+    ]
+  },
+  {
+    "id": "ext-04",
+    "reference_date": "2026-11-02",
+    "turns": [
+      {"speaker": "agent", "text": "How much could you pay toward the $700.00 past due?"},
+      {"speaker": "borrower", "text": "I can do $300 on the 15th."},
+      {"speaker": "agent", "text": "Great, $300 on November 15."},
+      {"speaker": "borrower", "text": "Wait, actually make it $250. I forgot my car insurance is due."},
+      {"speaker": "agent", "text": "No problem, $250 on November 15 then."}
+    ]
+  },
+  {
+    "id": "ext-05",
+    "reference_date": "2026-11-06",
+    "turns": [
+      {"speaker": "agent", "text": "Is there an amount you could commit to this week?"},
+      {"speaker": "borrower", "text": "I'll pay a hundred and fifty dollars tomorrow morning."},
+      {"speaker": "agent", "text": "Thank you, I've recorded that."}
+    ]
+  },
+  {
+    "id": "ext-06",
+    "reference_date": "2026-11-03",
+    "turns": [
+      {"speaker": "borrower", "text": "I already paid $75 last Friday. Check your records."},
+      {"speaker": "agent", "text": "I don't see it yet. Payments can take up to 3 business days to post."},
+      {"speaker": "borrower", "text": "OK, I'll wait and call back."}
+    ]
+  },
+  {
+    "id": "ext-07",
+    "reference_date": "2026-11-09",
+    "turns": [
+      {"speaker": "agent", "text": "Your balance is $1,200.00. Would you like to discuss a plan?"},
+      {"speaker": "borrower", "text": "No plan needed. I'll pay the full $1,200 this Friday."},
+      {"speaker": "agent", "text": "Thank you, the full amount this Friday."}
+    ]
+  },
+  {
+    "id": "ext-08",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Could you make a payment toward the $900.00 past due?"},
+      {"speaker": "borrower", "text": "If my tax refund comes in, I could pay 500 next week."},
+      {"speaker": "agent", "text": "Okay. Please reach out once you know more."}
+    ]
+  },
+  {
+    "id": "ext-09",
+    "reference_date": "2026-11-10",
+    "turns": [
+      {"speaker": "agent", "text": "Could you pay $95 by Friday, November 13?"},
+      {"speaker": "borrower", "text": "Yes, that works for me."},
+      {"speaker": "agent", "text": "Thank you. I've noted $95.00 on November 13."}
+    ]
+  },
+  {
+    "id": "ext-10",
+    "reference_date": "2026-11-12",
+    "turns": [
+      {"speaker": "agent", "text": "Your past-due amount is $180.00."},
+      {"speaker": "borrower", "text": "I'll pay $60 at the end of the month. That's all I can manage."},
+      {"speaker": "agent", "text": "Understood, $60 at the end of the month."}
+    ]
+  },
+  {
+    "id": "ext-11",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "When could you make a payment?"},
+      {"speaker": "borrower", "text": "I'll pay $100 sometime next week, not sure which day yet."},
+      {"speaker": "agent", "text": "Thanks. Let us know the day when you can."}
+    ]
+  }
+]

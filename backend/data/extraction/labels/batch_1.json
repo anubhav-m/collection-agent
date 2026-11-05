@@ -1,0 +1,13 @@
+[
+  {"id": "ext-01", "promise_made": true, "amount": "150.00", "date": "2026-11-10", "case": "explicit amount and month-day date"},
+  {"id": "ext-02", "promise_made": true, "amount": "200.00", "date": "2026-11-13", "case": "\"next Friday\" and \"two hundred bucks\""},
+  {"id": "ext-03", "promise_made": false, "amount": null, "date": null, "case": "no promise, job loss"},
+  {"id": "ext-04", "promise_made": true, "amount": "250.00", "date": "2026-11-15", "case": "changed amount ($300 then $250), \"the 15th\""},
+  {"id": "ext-05", "promise_made": true, "amount": "150.00", "date": "2026-11-07", "case": "\"tomorrow\", \"a hundred and fifty dollars\""},
+  {"id": "ext-06", "promise_made": false, "amount": null, "date": null, "case": "past payment only, not a promise"},
+  {"id": "ext-07", "promise_made": true, "amount": "1200.00", "date": "2026-11-13", "case": "\"this Friday\", \"$1,200\""},
+  {"id": "ext-08", "promise_made": false, "amount": null, "date": null, "case": "conditional (\"if my tax refund comes in\")"},
+  {"id": "ext-09", "promise_made": true, "amount": "95.00", "date": "2026-11-13", "case": "borrower accepts agent proposal (\"Yes, that works\")"},
+  {"id": "ext-10", "promise_made": true, "amount": "60.00", "date": "2026-11-30", "case": "\"end of the month\""},
+  {"id": "ext-11", "promise_made": true, "amount": "100.00", "date": null, "case": "vague date (\"sometime next week\")"}
+]

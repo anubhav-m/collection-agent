@@ -1,0 +1,13 @@
+[
+  {"id": "ext-23", "promise_made": true, "amount": "100.00", "date": "2026-11-06", "case": "first of two payments, \"the rest\" has no amount"},
+  {"id": "ext-24", "promise_made": true, "amount": "220.00", "date": "2026-11-11", "case": "changed date (Tuesday then Wednesday)"},
+  {"id": "ext-25", "promise_made": false, "amount": null, "date": null, "case": "fee question, agent fee figure only"},
+  {"id": "ext-26", "promise_made": true, "amount": "325.00", "date": "2026-11-20", "case": "amount and date in words"},
+  {"id": "ext-27", "promise_made": false, "amount": null, "date": null, "case": "negated earlier promise"},
+  {"id": "ext-28", "promise_made": true, "amount": "140.00", "date": "2026-11-16", "case": "\"next Monday\" from a Monday"},
+  {"id": "ext-29", "promise_made": true, "amount": null, "date": "2026-11-06", "case": "promise with no amount"},
+  {"id": "ext-30", "promise_made": true, "amount": "410.00", "date": "2026-12-03", "case": "\"Dec 3\""},
+  {"id": "ext-31", "promise_made": true, "amount": "150.00", "date": "2026-11-25", "case": "income figure ($900) is a distractor"},
+  {"id": "ext-32", "promise_made": false, "amount": null, "date": null, "case": "hardship, \"can't commit\""},
+  {"id": "ext-33", "promise_made": true, "amount": "175.00", "date": "2026-11-27", "case": "\"a week from today\""}
+]

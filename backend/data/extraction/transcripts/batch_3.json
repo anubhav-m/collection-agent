@@ -1,0 +1,102 @@
+[
+  {
+    "id": "ext-23",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Your past-due amount is $350.00."},
+      {"speaker": "borrower", "text": "I'll pay $100 this Friday and the rest next month."},
+      {"speaker": "agent", "text": "Thank you, $100 this Friday to start."}
+    ]
+  },
+  {
+    "id": "ext-24",
+    "reference_date": "2026-11-05",
+    "turns": [
+      {"speaker": "borrower", "text": "I'll pay $220 on Tuesday."},
+      {"speaker": "agent", "text": "Thank you, $220 on Tuesday."},
+      {"speaker": "borrower", "text": "Hmm, no, make it Wednesday. My paycheck lands that morning."},
+      {"speaker": "agent", "text": "No problem, $220 on Wednesday."}
+    ]
+  },
+  {
+    "id": "ext-25",
+    "reference_date": "2026-11-05",
+    "turns": [
+      {"speaker": "borrower", "text": "What's your late fee? I'm just asking, I'm not paying today."},
+      {"speaker": "agent", "text": "The late fee is $25.00 per missed payment."},
+      {"speaker": "borrower", "text": "Okay. Thanks."}
+    ]
+  },
+  {
+    "id": "ext-26",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "What amount could you commit to?"},
+      {"speaker": "borrower", "text": "Three hundred and twenty-five dollars on November twentieth."},
+      {"speaker": "agent", "text": "Thank you, that's recorded."}
+    ]
+  },
+  {
+    "id": "ext-27",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "borrower", "text": "I won't be able to pay the $200 on Friday like I said before."},
+      {"speaker": "agent", "text": "Thanks for letting us know. Is there another date that works?"},
+      {"speaker": "borrower", "text": "Not right now, sorry."}
+    ]
+  },
+  {
+    "id": "ext-28",
+    "reference_date": "2026-11-09",
+    "turns": [
+      {"speaker": "agent", "text": "Can we schedule a payment toward the $420.00 past due?"},
+      {"speaker": "borrower", "text": "I'll pay 140 next Monday."},
+      {"speaker": "agent", "text": "Thank you, $140 next Monday."}
+    ]
+  },
+  {
+    "id": "ext-29",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "How much could you pay this week?"},
+      {"speaker": "borrower", "text": "I'm not sure of the amount, but I'll pay what I can on Friday."},
+      {"speaker": "agent", "text": "Thank you, we'll look for your payment Friday."}
+    ]
+  },
+  {
+    "id": "ext-30",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Your account shows $410.00 past due."},
+      {"speaker": "borrower", "text": "I'm sending $410 on Dec 3."},
+      {"speaker": "agent", "text": "Thank you, $410 on December 3."}
+    ]
+  },
+  {
+    "id": "ext-31",
+    "reference_date": "2026-11-11",
+    "turns": [
+      {"speaker": "agent", "text": "What could you afford?"},
+      {"speaker": "borrower", "text": "I make $900 every two weeks. I'll pay $150 on the 25th."},
+      {"speaker": "agent", "text": "Thank you, $150 on November 25."}
+    ]
+  },
+  {
+    "id": "ext-32",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Your past-due amount is $275.00. Can you make a payment?"},
+      {"speaker": "borrower", "text": "My hours got cut. I need a hardship plan, I can't commit to anything."},
+      {"speaker": "agent", "text": "I'll connect you with our hardship team."}
+    ]
+  },
+  {
+    "id": "ext-33",
+    "reference_date": "2026-11-20",
+    "turns": [
+      {"speaker": "agent", "text": "When could you make your next payment?"},
+      {"speaker": "borrower", "text": "I'll pay 175 a week from today."},
+      {"speaker": "agent", "text": "Thank you, $175 one week from today."}
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {"id": "ext-12", "promise_made": false, "amount": null, "date": null, "case": "stop-contact refusal"},
+  {"id": "ext-13", "promise_made": true, "amount": "180.00", "date": "2026-11-20", "case": "bare number, \"11/20\""},
+  {"id": "ext-14", "promise_made": true, "amount": "250.00", "date": "2026-11-11", "case": "\"two fifty\", \"in two weeks\""},
+  {"id": "ext-15", "promise_made": false, "amount": null, "date": null, "case": "promise retracted later"},
+  {"id": "ext-16", "promise_made": false, "amount": null, "date": null, "case": "dispute, agent figure only"},
+  {"id": "ext-17", "promise_made": true, "amount": "45.50", "date": "2026-11-09", "case": "cents, \"Monday\" from a Saturday"},
+  {"id": "ext-18", "promise_made": true, "amount": "80.00", "date": "2026-11-20", "case": "agent's $120 minimum is a distractor"},
+  {"id": "ext-19", "promise_made": true, "amount": "1500.00", "date": "2026-12-01", "case": "\"1.5k\", \"December 1st\""},
+  {"id": "ext-20", "promise_made": false, "amount": null, "date": null, "case": "\"I'll try\", no commitment"},
+  {"id": "ext-21", "promise_made": true, "amount": "50.00", "date": "2026-11-04", "case": "\"fifty bucks today\""},
+  {"id": "ext-22", "promise_made": true, "amount": "300.00", "date": "2026-12-01", "case": "\"the first\" rolls into next month"}
+]

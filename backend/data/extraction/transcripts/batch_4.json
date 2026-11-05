@@ -1,0 +1,103 @@
+[
+  {
+    "id": "ext-34",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Can you pay $200 by Friday?"},
+      {"speaker": "borrower", "text": "Not 200. I can do 120 on Monday."},
+      {"speaker": "agent", "text": "Okay, $120 on Monday."}
+    ]
+  },
+  {
+    "id": "ext-35",
+    "reference_date": "2026-11-05",
+    "turns": [
+      {"speaker": "agent", "text": "Hello, may I speak with the account holder?"},
+      {"speaker": "borrower", "text": "This is his brother. He's not here and I'm not paying his bills."},
+      {"speaker": "agent", "text": "Understood. I can't discuss the account with you."}
+    ]
+  },
+  {
+    "id": "ext-36",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Would you like to make a payment?"},
+      {"speaker": "borrower", "text": "I'll make a payment of $90.00 on Saturday the 7th."},
+      {"speaker": "agent", "text": "Thank you, $90.00 on November 7."}
+    ]
+  },
+  {
+    "id": "ext-37",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Could you pay something this week?"},
+      {"speaker": "borrower", "text": "Maybe I can pay $50 Friday, I don't know yet."},
+      {"speaker": "agent", "text": "Okay, let us know when you're sure."}
+    ]
+  },
+  {
+    "id": "ext-38",
+    "reference_date": "2026-11-24",
+    "turns": [
+      {"speaker": "agent", "text": "Your past-due amount is $120.00."},
+      {"speaker": "borrower", "text": "I'll pay sixty dollars next Friday."},
+      {"speaker": "agent", "text": "Thank you, sixty dollars next Friday."}
+    ]
+  },
+  {
+    "id": "ext-39",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "Would $125 on November 18 work for you?"},
+      {"speaker": "borrower", "text": "Deal."},
+      {"speaker": "agent", "text": "Thank you, $125 on November 18."}
+    ]
+  },
+  {
+    "id": "ext-40",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "agent", "text": "When can you make a payment?"},
+      {"speaker": "borrower", "text": "I'll pay $200 on payday."},
+      {"speaker": "agent", "text": "When is your payday?"},
+      {"speaker": "borrower", "text": "It moves around, depends on the shift schedule."}
+    ]
+  },
+  {
+    "id": "ext-41",
+    "reference_date": "2026-11-30",
+    "turns": [
+      {"speaker": "agent", "text": "Could you make a payment early next month?"},
+      {"speaker": "borrower", "text": "I can pay 260 on the 5th."},
+      {"speaker": "agent", "text": "Thank you, $260 on the 5th."}
+    ]
+  },
+  {
+    "id": "ext-42",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "borrower", "text": "I'll pay 100 Friday."},
+      {"speaker": "agent", "text": "The smallest payment we can schedule is $150. Could you do $150?"},
+      {"speaker": "borrower", "text": "Fine, 150 Friday then."},
+      {"speaker": "agent", "text": "Thank you, $150 this Friday."}
+    ]
+  },
+  {
+    "id": "ext-43",
+    "reference_date": "2026-11-04",
+    "turns": [
+      {"speaker": "borrower", "text": "My birthday is March 14, 1988, ZIP 99901."},
+      {"speaker": "agent", "text": "Thank you, you're verified. Your balance is $530.00."},
+      {"speaker": "borrower", "text": "OK thanks, I just wanted to know the number. Bye."}
+    ]
+  },
+  {
+    "id": "ext-44",
+    "reference_date": "2026-11-06",
+    "turns": [
+      {"speaker": "agent", "text": "Can you make a payment toward the $170.00 past due?"},
+      {"speaker": "borrower", "text": "I'll pay $85 tonight after work."},
+      {"speaker": "agent", "text": "Thank you, $85 today."}
+    ]
+  }
+]

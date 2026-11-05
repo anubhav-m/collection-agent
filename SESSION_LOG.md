@@ -10,7 +10,7 @@ Statuses: `PENDING`, `IN PROGRESS`, `BLOCKED`, `DONE`.
 | 2 | Agent, rules, and handoff | DONE |
 | 3 | RAG | DONE |
 | 4 | Evaluation and fixes | DONE |
-| 5 | Entity extraction | PENDING |
+| 5 | Entity extraction | IN PROGRESS |
 | 6 | Reports and automation | PENDING |
 | 7 | Frontend, deployment, and resume facts | PENDING |
 
