@@ -12,7 +12,7 @@ Statuses: `PENDING`, `IN PROGRESS`, `BLOCKED`, `DONE`.
 | 4 | Evaluation and fixes | DONE |
 | 5 | Entity extraction | DONE |
 | 6 | Reports and automation | DONE |
-| 7 | Frontend, deployment, and resume facts | PENDING |
+| 7 | Frontend and resume facts | DONE |
 
 ## Entries
 
@@ -460,3 +460,72 @@ bash scripts/nightly.sh [llm|regex] [YYYY-MM-DD]
 - The PowerShell script was run under Windows PowerShell 5.1, and the bash script under Git Bash on Windows. Neither was run on Linux or macOS.
 
 **Commits:** `4fe5ada` (code, scripts and tests), then one docs commit with the nightly run outputs, the evidence files, this entry and `docs/DEFENSE.md`. Pushed to `origin/main`.
+
+---
+
+### Session 7: Frontend and resume facts
+
+**Status:** DONE, 2026-11-05 11:35 IST (06:05 UTC). All four Done Criteria pass. **Not deployed.** The user removed deployment from this session's prompt (the `PROMPTS.md` edit is committed with this session), so there is no live URL and `RESUME_FACTS.md` does not claim one.
+
+**What was built**
+
+- Impeccable (v4.8.0) installed into `.claude/` by the agent, as the user asked, with telemetry turned off. The installed skill is gitignored (reinstall with `npx impeccable install`). Its outputs are committed: `PRODUCT.md` (init, answered from the CLAUDE.md files as `frontend/CLAUDE.md` directs), `.impeccable/surfaces/frontend-src-app-tsx.md` (direction contract, `seed:a655f9014763d0b8`), `DESIGN.md` and `.impeccable/design.json`.
+- `frontend/`: React 19 + TypeScript 7 (strict) + Vite 8, linted with oxlint (the current Vite template's linter) and formatted with Prettier. Fonts are self-hosted through @fontsource. The design direction is "annual-report figures section": one petrol ink, cool paper, hairline rules, three type sizes with tabular numerals, no red. The signature move is footnote references: every policy-based reply and every results figure links to its source.
+  - `src/api/`: `client.ts` (one `fetch` wrapper; typed `ApiError` with kind, friendly message and `Retry-After`), `endpoints.ts`, `types.ts` + `resultTypes.ts` (split for the line limit; all imports go through `types.ts`).
+  - `src/features/chat/`: 4 sample borrowers with starter messages (one gives a wrong ZIP on purpose), `useChat` (in-flight guard, generation counter so a late reply after a reset is dropped, retry), plain-text messages (Markdown emphasis markers stripped, never rendered as HTML), composer with the 2,000-character limit, rate-limit countdown, daily-limit and handoff notices.
+  - `src/features/inspector/`: server-state ledger (verified, failed attempts, status, reason, ID), turns built from `GET /conversations/{id}` with each tool call paired to its result (refusals stay visible with a plain-language reason), and numbered policy sources.
+  - `src/features/reports/`: evaluation baseline vs after-fixes, pass by category, extraction P/R/F1, nightly project and **simulated** reports (labelled), and a numbered sources list linking each report file.
+- Backend:
+  - `GET /results` (`app/api/results.py`, `app/reports/published_results.py`, `published_readers.py`) reads the committed evaluation and extraction reports. Corrupt or wrongly shaped files return a clean `results_unreadable` error.
+  - FastAPI serves `frontend/dist` (`app/api/frontend.py`), mounted after the API routes, so it is one service with no CORS. Without a build, it serves the API only.
+  - Safeguards (`app/api/guards.py`): an in-memory sliding-window per-IP limit on `POST /chat` (`app/core/rate_limit.py`, default 8/min, 429 with `Retry-After`); an app-wide daily LLM-call cap (`app/llm/budget.py`, default 200 calls per Pacific day, matching the Gemini quota reset; `BudgetedLLM` counts every call, and the guard refuses new messages once it is spent with a friendly `daily_limit_reached` 429). The existing 2,000-character message limit was kept.
+  - New settings: `CHAT_REQUESTS_PER_MINUTE_PER_IP`, `LLM_DAILY_CALL_CAP`, `FRONTEND_DIST_DIR`, `REPORTS_DIR`. `tzdata==2026.6` was added (Windows has no IANA time zone database).
+- `README.md` (problem, Mermaid architecture, setup, evaluation and nightly commands, results with report links, limitations, simulation statement) and `RESUME_FACTS.md`.
+
+**Commands**
+
+```
+cd frontend; npm install; npm run build          # also: npm run dev | typecheck | lint | format:check
+cd backend; .venv\Scripts\python -m uvicorn app.main:app --port 8000   # open http://127.0.0.1:8000
+.venv\Scripts\ruff check . ; .venv\Scripts\ruff format --check . ; .venv\Scripts\python -m pytest -q
+```
+
+**Tests and checks (actual results)**
+
+- `pytest -q`: 351 passed in 5.10s (`docs/reports/session7_pytest.txt`). The 16 new tests cover the limiter (window, independent keys, refused hits not extending the wait, idle-key eviction), the budget (counts failed calls, resets on a new day), the `/chat` guards (429 + `Retry-After`, daily cap refuses before the model is called, 422 on an over-length message), `/results` (real reports, empty, corrupt, wrong shape) and the static mount (API routes win over a same-named file).
+- `ruff check`: all passed. `ruff format --check`: 271 files already formatted. Line count: no source, test or CSS file is over 70 (the largest are 70).
+- Frontend: `tsc -b` exit 0, `oxlint --deny-warnings` exit 0, Prettier clean, `vite build` OK (JS 249.78 kB, 77.71 kB gzip) (`docs/reports/session7_frontend_checks.txt`).
+- Impeccable detector on `frontend/src` and on the live URL: `[]` (no findings).
+- Browser (installed Edge driven by playwright-core from a scratch folder, not a project dependency):
+  - **Live demo conversation** as Jordan Samplebury: verify → get_account → get_payment_options → options reply, then a 3-monthly plan request answered with "plan already saved" (the server's `plan_already_exists` refusal, shown in the inspector). **Live handoff** as Rowan Fictionale: verify, then `escalate_to_human` (dispute). The ledger showed "Handed to a person · Dispute" and the composer showed the handoff notice (`docs/reports/session7_screens/live_handoff_desktop.png`). No console errors.
+  - Layout re-checks replayed that recorded conversation through route mocks to save quota (`replayed_chat_desktop.png`), plus a mocked 429 showing "Try again in 12s" (`mocked_rate_limit.png`). At 390 px the page scroll width equals the viewport (no horizontal scroll).
+  - Audit script: every visible text element passes WCAG AA contrast on both views. The only targets under 24 px are inline footnote and source links (inline exception). Tab order goes tabs → borrowers → starters → composer, with a visible outline on each.
+- Live API (`docs/reports/session7_live_api.txt`): with `LLM_DAILY_CALL_CAP=1` the first message was answered and the second got `429 daily_limit_reached`. With defaults, a 2,001-character message got 422, and 10 rapid messages gave seven 200s and then 429s (the 422 counted as the 8th hit). `/health` ok, `/results` 200, `/` serves the built app.
+
+**Quota**
+
+- 9 Gemini calls in total this session (`gemini-3.5-flash-lite`), no failures, no 429s (`docs/reports/session7_server.log`; the log has no names, dates of birth or keys).
+
+**Metrics** (all quoted from saved reports, none new)
+
+- Evaluation: baseline 37/38 → latest 38/38, 0 unauthorized actions in both (`reports/evaluation/comparison.md`). Extraction test: both extractors 95.8% exact match; date F1 regex 96.8%, LLM 100% (`reports/extraction/test.md`).
+
+**Assumptions and decisions**
+
+- `frontend/CLAUDE.md` said to ask the user to install Impeccable. The user then told the agent to install it, so it did. Impeccable's interview and direction rounds were answered by the agent from the CLAUDE.md files, as `frontend/CLAUDE.md` directs ("ask the user only if it requires them"). The concept roll assigned candidate 3 of the agent's own list (annual-report figures). None of the six catalog challengers won: each was judged weaker on audience fit and product clarity, and three lent a discipline (blocked calls stay visible, a dense hairline system, rank by weight within three sizes). Impeccable's finish reviewer and documenter subagents were not spawned. The audit, polish checks and DESIGN.md were done in this thread.
+- The Operate surface is light only. The scene is a reviewer at a desk in daylight. No dark theme.
+- The `/chat` guards run before body validation, so an invalid request also counts toward the per-IP limit. A daily-capped server returns 429 even for an over-length message.
+- The rate limiter and daily cap are in memory, per process, and reset on restart. That is enough for one local or single-instance demo. Behind a proxy, the per-IP key would be the proxy until forwarded headers are trusted.
+- The daily cap counts every LLM call (including cached hits and failures) and is checked before each message, so one turn in flight can pass it by at most 5 calls.
+- Model replies with Markdown emphasis are shown with the `**`/`__`/backtick markers removed. Nothing is rendered as HTML.
+- Report links in the results view point to `https://github.com/anubhav-m/collection-agent/blob/main/<path>` (the project's own remote).
+- The verification checks created about 20 extra fictional conversations in the dev MongoDB (most escalated as disputes by the phrase rule). They are project data now, and the next nightly run will include them.
+
+**Known issues / later**
+
+- Not deployed. No Dockerfile or host config (removed from scope by the user).
+- No frontend unit tests. Verification was type check, lint, build and the scripted browser runs.
+- The inspector refetches the whole conversation after each turn, which is fine at demo size.
+- A `:target` highlight replays only when the hash changes, so clicking the same footnote twice does not flash again.
+
+**Commits:** `fb4b372` (frontend, backend safeguards, `/results`, tests), then one docs commit with the README, `RESUME_FACTS.md`, design records, this entry, `docs/DEFENSE.md` and the evidence files. Pushed to `origin/main`.

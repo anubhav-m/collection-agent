@@ -1,0 +1,19 @@
+# Session 7 frontend checks
+
+> collections-agent-frontend@0.1.0 typecheck
+> tsc -b
+
+exit 0
+
+> collections-agent-frontend@0.1.0 lint
+> oxlint --deny-warnings
+
+exit 0
+All matched files use Prettier code style!
+dist/assets/index-CLFKBM8R.css                                       22.58 kB │ gzip:  8.79 kB
+dist/assets/index-DQpJHj58.js                                       249.78 kB │ gzip: 77.71 kB
+✓ built in 232ms
+
+# Impeccable detector (source and live URL)
+[]
+[]

@@ -164,7 +164,7 @@ If the daily quota runs out, save progress and mark the session `BLOCKED`, stati
 
 ---
 
-## Session 7: Frontend, deployment, and resume facts
+## Session 7: Frontend and resume facts
 
 **Goal:** A working demo link, a clear README, and resume claims backed by evidence.
 
@@ -175,13 +175,9 @@ Read `frontend/CLAUDE.md` first.
 1. Build the React app using Impeccable: a chat view with sample borrowers, an inspector panel showing tool calls, escalation state, and policy sources, and a results view showing real evaluation and report data.
 2. Have FastAPI serve the built frontend, so the app deploys as one service with no CORS setup.
 3. Add production safeguards: per-IP rate limits and a message length limit on `/chat`, a daily app-wide cap on LLM calls so a public demo can't use up the quota, and a friendly message when the cap is reached.
-4. Add a `Dockerfile` and deployment config for a free host such as Render. Check that memory use fits the host's limit.
-5. Write the README: the problem, an architecture diagram in Mermaid, setup, how to run the evaluation and the nightly job, real results with links to reports, limitations, and a clear statement that this is a simulation using fictional data and isn't a production or legal compliance system.
-6. Write `RESUME_FACTS.md`: suggested resume bullets and a tech list, using only what's built, and citing the report behind each number. List separately anything not built, so it stays off the resume, including voice, PySpark, and Databricks. Do not call the project production-ready or describe simulated data as real traffic.
+4. Write the README: the problem, an architecture diagram in Mermaid, setup, how to run the evaluation and the nightly job, real results with links to reports, limitations, and a clear statement that this is a simulation using fictional data and isn't a production or legal compliance system.
+5. Write `RESUME_FACTS.md`: suggested resume bullets and a tech list, using only what's built, and citing the report behind each number. List separately anything not built, so it stays off the resume, including voice, PySpark, and Databricks. Do not call the project production-ready or describe simulated data as real traffic.
 
-**Deployment:**
-
-Ask the user only for what's needed: a GitHub remote, a hosting account, and a MongoDB Atlas connection string. Tell them exactly which steps they must do in their accounts, and which environment variables to set on the host. Confirm with the user before pushing, because the repo becomes public.
 
 **Before pushing, verify:** the git history contains no secrets, `.env` isn't tracked, and no file contains a real key.
 

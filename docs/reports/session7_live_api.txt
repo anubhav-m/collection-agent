@@ -1,0 +1,30 @@
+# Session 7 live API checks (2026-11-05T05:55Z), server started with LLM_DAILY_CALL_CAP=1
+
+## 1st message (uses the LLM)
+{"conversation_id":"CONV-f2c0c4238d4547eb8d9dcc3b1c30dfd3","reply":"Hello! I can help you review your account balance, discuss payment options, or set up a payment plan. To get started and look up your account details, could you please provide your full name, date of birth (YYYY-MM-DD), and 5-digit ZIP code?","outcome":"answered","status":"active","verified":false,"escalation_reason":null,"sources":[]}
+HTTP 200
+
+## 2nd message (cap reached)
+HTTP/1.1 429 Too Many Requests
+{"error":{"code":"daily_limit_reached","message":"This demo has reached its daily limit on assistant replies. Please come back tomorrow. The results and reports views still work.","request_id":"b5484e2a85084a5ab895039da6926fc3"}}
+
+## message over 2000 characters
+{"error":{"code":"daily_limit_reached","message":"This demo has reached its daily limit on assistant replies. Please come back tomorrow. The results and reports views still work.","request_id":"ed7900e9e9b74514adbedf0976bc8131"}}
+HTTP 429
+
+## /results
+{"evaluation":[{"run_name":"baseline","model":"gemini-3.5-flash-lite","git_commit":"4246687011","finished_at":"2026-11-05T03:50:50.183591Z","scenario_count":38,"passed":37,"task_success_rate":0.974,"escalation_accuracy":0.974,"missed_escalations":0,"false_escalations":1,"unauthorized_actions":0,"llm_calls":98,"by_category":{"dispute":{"passed":3,"total":3},"failed_verification":{"passed":4,"total"
+
+## / (built frontend)
+HTTP 200 text/html; charset=utf-8
+
+## /health
+{"status":"ok","app":"collections-agent","database":"connected","llm_configured":true,"nightly":{"status":"success","run_id":"2026-11-05_103905","finished_at":"2026-11-05T05:09:46+00:00","failed_step":null}}
+HTTP 200
+
+## Restarted with default settings. Message over 2000 characters
+{"error":{"code":"validation_failed","message":"The request was not valid.","request_id":"f20a2d9228cf4d9bbf08cc06851aef3c"}}
+HTTP 422
+
+## Per-IP rate limit (rule-escalated messages, no LLM calls), 10 requests
+200 200 200 200 200 200 200 429 429 429 

@@ -1,0 +1,356 @@
+INFO:     Started server process [11424]
+INFO:     Waiting for application startup.
+{"ts": "2026-11-05T05:50:33.663372+00:00", "level": "INFO", "logger": "app.rag.startup", "msg": "policy search ready", "request_id": "-", "conversation_id": "-", "documents": 5, "chunks": 15, "added": 0, "removed": 0, "unchanged": 15, "written": false}
+{"ts": "2026-11-05T05:50:38.691529+00:00", "level": "INFO", "logger": "app.main", "msg": "startup complete", "request_id": "-", "conversation_id": "-", "database": "connected"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57144 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57146 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57152 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57990 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57990 - "GET /assets/index-DLqBE1QA.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57846 - "GET /assets/index-XhWeOz6p.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57990 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57846 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56935 - "GET /favicon.svg HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:50:59.878126+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1136, "output_tokens": 52, "thinking_tokens": 0, "total_tokens": 1188, "latency_ms": 1478.6, "tool_calls": 1}
+{"ts": "2026-11-05T05:51:00.011102+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "tool": "verify_borrower", "accepted": true, "error": null}
+{"ts": "2026-11-05T05:51:01.190183+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1205, "output_tokens": 10, "thinking_tokens": 0, "total_tokens": 1215, "latency_ms": 1178.6, "tool_calls": 1}
+{"ts": "2026-11-05T05:51:01.299023+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "tool": "get_account", "accepted": true, "error": null}
+{"ts": "2026-11-05T05:51:02.111585+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1302, "output_tokens": 25, "thinking_tokens": 0, "total_tokens": 1327, "latency_ms": 812.2, "tool_calls": 1}
+{"ts": "2026-11-05T05:51:02.199216+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "tool": "get_payment_options", "accepted": true, "error": null}
+{"ts": "2026-11-05T05:51:03.552927+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "c295a5aace0d4ae794cd398590846f53", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1636, "output_tokens": 149, "thinking_tokens": 0, "total_tokens": 1785, "latency_ms": 1353.3, "tool_calls": 0}
+INFO:     127.0.0.1:57990 - "POST /chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57990 - "GET /conversations/CONV-145bb3e71c5f4bd39a5b8c191125f568 HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:51:06.796827+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "92f90881e969414cbe8012c94b627e99", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1800, "output_tokens": 70, "thinking_tokens": 0, "total_tokens": 1870, "latency_ms": 1841.8, "tool_calls": 1}
+{"ts": "2026-11-05T05:51:06.932874+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "92f90881e969414cbe8012c94b627e99", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "tool": "create_payment_plan", "accepted": false, "error": "plan_already_exists"}
+{"ts": "2026-11-05T05:51:08.272438+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "92f90881e969414cbe8012c94b627e99", "conversation_id": "CONV-145bb3e71c5f4bd39a5b8c191125f568", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 2059, "output_tokens": 40, "thinking_tokens": 0, "total_tokens": 2099, "latency_ms": 1338.6, "tool_calls": 0}
+INFO:     127.0.0.1:57990 - "POST /chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57990 - "GET /conversations/CONV-145bb3e71c5f4bd39a5b8c191125f568 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57990 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63830 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51108 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50600 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50600 - "GET /assets/index-DLqBE1QA.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54031 - "GET /assets/index-XhWeOz6p.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50600 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54031 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54887 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54887 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50600 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54031 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60378 - "GET /conversations/CONV-145bb3e71c5f4bd39a5b8c191125f568 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51888 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51888 - "GET /assets/index-BIUB22b1.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56311 - "GET /assets/index-Byb8-I0-.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51888 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56311 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61586 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51888 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56311 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61586 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59551 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59551 - "GET /assets/index-BIUB22b1.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57724 - "GET /assets/index-Byb8-I0-.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57724 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59551 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58294 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57724 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58294 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59551 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57489 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57489 - "GET /assets/index-BIUB22b1.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60719 - "GET /assets/index-Byb8-I0-.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60719 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57489 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54162 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64340 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64340 - "GET /assets/index-lsc3MAjQ.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60814 - "GET /assets/index-B_RMOIOt.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60814 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64340 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60904 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60814 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64340 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60904 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55127 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55127 - "GET /assets/index-lsc3MAjQ.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60391 - "GET /assets/index-B_RMOIOt.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60391 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55127 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59036 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59036 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55127 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60391 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60346 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60346 - "GET /assets/index-lsc3MAjQ.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50392 - "GET /assets/index-B_RMOIOt.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50392 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54524 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60346 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63443 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63443 - "GET /assets/index-BBwMF_tb.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61312 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63443 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61312 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63443 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61312 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57371 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57371 - "GET /assets/index-BBwMF_tb.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61314 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57371 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61314 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51499 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61314 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57371 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51499 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62758 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62758 - "GET /assets/index-BBwMF_tb.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52098 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52098 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62758 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63269 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58046 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58046 - "GET /assets/index-CNICMrwC.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51579 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58046 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51579 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58276 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58276 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51579 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58046 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55580 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55580 - "GET /assets/index-CNICMrwC.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62102 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62102 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63455 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55580 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62102 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55580 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63455 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64501 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64501 - "GET /assets/index-CNICMrwC.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51390 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51390 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64501 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65225 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65448 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65448 - "GET /assets/index-Cg0tqg2b.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63842 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65448 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63842 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62243 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63842 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62243 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65448 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51882 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51882 - "GET /assets/index-Cg0tqg2b.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49666 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51882 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49666 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53640 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49666 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51882 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53640 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63317 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58273 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63317 - "GET /assets/index-Cg0tqg2b.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63317 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58273 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49286 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53482 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53482 - "GET /assets/index-DhO7CEDp.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62120 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62120 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53482 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50286 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50286 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62120 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53482 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58384 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58384 - "GET /assets/index-DhO7CEDp.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57713 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57713 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58384 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63048 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63048 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57713 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58384 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61128 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56741 - "GET /assets/index-w4AvuyLo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61128 - "GET /assets/index-DhO7CEDp.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61128 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56741 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58391 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56324 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58947 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56324 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58947 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56324 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62295 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62773 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62773 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56853 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62773 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56853 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63805 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63805 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56853 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62773 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59484 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59484 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59600 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59484 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59600 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53470 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59600 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53470 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59484 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:10.863221+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "df876a3345b441e78ec237612bea9a44", "conversation_id": "CONV-56d61ec4175b48539be8c6d7c084bc05", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50836 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:11.088939+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "35dbd1c6ee204633964831e40e459ebb", "conversation_id": "CONV-9aba36a6d126484d93fd0e3a1ac2a449", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50837 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:11.334930+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "9f8a4571598a4badb1b897aeeaf88238", "conversation_id": "CONV-07502d6dc3f74be7910409fa68fe699f", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50838 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:11.634532+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "31b90a6e9f27414d871793d63c71772d", "conversation_id": "CONV-b951d2b9deae4fa8bf8d78b78ea2b338", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50843 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:11.865020+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "afa0478bbe2742559345f2388e43db05", "conversation_id": "CONV-0387a8f7ad7f4daca7bf6c1dbe52949e", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50844 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:12.119761+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "3c3b2058c68f40c598f6a5eace4f2452", "conversation_id": "CONV-32913f39394f49a186f2b139bf77b5d9", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50845 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:12.334242+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "92ab1c17e81840df895b9761632f607b", "conversation_id": "CONV-6e18d9d1ff0d4cde82e8ec0a927add90", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50846 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:12.589388+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "ca2038f9a033438b8633f7296dad4afb", "conversation_id": "CONV-6ad9ef6ee88243b9a060cecee993503a", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:50854 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:12.683326+00:00", "level": "INFO", "logger": "app.api.guards", "msg": "chat rate limited", "request_id": "8af355bb0dd247db9e03a5bbd670534a", "conversation_id": "-", "retry_after": 58}
+{"ts": "2026-11-05T05:55:12.683695+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "8af355bb0dd247db9e03a5bbd670534a", "conversation_id": "-", "error_code": "rate_limited", "exc_type": "RateLimitedError", "path": "/chat"}
+INFO:     127.0.0.1:50855 - "POST /chat HTTP/1.1" 429 Too Many Requests
+{"ts": "2026-11-05T05:55:12.722188+00:00", "level": "INFO", "logger": "app.api.guards", "msg": "chat rate limited", "request_id": "843ab0dbcf444252af012419253191f7", "conversation_id": "-", "retry_after": 58}
+{"ts": "2026-11-05T05:55:12.722333+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "843ab0dbcf444252af012419253191f7", "conversation_id": "-", "error_code": "rate_limited", "exc_type": "RateLimitedError", "path": "/chat"}
+INFO:     127.0.0.1:50856 - "POST /chat HTTP/1.1" 429 Too Many Requests
+INFO:     Started server process [24928]
+INFO:     Waiting for application startup.
+{"ts": "2026-11-05T05:55:36.878444+00:00", "level": "INFO", "logger": "app.rag.startup", "msg": "policy search ready", "request_id": "-", "conversation_id": "-", "documents": 5, "chunks": 15, "added": 0, "removed": 0, "unchanged": 15, "written": false}
+{"ts": "2026-11-05T05:55:41.910273+00:00", "level": "INFO", "logger": "app.main", "msg": "startup complete", "request_id": "-", "conversation_id": "-", "database": "connected"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61552 - "GET /health HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:44.851826+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "f9c3ae885d22459ea80e81c9fc911c9f", "conversation_id": "CONV-f2c0c4238d4547eb8d9dcc3b1c30dfd3", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1102, "output_tokens": 58, "thinking_tokens": 0, "total_tokens": 1160, "latency_ms": 1878.4, "tool_calls": 0}
+INFO:     127.0.0.1:61553 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:55:44.925302+00:00", "level": "WARNING", "logger": "app.api.guards", "msg": "daily llm cap reached", "request_id": "b5484e2a85084a5ab895039da6926fc3", "conversation_id": "-", "cap": 1}
+{"ts": "2026-11-05T05:55:44.925461+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "b5484e2a85084a5ab895039da6926fc3", "conversation_id": "-", "error_code": "daily_limit_reached", "exc_type": "DailyLimitReachedError", "path": "/chat"}
+INFO:     127.0.0.1:61565 - "POST /chat HTTP/1.1" 429 Too Many Requests
+{"ts": "2026-11-05T05:55:45.012133+00:00", "level": "WARNING", "logger": "app.api.guards", "msg": "daily llm cap reached", "request_id": "ed7900e9e9b74514adbedf0976bc8131", "conversation_id": "-", "cap": 1}
+{"ts": "2026-11-05T05:55:45.012313+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "ed7900e9e9b74514adbedf0976bc8131", "conversation_id": "-", "error_code": "daily_limit_reached", "exc_type": "DailyLimitReachedError", "path": "/chat"}
+INFO:     127.0.0.1:61566 - "POST /chat HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:61567 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61568 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61569 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [26372]
+INFO:     Waiting for application startup.
+{"ts": "2026-11-05T05:56:00.139303+00:00", "level": "INFO", "logger": "app.rag.startup", "msg": "policy search ready", "request_id": "-", "conversation_id": "-", "documents": 5, "chunks": 15, "added": 0, "removed": 0, "unchanged": 15, "written": false}
+{"ts": "2026-11-05T05:56:05.118043+00:00", "level": "INFO", "logger": "app.main", "msg": "startup complete", "request_id": "-", "conversation_id": "-", "database": "connected"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:51935 - "GET /health HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:06.115904+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "f20a2d9228cf4d9bbf08cc06851aef3c", "conversation_id": "-", "error_code": "validation_failed", "exc_type": "RequestValidationError", "path": "/chat"}
+INFO:     127.0.0.1:51936 - "POST /chat HTTP/1.1" 422 Unprocessable Content
+{"ts": "2026-11-05T05:56:06.355288+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "14ffdaabb0b047c6b15ed5c1644661f7", "conversation_id": "CONV-e80cd47a63934c99b56cb6a7a7b7b3d1", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51937 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:06.864333+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "721d90cc211049b08fb7c723979919d5", "conversation_id": "CONV-f16aa5bc59bf4d54a36cc2376d86f981", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51938 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:07.183357+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "7fc8228460bd4803bc2367099cd54023", "conversation_id": "CONV-5e23cc331f62458f8644598e22c57c03", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51945 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:07.413576+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "53e66b8155dc457dbbc1537839d68454", "conversation_id": "CONV-a27de35df7884474ab1b32a93ca26dcf", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51946 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:07.645716+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "660103ebcccb41ce961de9b225cc3518", "conversation_id": "CONV-dea6ef8dd92941cc94b64ff920d56760", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51947 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:07.893596+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "9a0c0f58dbf64a9dbddccb0bfbe12c36", "conversation_id": "CONV-b200e8f0ea9746b9b595e1258be6f64f", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51951 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:08.208881+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "bf7a1d02632846e288c18ce550222290", "conversation_id": "CONV-33e80eda9cbc4259aaf1bcee95d5d615", "reason": "dispute", "source": "rule"}
+INFO:     127.0.0.1:51952 - "POST /chat HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:56:08.280030+00:00", "level": "INFO", "logger": "app.api.guards", "msg": "chat rate limited", "request_id": "ded70adb024c432a84d7ae5aa7469955", "conversation_id": "-", "retry_after": 58}
+{"ts": "2026-11-05T05:56:08.280251+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "ded70adb024c432a84d7ae5aa7469955", "conversation_id": "-", "error_code": "rate_limited", "exc_type": "RateLimitedError", "path": "/chat"}
+INFO:     127.0.0.1:51953 - "POST /chat HTTP/1.1" 429 Too Many Requests
+{"ts": "2026-11-05T05:56:08.338361+00:00", "level": "INFO", "logger": "app.api.guards", "msg": "chat rate limited", "request_id": "ea9850bc81db48608486bf5a1ff5cfc8", "conversation_id": "-", "retry_after": 58}
+{"ts": "2026-11-05T05:56:08.338667+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "ea9850bc81db48608486bf5a1ff5cfc8", "conversation_id": "-", "error_code": "rate_limited", "exc_type": "RateLimitedError", "path": "/chat"}
+INFO:     127.0.0.1:51954 - "POST /chat HTTP/1.1" 429 Too Many Requests
+{"ts": "2026-11-05T05:56:08.383955+00:00", "level": "INFO", "logger": "app.api.guards", "msg": "chat rate limited", "request_id": "aece474d76a140c5be4050fef6d1a2ea", "conversation_id": "-", "retry_after": 58}
+{"ts": "2026-11-05T05:56:08.384181+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "aece474d76a140c5be4050fef6d1a2ea", "conversation_id": "-", "error_code": "rate_limited", "exc_type": "RateLimitedError", "path": "/chat"}
+INFO:     127.0.0.1:51955 - "POST /chat HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:57282 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57282 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59687 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57282 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59687 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56238 - "GET /favicon.svg HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:57:11.705088+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "de68fa68f89c4c8a96ae61217d76b1b1", "conversation_id": "CONV-f997bd617daf48ada9536ca433729fe9", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1135, "output_tokens": 53, "thinking_tokens": 0, "total_tokens": 1188, "latency_ms": 1971.8, "tool_calls": 1}
+{"ts": "2026-11-05T05:57:11.825462+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "de68fa68f89c4c8a96ae61217d76b1b1", "conversation_id": "CONV-f997bd617daf48ada9536ca433729fe9", "tool": "verify_borrower", "accepted": true, "error": null}
+{"ts": "2026-11-05T05:57:12.786298+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "de68fa68f89c4c8a96ae61217d76b1b1", "conversation_id": "CONV-f997bd617daf48ada9536ca433729fe9", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 1205, "output_tokens": 38, "thinking_tokens": 0, "total_tokens": 1243, "latency_ms": 960.4, "tool_calls": 1}
+{"ts": "2026-11-05T05:57:12.984710+00:00", "level": "INFO", "logger": "app.agent.handoff", "msg": "conversation escalated", "request_id": "de68fa68f89c4c8a96ae61217d76b1b1", "conversation_id": "CONV-f997bd617daf48ada9536ca433729fe9", "reason": "dispute", "source": "model"}
+{"ts": "2026-11-05T05:57:13.013938+00:00", "level": "INFO", "logger": "app.agent.executor", "msg": "tool call", "request_id": "de68fa68f89c4c8a96ae61217d76b1b1", "conversation_id": "CONV-f997bd617daf48ada9536ca433729fe9", "tool": "escalate_to_human", "accepted": true, "error": null}
+INFO:     127.0.0.1:56238 - "POST /chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56238 - "GET /conversations/CONV-f997bd617daf48ada9536ca433729fe9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54339 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54339 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56539 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56539 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54339 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51263 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54339 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51263 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56539 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51132 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51132 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52860 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52860 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51132 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64462 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64462 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51132 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52860 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59051 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59051 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49972 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59051 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53457 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49972 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64940 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64940 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64940 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55351 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64940 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55351 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49667 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53963 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53963 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65053 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53963 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65053 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50164 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50164 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65053 - "GET /reports?source=project HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53963 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61050 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61050 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59652 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59652 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61050 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63764 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62611 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62611 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54232 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62611 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52013 - "GET /favicon.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54232 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64479 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60377 - "GET /assets/index-CLFKBM8R.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64479 - "GET /assets/index-DQpJHj58.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60377 - "GET /assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64479 - "GET /assets/source-sans-3-latin-wght-normal-Bo_j9asI.woff2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56976 - "GET /favicon.svg HTTP/1.1" 200 OK

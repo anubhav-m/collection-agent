@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T06:00:00Z",
+  "title": "Design System: Collections agent simulation",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Petrol Ink", "canonical": "oklch(0.34 0.058 226)", "tonalRamp": ["oklch(0.18 0.03 226)", "oklch(0.27 0.05 226)", "oklch(0.34 0.058 226)", "oklch(0.45 0.06 226)", "oklch(0.58 0.05 226)", "oklch(0.72 0.04 226)", "oklch(0.86 0.03 226)", "oklch(0.95 0.015 226)"] },
+      "paper": { "role": "neutral", "displayName": "Cool Paper", "canonical": "oklch(0.987 0.004 226)" },
+      "panel": { "role": "neutral", "displayName": "Panel", "canonical": "oklch(0.962 0.008 226)" },
+      "verified": { "role": "tertiary", "displayName": "Verified Green", "canonical": "oklch(0.46 0.085 168)" },
+      "handoff": { "role": "secondary", "displayName": "Handoff Ochre", "canonical": "oklch(0.49 0.1 70)" }
+    },
+    "typographyMeta": {
+      "heading": { "displayName": "Heading", "purpose": "Conversation title, section titles, headline counts." },
+      "body": { "displayName": "Body", "purpose": "Messages, table cells, prose." },
+      "label": { "displayName": "Label", "purpose": "Uppercase panel headings, metadata, captions." },
+      "data": { "displayName": "Data", "purpose": "IDs, tool names and tool arguments only." }
+    },
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "160ms state transitions and the footnote arrival wash." }
+    ],
+    "breakpoints": [
+      { "name": "narrow", "value": "640px" },
+      { "name": "three-column", "value": "1100px" }
+    ]
+  },
+  "components": [
+    { "name": "Primary Button", "kind": "button", "refersTo": "button-primary", "description": "Send and other primary actions.", "html": "<button class=\"ds-btn\">Send</button>", "css": ".ds-btn { background: var(--ink); color: var(--on-ink); border: 1px solid var(--ink); border-radius: 4px; min-height: 2.25rem; padding: 0 1rem; font-weight: 600; transition: background-color 160ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { background: var(--ink-strong); } .ds-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }" },
+    { "name": "Quiet Button", "kind": "button", "refersTo": "button-quiet", "description": "Secondary actions such as New conversation and Try again.", "html": "<button class=\"ds-btn-quiet\">New conversation</button>", "css": ".ds-btn-quiet { background: transparent; color: var(--ink); border: 1px solid var(--ink); border-radius: 4px; min-height: 2.25rem; padding: 0 1rem; font-weight: 600; } .ds-btn-quiet:hover { background: var(--marked); } .ds-btn-quiet:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }" },
+    { "name": "Starter Chip", "kind": "chip", "refersTo": "starter-chip", "description": "Ready-made borrower message.", "html": "<button class=\"ds-chip\">What happens if I miss a payment?</button>", "css": ".ds-chip { background: var(--paper); color: var(--ink); border: 1px solid var(--rule-strong); border-radius: 4px; padding: 0.25rem 0.75rem; font-size: 0.8125rem; } .ds-chip:hover { background: var(--marked); } .ds-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }" },
+    { "name": "Footnote Reference", "kind": "custom", "refersTo": null, "description": "Superscript link from a claim to its source entry.", "html": "<p>Kept rate 69.1%<sup class=\"ds-fn\"><a href=\"#n1\">1</a></sup></p>", "css": ".ds-fn { font-size: 0.72em; font-weight: 650; line-height: 0; margin-left: 0.1em; } .ds-fn a { color: var(--ink); text-decoration: none; padding: 0 0.15em; } .ds-fn a:hover { text-decoration: underline; }" }
+  ],
+  "narrative": {
+    "northStar": "The audited figures section",
+    "overview": "One committed ink over cool paper, hairline rules instead of cards, three type sizes with tabular numerals, and a footnote on every claim.",
+    "keyCharacteristics": ["One ink", "Hairline rules", "Three sizes", "Footnoted claims", "No red"],
+    "rules": [
+      { "name": "One state colour per meaning", "body": "Green means allowed or verified; ochre means handed off, refused or short. No red.", "section": "colors" },
+      { "name": "Three sizes", "body": "20, 15 and 13px only; rank by weight and case.", "section": "typography" }
+    ],
+    "dos": ["Footnote every figure to its report file.", "Keep refused tool calls visible."],
+    "donts": ["No alarm red.", "No cards, shadows or stat tiles.", "No HTML or Markdown rendering of model output."]
+  }
+}

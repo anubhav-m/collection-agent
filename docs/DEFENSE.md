@@ -289,3 +289,55 @@ LLM call flow: caller builds a provider-neutral `LLMRequest` -> `GeminiClient` c
 - 37 new tests, 335 total passing, with no API calls in tests (`docs/reports/session6_pytest.txt`).
 - Real nightly run `2026-11-05_103905`: 3 steps in about 41 s (extract 35.03 s, load 6.07 s, reports 0.32 s) and 4 Gemini calls.
 - Simulated volume loaded and reported: 5,000 conversations, 2,000 promises, 1,641 payments (`reports/nightly/2026-11-05_103905/load.json`). Describe this as a scale test, not as results.
+
+## Session 7: Frontend and resume facts
+
+### Request flow
+
+1. The browser loads `/` from FastAPI, which serves the built React files from `frontend/dist`. The API routes are registered first, so `/chat` can never be shadowed by a static file. The page and the API share one origin, so there is no CORS setup.
+2. The reviewer picks a sample borrower and clicks a starter message. `useChat` sends `POST /chat` with the lender (first message) or the conversation ID (later messages).
+3. Before the handler runs, `chat_guard` checks the per-IP sliding window (8 per minute) and then the app-wide daily LLM budget. Either one can stop the request with a 429 and a friendly message. Then the existing agent loop runs. Every model call goes through `BudgetedLLM`, which counts it.
+4. The reply comes back with `status`, `verified`, `escalation_reason` and policy `sources`. Sources get footnote numbers that continue across the conversation.
+5. After each answered turn, the inspector refetches `GET /conversations/{id}`, groups the stored events into turns, and pairs each tool call with its result. A refused call shows the server's reason in plain words.
+6. The Results tab calls `GET /results` (evaluation and extraction files committed in `reports/`) and `GET /reports?source=project|simulated` (latest successful nightly run). Every figure has a footnote pointing to its file.
+
+### Why these decisions
+
+- **An inspector next to the chat.** The point of the project is that code, not the prompt, decides what is allowed. Showing each tool request with "Allowed" or "Refused: Identity not verified yet" proves it in seconds. A chat on its own would look like any chatbot.
+- **Footnotes on every number.** The honesty rule is "every metric comes from a saved report". The UI makes that checkable: the mark goes to the source list, and the source list links to the file.
+- **Results read from committed files, not a database.** The numbers can't drift from the reports, and the results view keeps working when the LLM quota is used up.
+- **Guards as a FastAPI dependency on `/chat` only.** Reading results costs nothing, so only the route that spends quota is limited. The daily cap uses the Pacific day because that is when the Gemini free-tier quota resets.
+- **Count every call, check before each message.** Counting inside the LLM wrapper means retries and multi-tool turns are counted too. Checking only at the start of a message means a borrower never gets cut off mid-turn. The cost is that the cap can be passed by one turn.
+- **Plain-text rendering.** React escapes text by default, and Markdown markers are stripped rather than rendered, so model output can never inject HTML.
+- **Calm visual language.** One ink colour, no red, ochre for "handed to a person". A stressed borrower shouldn't see alarm styling, and a reviewer should read it as a financial operations tool.
+- **One API module and hooks for state.** The app has a few requests and no shared global state, so a state library would add weight without solving a problem.
+
+### Alternatives rejected
+
+- **A separate frontend host plus CORS:** two deployments and a CORS policy for no gain at this size.
+- **A Redis or database rate limiter:** correct across replicas, but it adds a service. In-memory is enough for one process and is documented as a limitation.
+- **`slowapi` or another limiter library:** a 30-line sliding window is easy to test with an injected clock and has no global decorators.
+- **Rendering Markdown from the model:** nicer lists, but it adds an HTML path for untrusted text.
+- **Streaming replies:** better perceived speed, but tool calls and server checks finish before the final text anyway. A clear pending state was enough.
+
+### Limitations
+
+- Not deployed. No authentication.
+- The limiter and budget reset on restart and are per process. Behind a proxy, the IP is the proxy's until forwarded headers are trusted.
+- No frontend unit tests. It was verified by type check, lint, build, live browser runs and mocked layout runs.
+- Light theme only.
+
+### Likely questions
+
+- **How do you stop a public demo from burning the API quota?** A per-IP limit (8 messages a minute) plus an app-wide cap on LLM calls per Pacific day (200 by default). When the cap is hit, `/chat` returns a 429 with a friendly message and the UI says to come back tomorrow, while the results still work.
+- **Why count LLM calls rather than messages?** One message can take 1 to 5 model calls because of tools. The quota is per call.
+- **Can the browser fake verification?** No. `ChatRequest` forbids extra fields, so sending `verified: true` is a 422. The inspector only displays state the server returned.
+- **What does the inspector prove?** For each turn: which tools the model asked for, with what arguments, and whether the server allowed them. For example, `create_payment_plan` was refused with "plan already saved" in the live run.
+- **How did you check accessibility?** A script measured the contrast of every visible text element (all pass AA), touch targets (only inline links are under 24 px) and tab order with visible focus. Impeccable's detector found nothing on the source or the live page.
+- **Why is it not deployed?** The deployment step was removed from this session's scope, so the log says "not deployed" and the resume facts don't claim a URL.
+
+### Results to quote
+
+- 351 backend tests passing, 16 new for the guards, results and static serving (`docs/reports/session7_pytest.txt`).
+- The frontend type check, lint and build pass (`docs/reports/session7_frontend_checks.txt`).
+- Live checks: the daily cap gives `daily_limit_reached` on the next message, the per-IP limit gives 429 after 8 hits a minute, and over-length messages get 422 (`docs/reports/session7_live_api.txt`).
