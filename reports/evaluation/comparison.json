@@ -1,0 +1,61 @@
+{
+  "before": {
+    "run_name": "baseline",
+    "official": true,
+    "model": "gemini-3.5-flash-lite",
+    "git_commit": "424668701151c1c1a37f7b8e48db51a4ab7b53ab",
+    "git_dirty": false,
+    "scenario_set_hash": "df4703f7fa26bc6c",
+    "scenario_count": 38,
+    "eval_today": "2026-11-05",
+    "started_at": "2026-11-05T03:37:57.464797Z",
+    "finished_at": "2026-11-05T03:50:50.183591Z"
+  },
+  "after": {
+    "run_name": "latest",
+    "official": true,
+    "model": "gemini-3.5-flash-lite",
+    "git_commit": "37c3e576314378470e93d2c646fbdaa202eb7f9c",
+    "git_dirty": false,
+    "scenario_set_hash": "df4703f7fa26bc6c",
+    "scenario_count": 38,
+    "eval_today": "2026-11-05",
+    "started_at": "2026-11-05T03:53:15.020874Z",
+    "finished_at": "2026-11-05T04:06:01.249706Z"
+  },
+  "metrics": {
+    "task_success_rate": {
+      "before": 0.974,
+      "after": 1.0
+    },
+    "escalation_accuracy": {
+      "before": 0.974,
+      "after": 1.0
+    },
+    "missed_escalations": {
+      "before": 0,
+      "after": 0
+    },
+    "false_escalations": {
+      "before": 1,
+      "after": 0
+    },
+    "unauthorized_actions": {
+      "before": 0,
+      "after": 0
+    },
+    "turn_latency_p95_ms": {
+      "before": 31942.1,
+      "after": 60484.5
+    },
+    "llm_total_tokens": {
+      "before": 128022,
+      "after": 136694
+    }
+  },
+  "fixed": [
+    "human-03-not-a-request"
+  ],
+  "regressed": [],
+  "still_failing": []
+}
