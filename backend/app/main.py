@@ -8,8 +8,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.api.chat import router as chat_router
+from app.api.frontend import mount_frontend
+from app.api.guards import install_chat_guards
 from app.api.health import router as health_router
 from app.api.reports import router as reports_router
+from app.api.results import router as results_router
 from app.core.handlers import register_exception_handlers
 from app.core.logging import configure_logging
 from app.core.request_id import RequestIdMiddleware
@@ -48,13 +51,17 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 
 def create_app() -> FastAPI:
-    configure_logging(get_settings().log_level)
+    settings = get_settings()
+    configure_logging(settings.log_level)
     app = FastAPI(title="Collections AI Agent (simulation)", lifespan=lifespan)
+    install_chat_guards(app, settings)
     app.add_middleware(RequestIdMiddleware)
     register_exception_handlers(app)
     app.include_router(health_router)
     app.include_router(chat_router)
     app.include_router(reports_router)
+    app.include_router(results_router)
+    mount_frontend(app, settings.frontend_dist_dir)
     return app
 
 

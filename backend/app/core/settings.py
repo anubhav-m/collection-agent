@@ -28,6 +28,12 @@ class Settings(BaseSettings):
     llm_cache_enabled: bool = False
     llm_cache_dir: Path = BACKEND_ROOT / ".llm_cache"
 
+    # Public-demo safeguards for POST /chat. The daily cap counts LLM calls app-wide and
+    # resets at midnight Pacific, when the Gemini free-tier daily quota resets.
+    chat_requests_per_minute_per_ip: int = Field(default=8, ge=1)
+    llm_daily_call_cap: int = Field(default=200, ge=1)
+    frontend_dist_dir: Path = PROJECT_ROOT / "frontend" / "dist"
+
     lender_policy_dir: Path = BACKEND_ROOT / "data" / "lenders"
 
     policy_docs_dir: Path = BACKEND_ROOT / "data" / "policies"
@@ -39,6 +45,7 @@ class Settings(BaseSettings):
     rag_top_k: int = Field(default=3, ge=1, le=10)
 
     reports_db_path: Path = BACKEND_ROOT / "data" / "reports.sqlite3"
+    reports_dir: Path = PROJECT_ROOT / "reports"
     nightly_dir: Path = PROJECT_ROOT / "reports" / "nightly"
 
     # Required, no local fallback: a missing MONGODB_URI must fail loudly.

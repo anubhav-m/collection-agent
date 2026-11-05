@@ -1,0 +1,27 @@
+/* The signature move: references in superscript, and the entry they point at lights up. */
+.fn {
+  margin-left: 0.1em;
+  font-size: 0.72em;
+  font-weight: 650;
+  line-height: 0;
+}
+
+.fn a {
+  padding: 0 0.15em;
+  text-decoration: none;
+}
+
+.fn a:hover {
+  text-decoration: underline;
+}
+
+:target {
+  scroll-margin-top: 6rem;
+  animation: footnote-arrive 1.6s var(--ease-out);
+}
+
+@keyframes footnote-arrive {
+  from {
+    background-color: var(--marked);
+  }
+}

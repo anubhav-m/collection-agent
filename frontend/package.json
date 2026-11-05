@@ -1,0 +1,31 @@
+{
+  "name": "collections-agent-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
+    "lint": "oxlint --deny-warnings",
+    "preview": "vite preview",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-sans-3": "5.3.1",
+    "@fontsource/source-code-pro": "5.3.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "oxlint": "1.91.0",
+    "prettier": "3.9.10",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}

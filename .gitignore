@@ -31,3 +31,7 @@ backend/.fastembed_cache/
 
 # Evaluation debug runs (official reports are committed)
 reports/evaluation/debug/
+
+# Impeccable skill and agents (installed tooling; reinstall with `npx impeccable install`)
+.claude/skills/impeccable/
+.claude/agents/impeccable-*.md

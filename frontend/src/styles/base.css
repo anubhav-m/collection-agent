@@ -1,0 +1,70 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font: 400 var(--size-body) / 1.5 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  scrollbar-color: var(--rule-strong) transparent;
+}
+
+::selection {
+  background: var(--ink-soft);
+  color: var(--ink-strong);
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+}
+
+h2,
+h3 {
+  font-size: var(--size-body);
+  font-weight: 650;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: var(--ink);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+code,
+.data {
+  font-family: var(--font-data);
+  font-size: var(--size-small);
+}

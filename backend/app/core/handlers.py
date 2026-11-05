@@ -39,7 +39,9 @@ async def handle_error(request: Request, exc: Exception) -> JSONResponse:
         logger.error("request error", extra=log_extra)
     request_id_var.reset(token)
     body = {"error": {"code": error.code, "message": error.message, "request_id": request_id}}
-    return JSONResponse(status_code=error.status_code, content=body)
+    retry_after = getattr(error, "retry_after_seconds", None)
+    headers = {"Retry-After": str(retry_after)} if retry_after else None
+    return JSONResponse(status_code=error.status_code, content=body, headers=headers)
 
 
 def register_exception_handlers(app: FastAPI) -> None:

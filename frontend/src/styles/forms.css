@@ -1,0 +1,65 @@
+.starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.starter {
+  max-width: 100%;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--size-small);
+  text-align: left;
+}
+
+.starter:hover:not(:disabled) {
+  background: var(--marked);
+}
+
+.message-failed .message-text {
+  color: var(--text-muted);
+}
+
+.message-meta a {
+  color: var(--text-muted);
+}
+
+.starter:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.composer {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.composer-input {
+  width: 100%;
+  min-height: 3.5rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  resize: vertical;
+  caret-color: var(--ink);
+}
+
+.composer-input::placeholder {
+  color: var(--text-muted);
+}
+
+.composer-input:focus-visible {
+  border-color: var(--focus);
+  outline-offset: 0;
+}
+
+.composer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}

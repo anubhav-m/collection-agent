@@ -1,0 +1,51 @@
+/* Desktop: the chat fills the window and each column scrolls on its own. Results and
+   narrow screens use normal page scrolling. */
+@media (min-width: 1100px) {
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .app-view-chat {
+    height: 100dvh;
+  }
+  .app-view-chat .app-main,
+  .app-view-chat .view {
+    height: 100%;
+    overflow: hidden;
+  }
+  .chat-layout {
+    grid-template-columns: var(--rail-width) minmax(0, 1fr) var(--inspector-width);
+    height: 100%;
+  }
+  .rail,
+  .inspector {
+    min-height: 0;
+    overflow: auto;
+  }
+  .conversation {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .messages {
+    min-height: 0;
+  }
+  .rail {
+    border-right: 1px solid var(--rule);
+    border-bottom: 0;
+  }
+}
+
+/* Narrow screens: borrowers become one swipeable row so the conversation stays near the top. */
+@media (max-width: 1099px) {
+  .borrower-list {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(13rem, 72%);
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+    scroll-snap-type: x mandatory;
+  }
+  .borrower-list li {
+    scroll-snap-align: start;
+  }
+}

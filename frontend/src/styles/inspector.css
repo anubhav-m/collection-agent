@@ -1,0 +1,46 @@
+.inspector {
+  border-top: 1px solid var(--rule);
+  gap: var(--space-5);
+}
+
+@media (min-width: 1100px) {
+  .inspector {
+    border-top: 0;
+    border-left: 1px solid var(--rule);
+  }
+}
+
+.ledger dl {
+  display: grid;
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.ledger dl > div {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ledger dt {
+  color: var(--text-muted);
+}
+
+.ledger dd {
+  font-weight: 600;
+}
+
+.ledger-id {
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.state-ok {
+  color: var(--verified);
+}
+
+.state-handoff {
+  color: var(--handoff);
+}

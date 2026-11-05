@@ -1,0 +1,59 @@
+.turn-number {
+  font-weight: 650;
+}
+
+.turn-quote {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: var(--size-small);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.tool-list {
+  gap: var(--space-2);
+}
+
+.tool {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.tool-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-2);
+}
+
+.tool-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tool-verdict {
+  font-size: var(--size-small);
+  font-weight: 650;
+}
+
+.tool pre {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tool-result summary {
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.tool-result pre {
+  max-height: 14rem;
+  margin-top: var(--space-1);
+  overflow: auto;
+}

@@ -38,3 +38,22 @@ class LLMUnavailableError(AppError):
 class ConfigurationError(AppError):
     code = "configuration_error"
     public_message = "The service is not configured correctly."
+
+
+class RateLimitedError(AppError):
+    status_code = 429
+    code = "rate_limited"
+    public_message = "You're sending messages quickly. Please wait a moment and try again."
+
+    def __init__(self, retry_after_seconds: int) -> None:
+        super().__init__()
+        self.retry_after_seconds = retry_after_seconds
+
+
+class DailyLimitReachedError(AppError):
+    status_code = 429
+    code = "daily_limit_reached"
+    public_message = (
+        "This demo has reached its daily limit on assistant replies. "
+        "Please come back tomorrow. The results and reports views still work."
+    )

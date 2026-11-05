@@ -1,0 +1,64 @@
+.conversation {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.conversation-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--rule);
+}
+
+.conversation-title {
+  font-size: var(--size-head);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.messages {
+  flex: 1;
+  padding: var(--space-5);
+  overflow-y: auto;
+}
+
+.messages-empty {
+  display: grid;
+  gap: var(--space-1);
+  max-width: 46ch;
+  margin: var(--space-6) auto;
+  text-align: center;
+}
+
+.message-list {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.message {
+  display: grid;
+  gap: 2px;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--rule-strong);
+}
+
+.message-user {
+  border-left-color: var(--ink);
+}
+
+.message-who {
+  font-weight: 650;
+  color: var(--text-muted);
+}
+
+.message-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

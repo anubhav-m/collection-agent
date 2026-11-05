@@ -1,0 +1,67 @@
+.app-main {
+  flex: 1;
+  min-height: 0;
+}
+
+.conversation-head .button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.chat-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.rail,
+.inspector {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--panel);
+}
+
+.rail {
+  border-bottom: 1px solid var(--rule);
+}
+
+.rail-help {
+  margin-top: calc(var(--space-2) * -1);
+}
+
+.borrower-list {
+  display: grid;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.borrower {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+  text-align: left;
+  transition: border-color 160ms var(--ease-out);
+}
+
+.borrower:hover {
+  border-color: var(--rule-strong);
+}
+
+.borrower[aria-pressed='true'] {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.borrower-name {
+  font-weight: 650;
+}
+
+.borrower-identity {
+  color: var(--ink);
+}
