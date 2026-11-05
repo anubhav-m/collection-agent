@@ -239,3 +239,53 @@ LLM call flow: caller builds a provider-neutral `LLMRequest` -> `GeminiClient` c
 
 - Held-out test, 24 transcripts (`reports/extraction/test.md`): both extractors 95.8% exact match, 100% precision on every entity. Date F1 is 100% for the LLM and 96.8% for regex. Regex takes 0.16 ms per chat; the LLM takes 4.3 s and about 428 prompt tokens.
 - Stored chats: 4 processed and saved to MongoDB. The LLM correctly read "3 monthly payments of 283.50 starting 2026-11-12", where regex returned amount 12 and no date.
+
+## Session 6: Reports and automation
+
+### Request flow
+
+1. `scripts/nightly.ps1` (or `nightly.sh`) makes a run folder `reports/nightly/<date>_<time>/` and runs three steps from `backend/`. Each step's start, end, exit code and seconds go to `nightly.log`.
+2. **extract**: `run_stored` reads every stored chat from MongoDB, asks the LLM extractor for the promised amount and date, and upserts one `extractions` document per chat.
+3. **load**: `load_cli` reads lenders, borrower ids, conversations, escalations and the LLM extractions from Mongo and builds `project` rows. It also generates the seeded `simulated` history. Each source's rows are replaced in SQLite inside one transaction.
+4. **reports**: `report_cli` runs the five `.sql` files for each source with bound parameters (`as_of`, `source`, window, top N) and writes `project.json`, `simulated.json` and `summary.md`.
+5. If any step returns non-zero, the job stops, records `failed_step`, writes `run.json` and `last_run.json`, and exits with that code.
+6. `GET /reports` returns the newest *successful* run's JSON. `GET /health` shows the *last* run's status, even if it failed. Both read files in a worker thread, so the async route doesn't block.
+
+### Why these decisions
+
+- **A `source` column on every table, and every query filters on it.** Simulated history can't leak into project numbers by accident, and a test checks this. Separate database files would also work, but then one query couldn't compare the two sources.
+- **Replace-by-source in one transaction.** Running it twice gives identical tables (checked by hashing the content). Rows deleted upstream disappear, and a failed load leaves the old data untouched. A plain upsert would leave stale rows behind.
+- **Integer cents.** No float rounding in sums. Python's `Decimal` converts with half-up rounding.
+- **SQL in `.sql` files with named parameters.** The SQL is readable, can be reviewed on its own, and there's no string-built SQL, so no injection.
+- **A hand-built fixture with answers worked out by hand.** Each edge case is there on purpose: a late full payment, a partial payment, a split payment on the due day, a missing date, an escalated chat, a gap week and a tie in rank.
+- **Steps in thin shell scripts.** Each step is a separate process with its own exit code. That's how cron or Task Scheduler would run it, so failure handling is visible and easy to test.
+- **Health reports a failed nightly run but stays 200.** The API still works, and a failed batch shouldn't take the service out of a load balancer.
+- **`run_stored --summary`.** The nightly job must not overwrite the committed Session 5 evidence file.
+
+### Alternatives rejected
+
+- An ORM (SQLAlchemy) for the reports: window functions and CTEs are clearer in raw SQL, and the interview topic is SQL.
+- Upsert with `ON CONFLICT`: it's idempotent too, but it keeps rows that were deleted at the source.
+- Airflow, Prefect or another orchestrator: far too heavy for three steps. The scripts can be scheduled by cron or Task Scheduler.
+- Writing simulated data into MongoDB: it would mix fake chats with the agent's real conversation store.
+
+### Limitations
+
+- Project data is 4 conversations and 1 promise, so the project reports are mostly empty. Volume is shown only with simulated data, whose kept rates come from the generator's probabilities.
+- The project has no payment feed, so project promises can't be "kept" yet.
+- Extraction reprocesses every chat every night. There's no retention for old run folders and no registered scheduler.
+
+### Likely questions
+
+- **How do you compute week-over-week change?** `LAG(kept_rate)` over each lender's weeks, but only when the previous row's week is exactly 7 days earlier. Otherwise it's NULL, so a missing week doesn't produce a false change.
+- **Why `RANK` and not `ROW_NUMBER`?** Ties share a rank, so two reasons with equal counts both show up as rank 2. `ROW_NUMBER` would drop one at random.
+- **What makes the load idempotent?** Each source's rows are deleted and reinserted inside one transaction from a deterministic input (a Mongo snapshot, or a seeded generator for a fixed date).
+- **How do you know the nightly failure handling works?** A real run with the database unreachable was committed: it exited 1, `failed_step` was `extract`, load and reports didn't run, and `/health` would show `failed`.
+- **How do you keep simulated data honest?** `SIM-` ids, `source='simulated'`, a "SIMULATED" note in every simulated report, separate output files, and no simulated number is quoted as a project result.
+- **What's "overdue"?** Promised amount minus everything paid so far, for promises past their due date. A late payment in full removes it from overdue, but it still counts as a broken promise in the kept rate.
+
+### Results to quote
+
+- 37 new tests, 335 total passing, with no API calls in tests (`docs/reports/session6_pytest.txt`).
+- Real nightly run `2026-11-05_103905`: 3 steps in about 41 s (extract 35.03 s, load 6.07 s, reports 0.32 s) and 4 Gemini calls.
+- Simulated volume loaded and reported: 5,000 conversations, 2,000 promises, 1,641 payments (`reports/nightly/2026-11-05_103905/load.json`). Describe this as a scale test, not as results.

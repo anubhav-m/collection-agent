@@ -1,0 +1,12 @@
+$ GET /health
+{"status":"ok","app":"collections-agent","database":"connected","llm_configured":true,"nightly":{"status":"success","run_id":"2026-11-05_103905","finished_at":"2026-11-05T05:09:46+00:00","failed_step":null}}
+HTTP 200
+
+$ GET /reports (first 600 chars)
+{"run_id":"2026-11-05_103905","run_finished_at":"2026-11-05T05:09:46+00:00","report":{"source":"project","note":"Real project data from MongoDB and the extraction results.","as_of":"2026-11-05","generated_at":"2026-11-05T05:09:46Z","row_counts":{"followups":0,"kept_rate_lender":0,"kept_rate_weekly":0,"escalation_reasons":1,"overdue_ranking":0},"reports":{"followups":[],"kept_rate_lender":[],"kept_rate_weekly":[],"escalation_reasons":[{"lender_id":"LND-002","lender_name":"Riverbend Sample Finance","reason":"dispute","escalations":1,"share_pct":100.0,"reason_rank":1}],"overdue_ranking":[]}}}
+HTT
+$ GET /reports?source=simulated -> row_counts
+2026-11-05_103905 simulated {'followups': 593, 'kept_rate_lender': 4, 'kept_rate_weekly': 51, 'escalation_reasons': 12, 'overdue_ranking': 40}
+$ GET /reports?source=bogus
+{"error":{"code":"validation_failed","message":"The request was not valid.","request_id":"1417d976b04f4af0b045a7af0d9f6f6a"}}
+HTTP 422

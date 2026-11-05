@@ -1,0 +1,36 @@
+{
+  "source": "project",
+  "note": "Real project data from MongoDB and the extraction results.",
+  "as_of": "2026-11-05",
+  "params": {
+    "as_of": "2026-11-05",
+    "source": "project",
+    "window_days": 3,
+    "top_n": 10,
+    "top_reasons": 3
+  },
+  "generated_at": "2026-11-05T05:09:46+00:00",
+  "row_counts": {
+    "followups": 0,
+    "kept_rate_lender": 0,
+    "kept_rate_weekly": 0,
+    "escalation_reasons": 1,
+    "overdue_ranking": 0
+  },
+  "reports": {
+    "followups": [],
+    "kept_rate_lender": [],
+    "kept_rate_weekly": [],
+    "escalation_reasons": [
+      {
+        "lender_id": "LND-002",
+        "lender_name": "Riverbend Sample Finance",
+        "reason": "dispute",
+        "escalations": 1,
+        "share_pct": 100.0,
+        "reason_rank": 1
+      }
+    ],
+    "overdue_ranking": []
+  }
+}

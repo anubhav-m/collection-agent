@@ -1,0 +1,5 @@
+[2026-11-05T05:08:56Z] nightly run 2026-11-05_103856 (as of 2026-11-05, extractor llm)
+[2026-11-05T05:08:56Z] START extract
+[2026-11-05T05:08:59Z]   extract | FAILED: database unavailable (ServerSelectionTimeoutError)
+[2026-11-05T05:08:59Z] END extract status=failed exit=1 seconds=3.37
+[2026-11-05T05:09:00Z] FINISHED status=failed exit=1 output=C:\Anubhav\code\collection-agent\reports\nightly\2026-11-05_103856

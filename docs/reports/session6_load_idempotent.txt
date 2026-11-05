@@ -1,0 +1,9 @@
+# Real-data load idempotency: load_cli run twice, table content hashes compared
+before:
+{'lenders': '0f798ed073e7', 'borrowers': '1bcf8320d16a', 'conversations': '68e9964e4b39', 'promises': '612db4d9b72c', 'payments': '676c387b03db', 'escalations': 'e283e900cba0'}
+load run 1:
+{"project": {"lenders": 2, "borrowers": 12, "conversations": 4, "promises": 1, "payments": 0, "escalations": 1}, "simulated": {"lenders": 4, "borrowers": 800, "conversations": 5000, "promises": 2000, "payments": 1641, "escalations": 579}}
+{'lenders': '0f798ed073e7', 'borrowers': '1bcf8320d16a', 'conversations': '68e9964e4b39', 'promises': '612db4d9b72c', 'payments': '676c387b03db', 'escalations': 'e283e900cba0'}
+load run 2:
+{"project": {"lenders": 2, "borrowers": 12, "conversations": 4, "promises": 1, "payments": 0, "escalations": 1}, "simulated": {"lenders": 4, "borrowers": 800, "conversations": 5000, "promises": 2000, "payments": 1641, "escalations": 579}}
+{'lenders': '0f798ed073e7', 'borrowers': '1bcf8320d16a', 'conversations': '68e9964e4b39', 'promises': '612db4d9b72c', 'payments': '676c387b03db', 'escalations': 'e283e900cba0'}

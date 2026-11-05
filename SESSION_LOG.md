@@ -11,7 +11,7 @@ Statuses: `PENDING`, `IN PROGRESS`, `BLOCKED`, `DONE`.
 | 3 | RAG | DONE |
 | 4 | Evaluation and fixes | DONE |
 | 5 | Entity extraction | DONE |
-| 6 | Reports and automation | PENDING |
+| 6 | Reports and automation | DONE |
 | 7 | Frontend, deployment, and resume facts | PENDING |
 
 ## Entries
@@ -390,3 +390,73 @@ An official run refuses to start if the evaluated code has uncommitted changes, 
 - Session 6 decides how the nightly pipeline schedules `run_stored` and uses its results.
 
 **Commits:** `e30bcd1` (dataset + split, before extractors), `b58f41c` (extractors, benchmark, pipeline, dev reports; the code the test report pins), then one commit with the test report, the stored-run results, the default extractor, this entry and `docs/DEFENSE.md`. Pushed to `origin/main`.
+
+### Session 6: Reports and automation
+
+**Status:** DONE, 2026-11-05 10:45 IST (05:15 UTC). All four Done Criteria pass.
+
+**What was built**
+
+- `backend/app/reports/sql/schema.sql`: SQLite tables `lenders`, `borrowers`, `conversations`, `promises`, `payments`, `escalations`. Every row has `source` (`project` or `simulated`, enforced by a CHECK). Money is integer cents. Foreign keys are on.
+- Loader: `app/db/sqlite.py` (connect, foreign keys, schema), `app/reports/loader.py` (replaces one source's rows in one transaction), row shapes in `rows.py`, `rows_money.py`, `dataset.py`.
+- Project data: `app/db/report_source.py` reads lenders, borrower ids, conversations, escalations and the `llm` extractions from MongoDB. `app/reports/project_source.py` maps them to rows. Only successful `promise_made=true` extractions become promises.
+- Simulator: `sim_profiles.py`, `sim_payments.py`, `simulate.py`. Seed 6, 4 lenders (`SIM-LND-*`, "Simulated Lender Alpha" and so on), 800 borrowers, 5,000 conversations over 12 weeks before the as-of date, 2,000 promises, payments (on time, split, partial, late, none), 12% escalations.
+- SQL reports in `app/reports/sql/`: `followups.sql`, `kept_rate_lender.sql`, `kept_rate_weekly.sql`, `escalation_reasons.sql`, `overdue_ranking.sql`. They use CTEs, joins, `LAG`, `RANK`, `SUM() OVER` and named windows. `queries.py` runs them with bound parameters.
+- CLIs: `app/reports/load_cli.py` and `app/reports/report_cli.py`. Output files are written by `output.py`.
+- Nightly job: `scripts/nightly.ps1` and `scripts/nightly.sh`. The steps are extract (`run_stored`), load, and reports. Each step's start, end, exit code and seconds are logged. The job stops at the first failure, writes `reports/nightly/<as_of>_<HHMMSS>/run.json` and `nightly.log`, copies the run to `reports/nightly/last_run.json`, and exits with the failed step's code.
+- API: `GET /reports?source=project|simulated` (`app/api/reports.py`) returns the newest successful run's report. `/health` now has `nightly` (`success`, `failed`, `never_run` or `unreadable`), read by `app/reports/nightly_status.py`.
+- Small changes: `run_stored` takes `--summary`, so nightly runs don't overwrite the Session 5 file `reports/extraction/stored_run_llm.json`. It also returns a clean `FAILED: database unavailable (<type>)` on a Mongo error instead of a traceback (`app/core/cli.py`). `mongo_from_settings` replaces three copies of the client setup.
+
+**Commands**
+
+```
+powershell -File scripts\nightly.ps1 [-Extractor llm|regex] [-AsOf 2026-11-05]   # from the repo root
+bash scripts/nightly.sh [llm|regex] [YYYY-MM-DD]
+# single steps, from backend/:
+.venv\Scripts\python -m app.reports.load_cli --as-of 2026-11-05 [--out DIR]
+.venv\Scripts\python -m app.reports.report_cli --as-of 2026-11-05 --out DIR
+# API: GET /reports, GET /reports?source=simulated, GET /health
+```
+
+**Tests and checks (actual results)**
+
+- `pytest -q`: 335 passed in 4.69s (`docs/reports/session6_pytest.txt`). 37 are new, and all of them run without Gemini or Mongo.
+- SQL reports on a hand-built fixture (`tests/reports/fixture_rows.py`, as of 2026-03-10, with answers worked out by hand in the comments). Follow-ups are ordered overdue, then due, then missing details, and escalated chats are skipped. Kept rate is 25.0% (L1) and 66.7% (L2). The weekly rate has a week-over-week change, and a gap week gives NULL. Escalation reasons keep ties. The overdue ranking counts late full payments. Simulated rows never appear in project reports.
+- Loader: loading twice gives identical tables. A reload removes rows that are gone. One source's load leaves the other source alone. A foreign-key failure rolls back. Mixed sources are refused.
+- API: `/reports` returns the latest successful run, skipping a failed one. It also covers the simulated source, 404 before any run, 422 for an unknown source, and a clean 500 for a corrupt file. `/health` reports a failed nightly run and an unreadable status file.
+- `ruff check`: all passed. `ruff format --check`: 259 files already formatted. Line count: no file is over 70, and the new ones are at most 69 (`load_cli.py`).
+- `bash -n scripts/nightly.sh`: OK. Bash 5.2 (Git Bash) is available, so the script was also run end to end into a scratch folder: one failure (exit 1, `failed_step: extract`) and one success with all 3 steps. Both `run.json` files were parsed by `NightlyRun`.
+
+**Real runs (committed, `reports/nightly/`)**
+
+- Failure: `2026-11-05_103856/`. `MONGODB_URI` was pointed at an unreachable port for this one run. The extract step logged `FAILED: database unavailable (ServerSelectionTimeoutError)`, the job stopped (load and reports were not run), and it exited 1. `run.json` has `status: failed, failed_step: extract`.
+- Success: `2026-11-05_103905/`, with the LLM extractor and as of 2026-11-05. Step times: extract 35.03 s, load 6.07 s, reports 0.32 s. It made 4 Gemini calls (`gemini-3.5-flash-lite`), with no retries and no 429s (`nightly.log`). `last_run.json` points to this run.
+- Live API on that run (`docs/reports/session6_api.txt`): `/health` returned `nightly.status: success` and `/reports` returned the project report.
+- Load idempotency on real data: `load_cli` was run twice more, and the content hashes of all 6 tables were unchanged (`docs/reports/session6_load_idempotent.txt`).
+
+**Metrics** (from `reports/nightly/2026-11-05_103905/project.json`, `simulated.json`, `load.json`)
+
+- Project (real): 2 lenders, 12 borrowers, 4 conversations, 1 promise ($283.50 due 2026-11-12), 0 payments, 1 escalation (LND-002, dispute). Follow-ups: 0, because the one promise is due in 7 days and the window is 3. The kept rate has no rows, because no project promise is past due yet.
+- Simulated (these are generator settings, not results): 5,000 conversations, 2,000 promises, 1,641 payments, 579 escalations. Kept rate by lender: Alpha 69.1%, Delta 61.4%, Beta 53.3%, Gamma 43.3%. Follow-ups: 593 (454 overdue, 42 due, 97 missing details). These numbers come from the generator's own probabilities and only show that the SQL works at volume. They are not a project metric.
+
+**Assumptions and decisions**
+
+- Kept means payments on or before the due date cover the full amount. Late full payment is not kept, but it is no longer overdue. Partial payment is not kept. There is no grace period.
+- The kept rate counts only promises that are past due and have both an amount and a date. A promise missing either goes to follow-ups as `missing_details`.
+- Follow-ups skip escalated conversations, because a human owns them. The overdue ranking still counts them, because the money is still owed.
+- The "due soon" window is 3 days. The ranking keeps the top 10 borrowers and top 3 reasons per lender (ties kept). All of these are parameters in `ReportParams`.
+- A week starts on Monday and is grouped by due date. Week-over-week is only computed when the previous row is exactly 7 days earlier.
+- The project has no payment records, so its payments table is empty. Once project promises are past due, they will report as not kept. That is true for this simulation, not a bug.
+- Reporting borrowers hold ids only: no names, dates of birth or ZIP codes.
+- A load replaces one source's rows (delete then insert in one transaction) rather than upserting, so rows deleted upstream also leave SQLite.
+- Simulated data is anchored to the as-of date, so it is deterministic for a given seed and date. It moves forward with each nightly run.
+- The steps are in the shell scripts, not in a Python orchestrator, as the session asked. Timestamps in `run.json` are UTC. The run id uses the local date and time.
+
+**Known issues / later**
+
+- Project data is tiny (4 stored conversations), so most project reports are empty today. The SQL is proven by the fixture tests and the simulated volume.
+- Extraction reprocesses every stored conversation each night (1 LLM call each). Incremental extraction would be needed at real volume.
+- Nightly output folders build up in `reports/nightly/` with no retention policy. No scheduler (Task Scheduler or cron) is registered. The scripts are ready for one.
+- The PowerShell script was run under Windows PowerShell 5.1, and the bash script under Git Bash on Windows. Neither was run on Linux or macOS.
+
+**Commits:** `4fe5ada` (code, scripts and tests), then one docs commit with the nightly run outputs, the evidence files, this entry and `docs/DEFENSE.md`. Pushed to `origin/main`.

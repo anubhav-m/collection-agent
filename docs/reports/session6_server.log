@@ -1,0 +1,12 @@
+INFO:     Started server process [8388]
+INFO:     Waiting for application startup.
+{"ts": "2026-11-05T05:10:02.481298+00:00", "level": "INFO", "logger": "app.rag.startup", "msg": "policy search ready", "request_id": "-", "conversation_id": "-", "documents": 5, "chunks": 15, "added": 0, "removed": 0, "unchanged": 15, "written": false}
+{"ts": "2026-11-05T05:10:07.698311+00:00", "level": "INFO", "logger": "app.main", "msg": "startup complete", "request_id": "-", "conversation_id": "-", "database": "connected"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8766 (Press CTRL+C to quit)
+INFO:     127.0.0.1:64747 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64758 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64760 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64769 - "GET /reports?source=simulated HTTP/1.1" 200 OK
+{"ts": "2026-11-05T05:10:08.913981+00:00", "level": "INFO", "logger": "app.core.handlers", "msg": "request failed", "request_id": "1417d976b04f4af0b045a7af0d9f6f6a", "conversation_id": "-", "error_code": "validation_failed", "exc_type": "RequestValidationError", "path": "/reports"}
+INFO:     127.0.0.1:64771 - "GET /reports?source=bogus HTTP/1.1" 422 Unprocessable Content

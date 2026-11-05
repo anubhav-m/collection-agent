@@ -1,0 +1,20 @@
+[2026-11-05T05:09:05Z] nightly run 2026-11-05_103905 (as of 2026-11-05, extractor llm)
+[2026-11-05T05:09:05Z] START extract
+[2026-11-05T05:09:13Z]   extract | {"ts": "2026-11-05T05:09:13.577287+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "-", "conversation_id": "-", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 914, "output_tokens": 42, "thinking_tokens": 0, "total_tokens": 956, "latency_ms": 1341.8, "tool_calls": 0}
+[2026-11-05T05:09:13Z]   extract | {"ts": "2026-11-05T05:09:13.628728+00:00", "level": "INFO", "logger": "app.extraction.pipeline", "msg": "stored extraction saved", "request_id": "-", "conversation_id": "-", "extractor": "llm", "promise_made": true, "latency_ms": 1341.8, "prompt_tokens": 914}
+[2026-11-05T05:09:22Z]   extract | {"ts": "2026-11-05T05:09:22.264979+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "-", "conversation_id": "-", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 659, "output_tokens": 25, "thinking_tokens": 0, "total_tokens": 684, "latency_ms": 2086.2, "tool_calls": 0}
+[2026-11-05T05:09:22Z]   extract | {"ts": "2026-11-05T05:09:22.298175+00:00", "level": "INFO", "logger": "app.extraction.pipeline", "msg": "stored extraction saved", "request_id": "-", "conversation_id": "-", "extractor": "llm", "promise_made": false, "latency_ms": 2086.2, "prompt_tokens": 659}
+[2026-11-05T05:09:30Z]   extract | {"ts": "2026-11-05T05:09:30.619494+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "-", "conversation_id": "-", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 460, "output_tokens": 25, "thinking_tokens": 0, "total_tokens": 485, "latency_ms": 1777.8, "tool_calls": 0}
+[2026-11-05T05:09:30Z]   extract | {"ts": "2026-11-05T05:09:30.684845+00:00", "level": "INFO", "logger": "app.extraction.pipeline", "msg": "stored extraction saved", "request_id": "-", "conversation_id": "-", "extractor": "llm", "promise_made": false, "latency_ms": 1777.8, "prompt_tokens": 460}
+[2026-11-05T05:09:40Z]   extract | {"ts": "2026-11-05T05:09:40.000516+00:00", "level": "INFO", "logger": "app.llm.gemini_client", "msg": "llm call", "request_id": "-", "conversation_id": "-", "model": "gemini-3.5-flash-lite", "key_slot": 1, "prompt_tokens": 425, "output_tokens": 25, "thinking_tokens": 0, "total_tokens": 450, "latency_ms": 2771.6, "tool_calls": 0}
+[2026-11-05T05:09:40Z]   extract | {"ts": "2026-11-05T05:09:40.032888+00:00", "level": "INFO", "logger": "app.extraction.pipeline", "msg": "stored extraction saved", "request_id": "-", "conversation_id": "-", "extractor": "llm", "promise_made": false, "latency_ms": 2771.6, "prompt_tokens": 425}
+[2026-11-05T05:09:40Z]   extract | saved 4 extractions to MongoDB, skipped 0
+[2026-11-05T05:09:40Z] END extract status=success exit=0 seconds=35.03
+[2026-11-05T05:09:40Z] START load
+[2026-11-05T05:09:46Z]   load | {"project": {"lenders": 2, "borrowers": 12, "conversations": 4, "promises": 1, "payments": 0, "escalations": 1}, "simulated": {"lenders": 4, "borrowers": 800, "conversations": 5000, "promises": 2000, "payments": 1641, "escalations": 579}}
+[2026-11-05T05:09:46Z] END load status=success exit=0 seconds=6.07
+[2026-11-05T05:09:46Z] START reports
+[2026-11-05T05:09:46Z]   reports | project: {'followups': 0, 'kept_rate_lender': 0, 'kept_rate_weekly': 0, 'escalation_reasons': 1, 'overdue_ranking': 0}
+[2026-11-05T05:09:46Z]   reports | simulated: {'followups': 593, 'kept_rate_lender': 4, 'kept_rate_weekly': 51, 'escalation_reasons': 12, 'overdue_ranking': 40}
+[2026-11-05T05:09:46Z] END reports status=success exit=0 seconds=0.32
+[2026-11-05T05:09:46Z] FINISHED status=success exit=0 output=C:\Anubhav\code\collection-agent\reports\nightly\2026-11-05_103905

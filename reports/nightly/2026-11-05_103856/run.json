@@ -1,0 +1,17 @@
+{
+    "run_id":  "2026-11-05_103856",
+    "as_of":  "2026-11-05",
+    "status":  "failed",
+    "started_at":  "2026-11-05T05:08:56Z",
+    "finished_at":  "2026-11-05T05:08:59Z",
+    "failed_step":  "extract",
+    "exit_code":  1,
+    "steps":  [
+                  {
+                      "name":  "extract",
+                      "status":  "failed",
+                      "exit_code":  1,
+                      "seconds":  3.37
+                  }
+              ]
+}

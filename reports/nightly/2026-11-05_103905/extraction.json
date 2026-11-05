@@ -1,0 +1,67 @@
+{
+  "extractor": "llm",
+  "model": "gemini-3.5-flash-lite",
+  "saved": [
+    {
+      "conversation_id": "CONV-df8232f6927f4265b647d51a09a27f8c",
+      "lender_id": "LND-001",
+      "extractor": "llm",
+      "model": "gemini-3.5-flash-lite",
+      "reference_date": "2026-11-04",
+      "promise_made": true,
+      "amount": "283.50",
+      "promised_date": "2026-11-12",
+      "error": null,
+      "latency_ms": 1341.8,
+      "prompt_tokens": 914,
+      "output_tokens": 42,
+      "extracted_at": "2026-11-05T05:09:13.577992Z"
+    },
+    {
+      "conversation_id": "CONV-5337e5ffcfd3474b9f11a68eda9d3060",
+      "lender_id": "LND-002",
+      "extractor": "llm",
+      "model": "gemini-3.5-flash-lite",
+      "reference_date": "2026-11-04",
+      "promise_made": false,
+      "amount": null,
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 2086.2,
+      "prompt_tokens": 659,
+      "output_tokens": 25,
+      "extracted_at": "2026-11-05T05:09:22.265133Z"
+    },
+    {
+      "conversation_id": "CONV-f6e12a81680a44b287ac2ab7339282db",
+      "lender_id": "LND-002",
+      "extractor": "llm",
+      "model": "gemini-3.5-flash-lite",
+      "reference_date": "2026-11-05",
+      "promise_made": false,
+      "amount": null,
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 1777.8,
+      "prompt_tokens": 460,
+      "output_tokens": 25,
+      "extracted_at": "2026-11-05T05:09:30.619735Z"
+    },
+    {
+      "conversation_id": "CONV-bdd99767be4e486497e624de9f9b212b",
+      "lender_id": "LND-001",
+      "extractor": "llm",
+      "model": "gemini-3.5-flash-lite",
+      "reference_date": "2026-11-05",
+      "promise_made": false,
+      "amount": null,
+      "promised_date": null,
+      "error": null,
+      "latency_ms": 2771.6,
+      "prompt_tokens": 425,
+      "output_tokens": 25,
+      "extracted_at": "2026-11-05T05:09:40.000694Z"
+    }
+  ],
+  "skipped": []
+}

@@ -1,0 +1,22 @@
+{
+  "as_of": "2026-11-05",
+  "extractor": "llm",
+  "rows": {
+    "project": {
+      "lenders": 2,
+      "borrowers": 12,
+      "conversations": 4,
+      "promises": 1,
+      "payments": 0,
+      "escalations": 1
+    },
+    "simulated": {
+      "lenders": 4,
+      "borrowers": 800,
+      "conversations": 5000,
+      "promises": 2000,
+      "payments": 1641,
+      "escalations": 579
+    }
+  }
+}
