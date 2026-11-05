@@ -67,7 +67,7 @@ The LLM decides what to say and which tool to request. The server decides what i
 
 ## LLM usage
 
-- Read `GEMINI_API_KEY` and `GEMINI_MODEL` from settings.
+- Read `GEMINI_API_KEY_1`..`GEMINI_API_KEY_3` and `GEMINI_MODEL` from settings.
 - Log the model, prompt tokens, output tokens, and latency for every call.
 - Keep prompts short and send only recent conversation history.
 - Provide a request pacer with a configurable requests-per-minute limit.

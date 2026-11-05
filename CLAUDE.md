@@ -73,9 +73,11 @@ After each session, append simple-language notes the user can use in an intervie
 
 ## API quota
 
-- The project uses one Gemini model on a free tier. Reported limits are about 10-15 requests per minute and 500 per day, with the daily quota resetting at midnight Pacific time. Treat the user's AI Studio dashboard as authoritative.
+- The project uses one Gemini model on a free tier, set by `GEMINI_MODEL` in `.env`. Since Session 4 it is `gemini-3.5-flash-lite`: 15 requests per minute, 250K tokens per minute and 500 requests per day per project (AI Studio dashboard, 2026-11-05). `gemini-3.5-flash` allows only 20 requests per day, too few for an evaluation run. Limits are per project and per model, and the daily quota resets at midnight Pacific time. Treat the user's AI Studio dashboard as authoritative.
+- Keep the same model for runs that will be compared. Session 4's reports are on `gemini-3.5-flash-lite`.
+- A full evaluation run (38 scenarios) uses about 100 calls. Estimate calls before any live run.
 - Use mocked LLM responses in unit tests. Run only a few live scenarios while debugging.
-- if .env GEMINI_API_KEY_1 hits limit use GEMINI_API_KEY_2 and if that also hits use GEMINI_API_KEY_3
+- `.env` holds `GEMINI_API_KEY_1`, `GEMINI_API_KEY_2` and `GEMINI_API_KEY_3`. The client (`app/llm/key_pool.py`) moves to the next key on a 429. A per-day 429 retires that key for the day. A per-minute 429 rests the key for up to 60 s, then it is used again.
 
 ## Stack
 
